@@ -1,0 +1,37 @@
+
+name: CI pipeline
+
+on:
+  push:
+    tags:
+       - '*/v*'
+  
+jobs:
+  build-publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set environnment package name
+      run: |
+        PACKAGE_NAME=$(echo  ${GITHUB_REF#refs/*/} | cut -d / -f 1)
+        echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+
+    - name: Install node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Build
+      run: |
+        cd $PACKAGE_NAME
+        make release
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft: false
+        prerelease: false
+        files: ${{ env.PACKAGE_NAME }}/release/${{ env.PACKAGE_NAME }}.tar.gz
