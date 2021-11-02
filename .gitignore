@@ -1,0 +1,81 @@
+release/*
+
+**/l10n/locale
+**/l10n/template.pot
+
+build/version.json
+
+/hugo
+
+.idea
+*.bundle.js
+*.bundle.js.map
+*.chunk.js
+*.chunk.js.map
+
+config.json
+package-lock.json
+
+node_modules
+dist
+release
+
+*.log
+.DS_Store
+.envrc
+
+tests/reports
+tests/ocis
+tests/testing-app
+
+/webpack.json
+/webpack-build-log.json
+
+/coverage
+
+# yarn2 with Zero-Installs: https://yarnpkg.com/features/zero-installs
+#.yarn/*
+#!.yarn/cache
+#!.yarn/patches
+#!.yarn/plugins
+#!.yarn/releases
+#!.yarn/sdks
+#!.yarn/versions
+
+# yarn2 not using Zero-Installs: https://yarnpkg.com/features/zero-installs
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+tests/acceptance/.yarn/*
+!tests/acceptance/.yarn/patches
+!tests/acceptance/.yarn/releases
+!tests/acceptance/.yarn/plugins
+!tests/acceptance/.yarn/sdks
+!tests/acceptance/.yarn/versions
+
+# visual regression testing artifacts
+/tests/vrt/diff
+/tests/vrt/latest
+
+# acceptance test artifacts
+logfile.txt
+comments.file
+
+# drone CI is in .drone.star, do not let someone accidentally commit a local .drone.yml
+.drone.yml
+
+# Themes
+/packages/web-runtime/themes/**
+!/packages/web-runtime/themes/owncloud/**
+
+# Report for tests
+tests/report/cucumber_report.json
+tests/report/cucumber_report.html
+.vscode/settings.json
+tests/acceptance/report/cucumber_report.json
+tests/acceptance/report/cucumber_report.html
