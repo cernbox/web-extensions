@@ -20,3 +20,7 @@ To enable the extension in the Web, just add the following to the config:
 ```
 
 The remaining extensions will have a different port (just look at the output of the `yarn serve` command).
+
+### Release
+
+To release a new version of an extension, just run the "Release" Github action.
