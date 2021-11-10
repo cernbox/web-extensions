@@ -87,7 +87,7 @@ export default {
     },
     addIFCModel: function () {
       const ifcLoader = new IFCLoader()
-      ifcLoader.ifcManager.setWasmPath('../../../../../../../')
+      ifcLoader.ifcManager.setWasmPath('../../../../../../../../../../../../../../../../cernbox/ifc-js-0.0.1/')
       const header = {
         Authorization: 'Bearer ' + this.getToken,
         'X-Requested-With': 'XMLHttpRequest'
