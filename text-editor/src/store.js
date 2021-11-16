@@ -14,7 +14,7 @@ const state = {
 
 // TODO pl with password protection
 
-const DavPermissions = '{http://open-collaboration-services.org/ns}share-permissions'
+const DavPermissions = '{http://owncloud.org/ns}permissions'
 const DavProperties = [DavPermissions]
 
 const getContents = (state, client) => {
@@ -89,7 +89,7 @@ const actions = {
     fileInfo(state, client)
       .then((resp) => {
         const permissions = resp.fileInfo[DavPermissions] || ''
-        if (permissions.indexOf('W')) {
+        if (permissions.indexOf('W') >= 0) {
           commit('WRITE_MODE')
         }
       })
