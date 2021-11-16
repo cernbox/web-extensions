@@ -25,7 +25,8 @@ const routes = [
     },
     name: 'public',
     meta: {
-      patchCleanPath: true
+      patchCleanPath: true,
+      auth: false
     }
   }
 ]
