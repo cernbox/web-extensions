@@ -7,6 +7,8 @@ import t from '../l10n/translations'
 
 import store from './store.js'
 
+const name = 'Text Editor'
+
 const routes = [
   {
     path: '/edit/:filePath*',
@@ -15,6 +17,7 @@ const routes = [
     },
     name: 'edit',
     meta: {
+      title: name,
       patchCleanPath: true
     }
   },
@@ -25,6 +28,7 @@ const routes = [
     },
     name: 'public',
     meta: {
+      title: name,
       patchCleanPath: true,
       auth: false
     }
@@ -32,7 +36,7 @@ const routes = [
 ]
 
 const appInfo = {
-  name: 'Text Editor',
+  name: name,
   id: 'text-editor',
   icon: 'text',
   isFileEditor: true,
