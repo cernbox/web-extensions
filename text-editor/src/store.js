@@ -1,64 +1,27 @@
+import {
+  plState,
+  plMutations,
+  plGetters,
+  getContents,
+  putContents,
+  filePermissions,
+  getFilePath
+} from '../../common/fileAccess.js'
+
 const namespaced = true
 
 const state = {
   touched: null,
   loading: false,
-  isPublicLink: false,
-  plToken: null,
   currentETag: null,
   currentFile: '',
   lastError: null,
   text: null,
-  isReadOnly: true
+  isReadOnly: true,
+  ...plState
 }
 
 // TODO pl with password protection
-
-const DavPermissions = '{http://owncloud.org/ns}permissions'
-const DavProperties = [DavPermissions]
-
-const getContents = (state, client) => {
-  if (state.isPublicLink) {
-    return new Promise((resolve) => {
-      client.publicFiles.download(state.plToken, state.currentFile).then(async (res) => {
-        res.statusCode = res.status
-        resolve({
-          response: res,
-          body: await res.text(),
-          headers: {
-            ETag: res.headers.get('etag'),
-            'OC-FileId': res.headers.get('oc-fileid')
-          }
-        })
-      })
-    })
-  } else {
-    return client.files.getFileContents(state.currentFile, {
-      resolveWithResponseObject: true,
-      noCache: true
-    })
-  }
-}
-
-const putContents = (state, client) => {
-  if (state.isPublicLink) {
-    return client.publicFiles.putFileContents(state.plToken, state.currentFile, null, state.text, {
-      previousEntityTag: state.currentETag
-    })
-  } else {
-    return client.files.putFileContents(state.currentFile, state.text, {
-      previousEntityTag: state.currentETag
-    })
-  }
-}
-
-const fileInfo = (state, client) => {
-  if (state.isPublicLink) {
-    return client.publicFiles.getFileInfo(state.plToken + state.currentFile, null, DavProperties)
-  } else {
-    return client.files.fileInfo(state.currentFile, DavProperties)
-  }
-}
 
 const actions = {
   updateText({ commit }, text) {
@@ -70,25 +33,13 @@ const actions = {
   },
   loadFile({ commit, state }, payload) {
     const client = payload.client
-
-    let filePath
-    if (payload.public) {
-      const path = payload.filePath.split('/')
-      path.shift() // remove empty first elem
-      const token = path.shift()
-      commit('PL_TOKEN', token)
-      commit('PUBLIC_LINK', true)
-      filePath = '/' + path.join('/')
-    } else {
-      filePath = payload.filePath
-    }
+    const filePath = getFilePath(commit, payload.public, payload.filePath)
 
     commit('LOADING', true)
     commit('CURRENT_FILE', filePath)
 
-    fileInfo(state, client)
-      .then((resp) => {
-        const permissions = resp.fileInfo[DavPermissions] || ''
+    filePermissions(state, client)
+      .then((permissions) => {
         if (permissions.indexOf('W') >= 0) {
           commit('WRITE_MODE')
         }
@@ -152,15 +103,10 @@ const mutations = {
   ERROR(state, errorMessage) {
     state.lastError = errorMessage
   },
-  PUBLIC_LINK(state, flag) {
-    state.isPublicLink = flag
-  },
-  PL_TOKEN(state, token) {
-    state.plToken = token
-  },
   WRITE_MODE(state) {
     state.isReadOnly = false
-  }
+  },
+  ...plMutations
 }
 
 const getters = {
@@ -182,12 +128,7 @@ const getters = {
   currentFile: (state) => {
     return state.currentFile
   },
-  isPublicLink: (state) => {
-    return state.isPublicLink
-  },
-  plToken: (state) => {
-    return state.plToken
-  }
+  ...plGetters
 }
 
 export default {
