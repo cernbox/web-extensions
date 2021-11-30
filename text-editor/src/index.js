@@ -42,7 +42,7 @@ const appInfo = {
       routeName: 'text-editor-edit',
       newFileMenu: {
         menuTitle($gettext) {
-          return $gettext('New plain text file…')
+          return $gettext('New plain text file')
         }
       },
       routes: [
