@@ -1,3 +1,10 @@
+import {
+  plState,
+  plMutations,
+  plGetters,
+  getContents,
+  getFilePath
+} from '../../common/fileAccess.js'
 import * as ipynb2html from 'ipynb2html'
 
 const namespaced = true
@@ -6,7 +13,8 @@ const state = {
   loading: false,
   currentFile: '',
   lastError: null,
-  notebook: null
+  notebook: null,
+  ...plState
 }
 
 const actions = {
@@ -14,15 +22,14 @@ const actions = {
     commit('ERROR', '')
   },
   loadFile({ commit }, payload) {
-    const filePath = payload.filePath
+    const filePath = getFilePath(commit, payload.public, payload.filePath)
     const client = payload.client
 
     commit('LOADING', true)
     commit('CURRENT_FILE', filePath)
-    client.files
-      .getFileContents(filePath)
+    getContents(state, client)
       .then((resp) => {
-        const jsonResponse = JSON.parse(resp)
+        const jsonResponse = JSON.parse(resp.body)
         const notebookHtml = ipynb2html.render(jsonResponse)
         commit('UPDATE_NOTEBOOK', notebookHtml.innerHTML)
         commit('LOADING', false)
@@ -46,7 +53,8 @@ const mutations = {
   },
   ERROR(state, errorMessage) {
     state.lastError = errorMessage
-  }
+  },
+  ...plMutations
 }
 
 const getters = {
@@ -58,7 +66,8 @@ const getters = {
   },
   lastError: (state) => {
     return state.lastError
-  }
+  },
+  ...plGetters
 }
 
 export default {

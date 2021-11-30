@@ -36,7 +36,8 @@ export default {
     const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
     this.loadFile({
       filePath: filePath,
-      client: this.$client
+      client: this.$client,
+      public: this.$route.name === 'jupyter-public'
     })
   },
   methods: {
