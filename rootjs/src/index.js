@@ -1,4 +1,5 @@
 import App from './App.vue'
+import logo from './img/logo.svg'
 
 const name = 'ROOT Viewer'
 
@@ -33,7 +34,7 @@ const routes = [
 const appInfo = {
   name: name,
   id: 'rootjs',
-  icon: 'jsroot',
+  img: logo,
   extensions: [
     {
       extension: 'root',
