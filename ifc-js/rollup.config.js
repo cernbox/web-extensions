@@ -11,6 +11,7 @@ import embedCSS from 'rollup-plugin-embed-css'
 import copy from 'rollup-plugin-copy-watch'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
+import svg from 'rollup-plugin-svg'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -45,7 +46,10 @@ const plugins = [
   globals(),
   builtins(),
   production && terser(),
-  gzip()
+  gzip(),
+  svg({
+    base64: true
+  })
 ]
 
 if (process.env.SERVER === 'true') {

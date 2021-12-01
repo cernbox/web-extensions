@@ -1,4 +1,5 @@
 import App from './App.vue'
+import logo from './img/logo.svg'
 
 const name = 'IFC.js'
 
@@ -33,7 +34,7 @@ const routes = [
 const appInfo = {
   name: name,
   id: 'ifc-js',
-  icon: 'grid_on',
+  img: logo,
   extensions: [
     {
       extension: 'ifc',
