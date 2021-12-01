@@ -20,6 +20,7 @@
 </template>
 <script>
 import 'https://root.cern/js/latest/scripts/JSRoot.core.min.js'
+import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
 
 export default {
   name: 'ROOTJSViewer',
@@ -28,14 +29,12 @@ export default {
     url: '',
     items: ['simple', 'tabs', 'collapsible', 'grid 2x2', 'grid 3x3', 'grid 4x4'],
     viewMode: null,
-    painter: null
+    painter: null,
+    isPublic: false
   }),
   computed: {
     rootFile() {
-      const headers = new Headers({
-        Authorization: 'Bearer ' + this.getToken,
-        'X-Requested-With': 'XMLHttpRequest'
-      })
+      const headers = getHeadersWithAuth(this.isPublic, this.getToken, this.publicLinkPassword)
       return fetch(this.url, { headers }).then((resp) => {
         if (resp.ok) {
           return resp.arrayBuffer()
@@ -46,8 +45,9 @@ export default {
     }
   },
   created() {
+    this.isPublic = this.$route.name === 'rootjs-public'
     const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
-    this.url = this.$client.files.getFileUrl(filePath)
+    this.url = getFileUrl(this.$client, this.isPublic, filePath)
     this.viewMode = this.items[0]
   },
   mounted: function () {

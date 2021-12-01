@@ -1,5 +1,7 @@
 import App from './App.vue'
 
+const name = 'ROOT Viewer'
+
 const routes = [
   {
     name: 'view',
@@ -8,14 +10,28 @@ const routes = [
       fullscreen: App
     },
     meta: {
+      title: name,
       patchCleanPath: true,
       hideHeadbar: true
+    }
+  },
+  {
+    path: '/public/:filePath*',
+    components: {
+      fullscreen: App
+    },
+    name: 'public',
+    meta: {
+      title: name,
+      patchCleanPath: true,
+      hideHeadbar: true,
+      auth: false
     }
   }
 ]
 
 const appInfo = {
-  name: 'ROOT Viewer',
+  name: name,
   id: 'rootjs',
   icon: 'jsroot',
   extensions: [
@@ -27,9 +43,14 @@ const appInfo = {
         'files-personal',
         'files-favorites',
         'files-shared-with-others',
-        'files-shared-with-me',
-        'files-public-list'
+        'files-shared-with-me'
       ]
+    },
+    {
+      extension: 'root',
+      newTab: true,
+      routeName: 'rootjs-public',
+      routes: ['files-public-list']
     }
   ]
 }
