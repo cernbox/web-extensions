@@ -38,36 +38,8 @@ export default {
     ])
   },
   methods: {
-    ...mapActions('Text Editor', ['saveFile', 'handleSKey', 'resetState']),
-    ...mapActions(['createModal', 'hideModal']),
-    saveContent() {
-      this.saveFile({
-        client: this.$client
-      })
-    },
+    ...mapActions('Text Editor', ['saveFile']),
     closeApp() {
-      if (this.isTouched) {
-        const modal = {
-          variation: 'danger',
-          icon: 'warning',
-          title: 'Changes not saved',
-          message: this.$gettext('Your changes were not saved. Do you want to save them?'),
-          cancelText: this.$gettext('Not Save'),
-          confirmText: this.$gettext('Save'),
-          onCancel: this.finishClosingApp,
-          onConfirm: this.saveAndClose
-        }
-        this.createModal(modal)
-      } else {
-        this.finishClosingApp()
-      }
-    },
-    saveAndClose() {
-      this.saveContent()
-      this.finishClosingApp()
-    },
-    finishClosingApp() {
-      this.hideModal()
       const folderPath = this.currentFile.substring(0, this.currentFile.lastIndexOf('/'))
 
       if (this.isPublicLink) {
@@ -79,17 +51,11 @@ export default {
           path: '/files/list/all' + folderPath
         })
       }
-      document.removeEventListener('keydown', this.handleSKey, false)
-      this.resetState()
     },
-    registerKeyboardShortcuts() {
-      document.addEventListener('keydown', this.handleSKey, false)
-    },
-    handleSKey(e) {
-      if ((e.ctrlKey || e.metaKey) && e.code === 'KeyS') {
-        e.preventDefault()
-        this.saveContent()
-      }
+    saveContent() {
+      this.saveFile({
+        client: this.$client
+      })
     }
   }
 }

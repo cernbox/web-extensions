@@ -35,9 +35,33 @@ export default {
   components: {
     TextEditorAppBar
   },
+  beforeRouteLeave(to, from, next) {
+    if (this.isTouched) {
+      const modal = {
+        variation: 'danger',
+        icon: 'warning',
+        title: this.$gettext('Changes not saved'),
+        message: this.$gettext('Your changes were not saved. Do you want to save them?'),
+        cancelText: this.$gettext('Not Save'),
+        confirmText: this.$gettext('Save'),
+        onCancel: () => {
+          this.hideModal()
+          next()
+        },
+        onConfirm: () => {
+          this.saveContent()
+          this.hideModal()
+          next()
+        }
+      }
+      this.createModal(modal)
+    } else {
+      next()
+    }
+  },
   computed: {
     ...mapGetters(['activeFile']),
-    ...mapGetters('Text Editor', ['currentContent', 'lastError', 'isReadOnly'])
+    ...mapGetters('Text Editor', ['currentContent', 'lastError', 'isReadOnly', 'isTouched'])
   },
   mounted() {
     const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
@@ -52,12 +76,42 @@ export default {
       client: this.$client,
       public: this.$route.name === 'text-editor-public'
     })
-    this.$refs.bar_comp.registerKeyboardShortcuts()
+    document.addEventListener('keydown', this.handleSKey, false)
+    window.addEventListener('beforeunload', this.handleUnload)
+  },
+  beforeDestroy() {
+    window.removeEventListener('beforeunload', this.handleUnload)
+    document.removeEventListener('keydown', this.handleSKey, false)
+    this.resetState()
   },
   methods: {
-    ...mapActions('Text Editor', ['updateText', 'loadFile', 'clearLastError', 'handleSKey']),
+    ...mapActions(['createModal', 'hideModal']),
+    ...mapActions('Text Editor', [
+      'updateText',
+      'loadFile',
+      'clearLastError',
+      'saveFile',
+      'resetState'
+    ]),
     onType(e) {
       this.updateText(e)
+    },
+    handleUnload(e) {
+      if (this.isTouched) {
+        e.preventDefault()
+        e.returnValue = ''
+      }
+    },
+    handleSKey(e) {
+      if ((e.ctrlKey || e.metaKey) && e.code === 'KeyS') {
+        e.preventDefault()
+        this.saveContent()
+      }
+    },
+    saveContent() {
+      this.saveFile({
+        client: this.$client
+      })
     }
   }
 }
