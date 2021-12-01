@@ -1,9 +1,10 @@
 import App from './App.vue'
 import store from './store.js'
 
-import '../css/notebook.min.css'
-import '../css/default.min.css'
-import '../css/katex.min.css'
+import './css/notebook.min.css'
+import './css/default.min.css'
+import './css/katex.min.css'
+import logo from './img/logo.svg'
 
 const name = 'Jupyter Viewer'
 
@@ -36,7 +37,7 @@ const routes = [
 const appInfo = {
   name: name,
   id: 'jupyter',
-  icon: 'jupyter',
+  img: logo,
   extensions: [
     {
       extension: 'ipynb',
