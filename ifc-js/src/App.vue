@@ -22,6 +22,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { IFCLoader } from 'web-ifc-three/IFCLoader'
+import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
 
 export default {
   name: 'IFCViewer',
@@ -86,15 +87,16 @@ export default {
       requestAnimationFrame(this.animate)
     },
     addIFCModel: function () {
+      const isPublic = this.$route.name === 'ifc-js-public'
       const ifcLoader = new IFCLoader()
-      ifcLoader.ifcManager.setWasmPath('../../../../../../../../../../../../../../../../cernbox/ifc-js-0.0.3/')
-      const header = {
-        Authorization: 'Bearer ' + this.getToken,
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-      ifcLoader.setRequestHeader(header)
+      // FIXME hack to load the wasm... should not be needed
+      ifcLoader.ifcManager.setWasmPath(
+        '../../../../../../../../../../../../../../../../cernbox/ifc-js-0.0.3/'
+      )
+      const headers = getHeadersWithAuth(isPublic, this.getToken, this.publicLinkPassword)
+      ifcLoader.setRequestHeader(headers)
       const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
-      const url = this.$client.files.getFileUrl(filePath)
+      const url = getFileUrl(this.$client, isPublic, filePath)
       ifcLoader.load(url, (ifcModel) => {
         ifcModel.mesh.onAfterRender = (renderer, scene, camera, geometry, material, group) => {
           if (this.loading === true) {
