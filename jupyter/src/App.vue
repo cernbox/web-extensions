@@ -1,11 +1,9 @@
 <template>
   <main id="jupyter">
-    <oc-spinner
-      v-if="isLoading"
-      :aria-label="$gettext('Loading...')"
-      class="uk-position-center"
-      size="xlarge"
-    />
+    <div class="uk-position-center" v-if="loading">
+      <oc-spinner size="xlarge" />
+      <p v-translate class="oc-invisible">Loading app</p>
+    </div>
     <oc-notifications position="top-center">
       <oc-notification-message
         v-if="lastError"
@@ -15,7 +13,7 @@
         @close="clearLastError"
       />
     </oc-notifications>
-    <div class="uk-container uk-width-1-1">
+    <div class="uk-container uk-width-1-1" v-if="!loading">
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div id="notebook">
         <div id="notebook-container" class="container" v-html="renderedNotebook"></div>

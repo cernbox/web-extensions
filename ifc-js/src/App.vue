@@ -1,11 +1,9 @@
 <template>
   <main>
-    <oc-spinner
-      v-if="loading"
-      :aria-label="$gettext('Loading media')"
-      class="uk-position-center"
-      size="xlarge"
-    />
+    <div class="uk-position-center" v-if="loading">
+      <oc-spinner size="xlarge" />
+      <p v-translate class="oc-invisible">Loading app</p>
+    </div>
     <canvas id="threeCanvas"></canvas>
   </main>
 </template>
