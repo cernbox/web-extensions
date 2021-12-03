@@ -71,7 +71,19 @@ const actions = {
         commit('LOADING', false)
       })
       .catch((error) => {
-        commit('ERROR', error.message || error)
+        switch (error.statusCode) {
+          case 412:
+            commit('ERROR', 'This file was updated outside this window. Please refresh the page (all changes will be lost).')
+            break
+          case 500:
+            commit('ERROR', 'Error when contacting the server')
+            break
+          case 401:
+            commit('ERROR', 'You\'re not authorized to save this file')
+            break
+          default:
+            commit('ERROR', error.message || error)
+        }
         commit('LOADING', false)
       })
   },
