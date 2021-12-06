@@ -61,6 +61,7 @@ export default {
   },
   computed: {
     ...mapGetters(['activeFile']),
+    ...mapGetters('Files', ['publicLinkPassword']),
     ...mapGetters('Text Editor', ['currentContent', 'lastError', 'isReadOnly', 'isTouched'])
   },
   mounted() {
@@ -74,7 +75,9 @@ export default {
     this.loadFile({
       filePath: filePath,
       client: this.$client,
-      public: this.$route.name === 'text-editor-public'
+      public: this.$route.name === 'text-editor-public',
+      publicLinkPassword: this.publicLinkPassword
+
     })
     document.addEventListener('keydown', this.handleSKey, false)
     window.addEventListener('beforeunload', this.handleUnload)

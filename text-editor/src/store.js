@@ -33,7 +33,7 @@ const actions = {
   },
   loadFile({ commit, state }, payload) {
     const client = payload.client
-    const filePath = getFilePath(commit, payload.public, payload.filePath)
+    const filePath = getFilePath(commit, payload.public, payload.filePath, payload.publicLinkPassword)
 
     commit('LOADING', true)
     commit('CURRENT_FILE', filePath)

@@ -4,7 +4,8 @@ const DavProperties = [DavPermissions]
 
 const plState = {
   isPublicLink: false,
-  plToken: null
+  plToken: null,
+  publicLinkPassword: null
 }
 
 const plMutations = {
@@ -13,6 +14,9 @@ const plMutations = {
   },
   PL_TOKEN(state, token) {
     state.plToken = token
+  },
+  PL_PASSWORD(state, password) {
+    state.publicLinkPassword = password
   }
 }
 
@@ -22,13 +26,17 @@ const plGetters = {
   },
   plToken: (state) => {
     return state.plToken
+  },
+  publicLinkPassword: (state) => {
+    return state.publicLinkPassword
   }
 }
 
 const getContents = (state, client) => {
+
   if (state.isPublicLink) {
     return new Promise((resolve, reject) => {
-      client.publicFiles.download(state.plToken, state.currentFile).then(async (res) => {
+      client.publicFiles.download(state.plToken, state.currentFile, state.publicLinkPassword).then(async (res) => {
         res.statusCode = res.status
         resolve({
           response: res,
@@ -51,7 +59,7 @@ const getContents = (state, client) => {
 
 const putContents = (state, client) => {
   if (state.isPublicLink) {
-    return client.publicFiles.putFileContents(state.plToken, state.currentFile, null, state.text, {
+    return client.publicFiles.putFileContents(state.plToken, state.currentFile, state.publicLinkPassword, state.text, {
       previousEntityTag: state.currentETag
     })
   } else {
@@ -63,7 +71,7 @@ const putContents = (state, client) => {
 
 const fileInfo = (state, client) => {
   if (state.isPublicLink) {
-    return client.publicFiles.getFileInfo(state.plToken + state.currentFile, null, DavProperties)
+    return client.publicFiles.getFileInfo(state.plToken + state.currentFile, state.publicLinkPassword, DavProperties)
   } else {
     return client.files.fileInfo(state.currentFile, DavProperties)
   }
@@ -79,13 +87,14 @@ const filePermissions = (state, client) => {
   })
 }
 
-const getFilePath = (commit, isPublic, filePath) => {
+const getFilePath = (commit, isPublic, filePath, publicLinkPassword = null) => {
   if (isPublic) {
     const path = filePath.split('/')
     path.shift() // remove empty first elem
     const token = path.shift()
     commit('PL_TOKEN', token)
     commit('PUBLIC_LINK', true)
+    commit('PL_PASSWORD', publicLinkPassword)
     return '/' + path.join('/')
   } else {
     return filePath

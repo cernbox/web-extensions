@@ -22,7 +22,7 @@ const actions = {
     commit('ERROR', '')
   },
   loadFile({ commit }, payload) {
-    const filePath = getFilePath(commit, payload.public, payload.filePath)
+    const filePath = getFilePath(commit, payload.public, payload.filePath, payload.publicLinkPassword)
     const client = payload.client
 
     commit('LOADING', true)
