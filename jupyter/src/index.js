@@ -43,6 +43,7 @@ const appInfo = {
       extension: 'ipynb',
       newTab: true,
       routeName: 'jupyter-view',
+      canBeDefault: true,
       routes: [
         'files-personal',
         'files-favorites',
@@ -54,6 +55,7 @@ const appInfo = {
       extension: 'ipynb',
       newTab: true,
       routeName: 'jupyter-public',
+      canBeDefault: true,
       routes: ['files-public-list']
     }
   ]

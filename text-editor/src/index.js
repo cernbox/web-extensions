@@ -44,6 +44,7 @@ const appInfo = {
     {
       extension: 'txt',
       routeName: 'text-editor-edit',
+      canBeDefault: true,
       newFileMenu: {
         menuTitle($gettext) {
           return $gettext('New plain text file')
@@ -59,6 +60,7 @@ const appInfo = {
     {
       extension: 'txt',
       routeName: 'text-editor-public',
+      canBeDefault: true,
       newFileMenu: {
         menuTitle($gettext) {
           return $gettext('New plain text file')

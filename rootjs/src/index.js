@@ -40,6 +40,7 @@ const appInfo = {
       extension: 'root',
       newTab: true,
       routeName: 'rootjs-view',
+      canBeDefault: true,
       routes: [
         'files-personal',
         'files-favorites',
@@ -51,6 +52,7 @@ const appInfo = {
       extension: 'root',
       newTab: true,
       routeName: 'rootjs-public',
+      canBeDefault: true,
       routes: ['files-public-list']
     }
   ]

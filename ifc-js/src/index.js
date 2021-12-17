@@ -40,6 +40,7 @@ const appInfo = {
       extension: 'ifc',
       newTab: true,
       routeName: 'ifc-js-view',
+      canBeDefault: true,
       routes: [
         'files-personal',
         'files-favorites',
@@ -51,6 +52,7 @@ const appInfo = {
       extension: 'ifc',
       newTab: true,
       routeName: 'ifc-js-public',
+      canBeDefault: true,
       routes: ['files-public-list']
     }
   ]
