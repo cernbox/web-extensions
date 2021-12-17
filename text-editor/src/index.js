@@ -59,6 +59,11 @@ const appInfo = {
     {
       extension: 'txt',
       routeName: 'text-editor-public',
+      newFileMenu: {
+        menuTitle($gettext) {
+          return $gettext('New plain text file')
+        }
+      },
       routes: ['files-public-list']
     }
   ]
