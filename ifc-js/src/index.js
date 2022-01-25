@@ -1,7 +1,7 @@
 import App from './App.vue'
 import logo from './img/logo.svg'
 
-const name = 'IFC.js'
+const name = 'IFC Viewer'
 
 const routes = [
   {
