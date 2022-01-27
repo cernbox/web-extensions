@@ -67,6 +67,89 @@
       }
     }
   },
-  "dark": {
+  "default-dark": {
+    "general": {
+      "name": "CERNBox",
+      "slogan": "CERNBox – The CERN Cloud Storage"
+    },
+    "logo": {
+      "sidebar": "cernbox/theme-cernbox/assets/cernbox-lrg.svg",
+      "favicon": "cernbox/theme-cernbox/assets/cernbox-abstract.svg",
+      "login": "cernbox/theme-cernbox/assets/cernbox-lrg.svg",
+      "notFound": "themes/owncloud/assets/cloud.svg"
+    },
+    "loginPage": {
+      "autoRedirect": true,
+      "backgroundImg": "cernbox/theme-cernbox/assets/loginBackground.png"
+    },
+    "designTokens": {
+      "breakpoints": {
+        "xsmall-max": "",
+        "small-default": "",
+        "small-max": "",
+        "medium-default": "",
+        "medium-max": "",
+        "large-default": "",
+        "large-max": "",
+        "xlarge": ""
+      },
+      "colorPalette": {
+        "background-accentuate": "#696969",
+        "background-default": "#292929",
+        "background-highlight": "#4F4F4F",
+        "background-muted": "#ff000",
+        "border": "#202020",
+        "input-bg": "#4F4F4F",
+        "input-border": "#4c5f79",
+        "input-text-default": "#c2c2c2",
+        "input-text-muted": "#696969",
+        "swatch-brand-default": "#212121",
+        "swatch-brand-hover": "",
+        "swatch-danger-default": "",
+        "swatch-danger-hover": "",
+        "swatch-danger-muted": "",
+        "swatch-inverse-default": "",
+        "swatch-inverse-hover": "",
+        "swatch-inverse-muted": "#696969",
+        "swatch-passive-default": "#c2c2c2",
+        "swatch-passive-hover": "",
+        "swatch-passive-muted": "",
+        "swatch-primary-default": "#0868DD",
+        "swatch-primary-hover": "#7BAFEF",
+        "swatch-primary-muted": "",
+        "swatch-primary-gradient": "#4e85c8",
+        "swatch-success-default": "",
+        "swatch-success-hover": "",
+        "swatch-success-muted": "",
+        "swatch-warning-default": "",
+        "swatch-warning-hover": "",
+        "swatch-warning-muted": "",
+        "text-default": "#c2c2c2",
+        "text-inverse": "#000000",
+        "text-muted": "#696969"
+      },
+      "fontSizes": {
+        "default": "",
+        "large": "",
+        "medium": ""
+      },
+      "sizes": {
+        "form-check-default": "",
+        "height-small": "",
+        "height-table-row": "",
+        "icon-default": "",
+        "max-height-logo": "",
+        "max-width-logo": "",
+        "width-medium": ""
+      },
+      "spacing": {
+        "xsmall": "",
+        "small": "",
+        "medium": "",
+        "large": "",
+        "xlarge": "",
+        "xxlarge": ""
+      }
+    }
   }
 }
