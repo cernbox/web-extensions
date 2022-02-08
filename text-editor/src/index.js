@@ -44,6 +44,15 @@ const appInfo = {
   ]
 }
 
+for (const ext of ['js', 'json', 'xml', 'py', 'php', 'yaml', '']) {
+  appInfo.extensions.push({
+    extension: ext,
+    routeName: 'text-editor-editor',
+    canBeDefault: true
+    // newTab: true,
+  })
+}
+
 const translations = t
 export default {
   appInfo,
