@@ -9,15 +9,15 @@
         @close="clearLastError"
       />
     </oc-notifications>
-    <div class="uk-flex">
-      <div class="uk-container uk-width-1-1">
+    <div class="oc-flex">
+      <div class="oc-container oc-width-1-1">
         <oc-textarea
           id="text-editor-input"
           label=""
           name="input"
           full-width
           :value="currentContent"
-          class="uk-height-1-1"
+          class="oc-height-1-1"
           :rows="20"
           :disabled="isReadOnly"
           @input="onType"
@@ -68,14 +68,14 @@ export default {
     const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
     if (filePath === '') {
       this.$router.push({
-        path: '/files'
+        path: '/'
       })
       return
     }
     this.loadFile({
       filePath: filePath,
       client: this.$client,
-      public: this.$route.name === 'text-editor-public',
+      public: this.$route.params.contextRouteName === 'files-public-files',
       publicLinkPassword: this.publicLinkPassword
 
     })

@@ -1,7 +1,7 @@
 <template>
-  <div id="text-editor-app-bar" class="uk-container oc-app-bar uk-width-1-1">
+  <div id="text-editor-app-bar" class="oc-container oc-app-bar oc-width-1-1">
     <oc-grid flex gutter="small">
-      <div class="uk-width-auto">
+      <div class="oc-width-auto">
         <oc-button
           id="text-editor-controls-save"
           :disabled="!isTouched || isReadOnly"
@@ -11,10 +11,10 @@
         </oc-button>
         <oc-spinner v-if="isLoading" :aria-label="$gettext('Loading editor content')" />
       </div>
-      <div class="uk-width-expand uk-text-center">
+      <div class="oc-width-expand oc-text-center">
         <span id="text-editor-file-path">{{ currentFile }}</span>
       </div>
-      <div class="uk-width-auto uk-text-right">
+      <div class="oc-width-auto oc-text-right">
         <oc-button id="text-editor-controls-close" @click="closeApp">
           <oc-icon name="close" />
         </oc-button>

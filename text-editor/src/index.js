@@ -11,22 +11,11 @@ const name = 'Text Editor'
 
 const routes = [
   {
-    path: '/edit/:filePath*',
+    path: '/:contextRouteName/:filePath*',
     components: {
       app: App
     },
-    name: 'edit',
-    meta: {
-      title: name,
-      patchCleanPath: true
-    }
-  },
-  {
-    path: '/public/:filePath*',
-    components: {
-      app: App
-    },
-    name: 'public',
+    name: 'editor',
     meta: {
       title: name,
       patchCleanPath: true,
@@ -38,35 +27,19 @@ const routes = [
 const appInfo = {
   name: name,
   id: 'text-editor',
-  icon: 'text',
+  icon: 'file-text',
   isFileEditor: true,
   extensions: [
     {
       extension: 'txt',
-      routeName: 'text-editor-edit',
+      routeName: 'text-editor-editor',
       canBeDefault: true,
+      // newTab: true,
       newFileMenu: {
         menuTitle($gettext) {
-          return $gettext('New plain text file')
+          return $gettext('Plain text file')
         }
-      },
-      routes: [
-        'files-personal',
-        'files-favorites',
-        'files-shared-with-others',
-        'files-shared-with-me'
-      ]
-    },
-    {
-      extension: 'txt',
-      routeName: 'text-editor-public',
-      canBeDefault: true,
-      newFileMenu: {
-        menuTitle($gettext) {
-          return $gettext('New plain text file')
-        }
-      },
-      routes: ['files-public-list']
+      }
     }
   ]
 }

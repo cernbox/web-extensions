@@ -93,6 +93,7 @@ const actions = {
     commit('CURRENT_ETAG', null)
     commit('UPDATE_TEXT', null)
     commit('CURRENT_FILE', '')
+    commit('ERROR', '')
   }
 }
 
