@@ -11,18 +11,7 @@ const name = 'Jupyter Viewer'
 const routes = [
   {
     name: 'view',
-    path: '/view/:filePath*',
-    components: {
-      app: App
-    },
-    meta: {
-      title: name,
-      patchCleanPath: true
-    }
-  },
-  {
-    name: 'public',
-    path: '/public/:filePath*',
+    path: '/:contextRouteName/:filePath*',
     components: {
       app: App
     },
@@ -43,20 +32,7 @@ const appInfo = {
       extension: 'ipynb',
       newTab: true,
       routeName: 'jupyter-view',
-      canBeDefault: true,
-      routes: [
-        'files-personal',
-        'files-favorites',
-        'files-shared-with-others',
-        'files-shared-with-me'
-      ]
-    },
-    {
-      extension: 'ipynb',
-      newTab: true,
-      routeName: 'jupyter-public',
-      canBeDefault: true,
-      routes: ['files-public-list']
+      canBeDefault: true
     }
   ]
 }

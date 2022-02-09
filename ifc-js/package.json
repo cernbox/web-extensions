@@ -63,9 +63,6 @@
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.2"
   },
-  "engines": {
-    "node": ">=14 <=16"
-  },
   "dependencies": {
     "three": "^0.134.0",
     "web-ifc-three": "^0.0.75"

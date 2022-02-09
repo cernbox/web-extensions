@@ -1,19 +1,21 @@
 <template>
   <main>
-    <div class="uk-position-center" v-if="loading">
+    <div class="oc-position-center" v-if="loading">
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
     </div>
-    <div id="leftBar">
-      <select id="mode-select" v-model="viewMode" @change="renderViewer">
-        <option v-for="item in items" :key="item" :value="item">
-          {{ item }}
-        </option>
-      </select>
-      <button @click="exit">Exit</button>
-      <div id="treeViewer"></div>
+    <div class="oc-flex root-viewer">
+      <div id="web-nav-sidebar" class="root-sidebar app-navigation oc-app-navigation-expanded">
+        <select id="mode-select" v-model="viewMode" @change="renderViewer">
+          <option v-for="item in items" :key="item" :value="item">
+            {{ item }}
+          </option>
+        </select>
+        <button @click="exit">Exit</button>
+        <div id="treeViewer"></div>
+      </div>
+      <div id="mainViewer" class="oc-flex oc-height-1-1 app-content oc-width-1-1"></div>
     </div>
-    <div id="mainViewer"></div>
   </main>
 </template>
 <script>
@@ -43,7 +45,7 @@ export default {
     }
   },
   created() {
-    this.isPublic = this.$route.name === 'rootjs-public'
+    this.isPublic = this.$route.params.contextRouteName === 'files-public-files'
     const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
     this.url = getFileUrl(this.$client, this.isPublic, filePath)
     this.viewMode = this.items[0]
@@ -76,30 +78,22 @@ export default {
 </script>
 
 <style>
-#leftBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 250px;
+.app-container {
+  /* FIXME make app compatible with dark mode */
+  background-color: white !important;
+}
+.root-viewer {
   height: 100%;
-  border: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  float: left;
+}
+.root-sidebar {
+  /* FIXME make app compatible with dark mode */
+  background-color: white !important;
+  display: block !important;
+  padding: 10px;
+  overflow: scroll !important;
+  box-sizing: border-box;
 }
 #mainViewer {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: calc(100% - 250px);
-  height: 100%;
-  border: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  float: right;
+  padding: 10px;
 }
 </style>

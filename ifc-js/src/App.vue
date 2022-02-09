@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="uk-position-center" v-if="loading">
+    <div class="oc-position-center" v-if="loading">
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
     </div>
@@ -85,7 +85,7 @@ export default {
       requestAnimationFrame(this.animate)
     },
     addIFCModel: function () {
-      const isPublic = this.$route.name === 'ifc-js-public'
+      const isPublic = this.$route.params.contextRouteName === 'files-public-files'
       const ifcLoader = new IFCLoader()
       // FIXME hack to load the wasm... should not be needed
       ifcLoader.ifcManager.setWasmPath(
@@ -109,6 +109,10 @@ export default {
 </script>
 
 <style>
+.app-container {
+  /* FIXME make app compatible with dark mode */
+  background-color: white !important;
+}
 main {
   width: 100%;
   height: 100%;

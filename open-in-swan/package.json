@@ -60,8 +60,5 @@
     "vue-jest": "^3.0.7",
     "vue-template-compiler": "^2.6.12"
   },
-  "engines": {
-    "node": ">=14 <=16"
-  },
   "dependencies": {}
 }
