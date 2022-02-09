@@ -12,7 +12,7 @@
         <oc-spinner v-if="isLoading" :aria-label="$gettext('Loading editor content')" />
       </div>
       <div class="oc-width-expand oc-text-center">
-        <span id="text-editor-file-path">{{ currentFile }}</span>
+        <span id="text-editor-file-path">{{ fileCleaned }}</span>
       </div>
       <div class="oc-width-auto oc-text-right">
         <oc-button id="text-editor-controls-close" @click="closeApp">
@@ -35,20 +35,27 @@ export default {
       'currentFile',
       'isPublicLink',
       'plToken'
-    ])
+    ]),
+    fileCleaned() {
+      
+      return this.currentFile.split('/').pop()
+    }
   },
   methods: {
     ...mapActions('Text Editor', ['saveFile']),
     closeApp() {
-      const folderPath = this.currentFile.substring(0, this.currentFile.lastIndexOf('/'))
-
       if (this.isPublicLink) {
+        const folderPath = this.currentFile.substring(0, this.currentFile.lastIndexOf('/'))
         this.$router.push({
-          path: '/files/public/list/' + this.plToken + folderPath
+          path: '/files/public/show/' + this.plToken + folderPath
         })
       } else {
+        let folderPath = this.currentFile.split('/')
+        folderPath.splice(0, 3)
+        folderPath.pop()
+        folderPath = folderPath.join('/')
         this.$router.push({
-          path: '/files/list/all' + folderPath
+          path: '/files/spaces/personal/home/' + folderPath
         })
       }
     },
