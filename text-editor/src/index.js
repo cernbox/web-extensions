@@ -12,9 +12,7 @@ const name = 'Text Editor'
 const routes = [
   {
     path: '/:contextRouteName/:filePath*',
-    components: {
-      app: App
-    },
+    component: App,
     name: 'editor',
     meta: {
       title: name,

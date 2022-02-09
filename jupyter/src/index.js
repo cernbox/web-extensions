@@ -12,9 +12,7 @@ const routes = [
   {
     name: 'view',
     path: '/:contextRouteName/:filePath*',
-    components: {
-      app: App
-    },
+    component: App,
     meta: {
       title: name,
       patchCleanPath: true,

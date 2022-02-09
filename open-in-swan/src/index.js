@@ -13,14 +13,7 @@ const appInfo = {
           '_blank'
         )
       },
-      showInRightClickMenu: true,
-      canBeDefault: false,
-      routes: [
-        'files-personal',
-        'files-favorites',
-        'files-shared-with-others',
-        'files-shared-with-me'
-      ]
+      canBeDefault: false
     }
   ]
 }
