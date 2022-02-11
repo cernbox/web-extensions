@@ -18,6 +18,7 @@
       "colorPalette": {
         "background-accentuate": "",
         "background-default": "",
+        "background-hover": "#f8f8f8",
         "background-highlight": "#edf3fa",
         "background-muted": "",
         "border": "",
@@ -106,6 +107,7 @@
       "colorPalette": {
         "background-accentuate": "#696969",
         "background-default": "#292929",
+        "background-hover": "#2e2e2e",
         "background-highlight": "#4F4F4F",
         "background-muted": "#ff000",
         "border": "#202020",
