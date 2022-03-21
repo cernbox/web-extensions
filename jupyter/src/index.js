@@ -11,7 +11,7 @@ const name = 'Jupyter Viewer'
 const routes = [
   {
     name: 'view',
-    path: '/:contextRouteName/:filePath*',
+    path: '/:filePath*',
     component: App,
     meta: {
       title: name,
