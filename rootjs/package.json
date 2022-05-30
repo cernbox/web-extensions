@@ -1,6 +1,6 @@
 {
   "name": "rootjs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "CERN rootjs integration",
   "license": "AGPL-3.0",
   "author": "CERNBox",
