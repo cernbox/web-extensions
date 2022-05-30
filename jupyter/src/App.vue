@@ -36,7 +36,7 @@ export default {
     this.loadFile({
       filePath: filePath,
       client: this.$client,
-      public: this.$route.params.contextRouteName === 'files-public-files',
+      public: this.$route.query["contextRouteName"] === 'files-public-files',
       publicLinkPassword: this.publicLinkPassword
     })
   },

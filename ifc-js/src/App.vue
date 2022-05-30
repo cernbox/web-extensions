@@ -85,7 +85,7 @@ export default {
       requestAnimationFrame(this.animate)
     },
     addIFCModel: function () {
-      const isPublic = this.$route.params.contextRouteName === 'files-public-files'
+      const isPublic = this.$route.query["contextRouteName"] === 'files-public-files'
       const ifcLoader = new IFCLoader()
       // FIXME hack to load the wasm... should not be needed
       ifcLoader.ifcManager.setWasmPath(
