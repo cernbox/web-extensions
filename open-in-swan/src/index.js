@@ -8,11 +8,13 @@ const appInfo = {
     {
       extension: 'ipynb',
       handler: (info) => {
-        if (info.filePath.startsWith('/files')) {
-          let path = info.filePath.split('/')
-          path.splice(0, 3)
-          path = path.join('/')
-          window.open('https://cern.ch/swanserver/cgi-bin/go?projurl=file://' + path, '_blank')
+        const path = `/${info.filePath.split('/')
+        .filter(Boolean)
+        .slice(1)
+        .join('/')}`
+
+        if (path.startsWith('/eos/')) {
+          window.open(`https://cern.ch/swanserver/cgi-bin/go?projurl=file://${path}`, '_blank')
         } else {
           // FIXME
           alert('Cannot open this file in SWAN')

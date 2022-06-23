@@ -50,7 +50,7 @@ const getContents = (state, client) => {
       .catch(reject)
     })
   } else {
-    return client.files.getFileContents(state.currentFile, {
+    return client.files.getFileContents(webdavPath(state.currentFile), {
       resolveWithResponseObject: true,
       noCache: true
     })
@@ -63,7 +63,7 @@ const putContents = (state, client) => {
       previousEntityTag: state.currentETag
     })
   } else {
-    return client.files.putFileContents(state.currentFile, state.text, {
+    return client.files.putFileContents(webdavPath(state.currentFile), state.text, {
       previousEntityTag: state.currentETag
     })
   }
@@ -73,7 +73,7 @@ const fileInfo = (state, client) => {
   if (state.isPublicLink) {
     return client.publicFiles.getFileInfo(state.plToken + state.currentFile, state.publicLinkPassword, DavProperties)
   } else {
-    return client.files.fileInfo(state.currentFile, DavProperties)
+    return client.files.fileInfo(webdavPath(state.currentFile), DavProperties)
   }
 }
 
@@ -109,7 +109,7 @@ const getFileUrl = (client, isPublic, filePath) => {
     const plFile = '/' + path.join('/')
     return client.publicFiles.getFileUrl(token, plFile)
   } else {
-    return client.files.getFileUrl(filePath)
+    return client.files.getFileUrl(webdavPath(filePath))
   }
 }
 
@@ -126,6 +126,11 @@ const getHeadersWithAuth = (isPublic, token, publicLinkPassword) => {
     headers.append('Authorization', 'Bearer ' + token)
   }
   return headers
+}
+
+const webdavPath = (path) => {
+  const user = window.Vue.$store.state.user.id
+  return `files/${user}/${path}`
 }
 
 export {

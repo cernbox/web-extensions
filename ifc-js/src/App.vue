@@ -93,7 +93,11 @@ export default {
       )
       const headers = getHeadersWithAuth(isPublic, this.getToken, this.publicLinkPassword)
       ifcLoader.setRequestHeader(headers)
-      const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
+      const filePath = `/${this.$route.params.filePath
+        .split('/')
+        .filter(Boolean)
+        .slice(1)
+        .join('/')}`
       const url = getFileUrl(this.$client, isPublic, filePath)
       ifcLoader.load(url, (ifcModel) => {
         ifcModel.mesh.onAfterRender = (renderer, scene, camera, geometry, material, group) => {
