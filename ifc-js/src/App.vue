@@ -89,7 +89,7 @@ export default {
       const ifcLoader = new IFCLoader()
       // FIXME hack to load the wasm... should not be needed
       ifcLoader.ifcManager.setWasmPath(
-        '../../../../../../../../../../../../../../../../cernbox/ifc-js-0.2.3/'
+        '../../../../../../../../../../../../../../../../cernbox/ifc-js-1.0.0/'
       )
       const headers = getHeadersWithAuth(isPublic, this.getToken, this.publicLinkPassword)
       ifcLoader.setRequestHeader(headers)
