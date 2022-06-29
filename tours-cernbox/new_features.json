@@ -62,8 +62,8 @@
     }
   },
   "exitOnEsc": true,
-  "allowedLocations": [],
-  "deniedLocations": ["files-operations-resolver-public-link", "files-public-files"],
+  "allowedLocations": ["files-spaces-personal"],
+  "deniedLocations": [],
   "useModalOverlay": true,
   "tourId": "New Features",
   "autostart": {
