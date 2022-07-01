@@ -12,7 +12,7 @@
         },
         {
           "title": "1.  Universal URLs",
-          "text": "<div><p>CERNBox, which uses the EOS storage system under the hood, now exposes its full namespace. This means most of our access methods (excluding the mobile clients) have a consistent and more intuitive view.\r\n        </p><p><span class=\"guide-highlight\">https://new.cernbox.cern.ch/files/spaces/personal/home<b>/eos/user/&lt;letter&gt;/&lt;username&gt;</b></span></p>\r\n        <p>Now it's possible to just copy your URL and share it directly with someone else. If that person has permissions, he/she will be able to open it.\r\n        </p></div>",
+          "text": "<div><p>CERNBox, which uses the EOS storage system under the hood, now exposes its full namespace. This means most of our access methods (excluding the mobile clients, for now) have a consistent and more intuitive view.\r\n        </p><p><span class=\"guide-highlight\">https://new.cernbox.cern.ch/files/spaces<b>/eos/user/&lt;letter&gt;/&lt;username&gt;</b></span></p>\r\n        <p>Now it's possible to just copy your URL and share it directly with someone else. If that person has permissions, he/she will be able to open it.\r\n        </p></div>",
           "buttons": ["back", "next"],
           "learnMoreLink": "https://new-cernbox-guide.docs.cern.ch/access/#universal-urls"
         },
@@ -24,7 +24,7 @@
         },
         {
           "title": "3. Improved App Ecosystem",
-          "text": "<div><p>The new CERNBox has diverse application/file extensions integrations: Microsoft Office 365, Collabora, CodiMD, Draw.io, text editor, PDF viewer, IFC viewer, Jupyter viewer, Root viewer, SWAN, Media viewer.\r\n        </p><img class=\"guide-img\" src=\"https://new-cernbox-guide.docs.cern.ch/assets/screenshots/apps-context.png\"></img></div>",
+          "text": "<div><p>The new CERNBox has diverse application/file extensions integrations: Microsoft Office 365, CodiMD, Draw.io, text editor, PDF viewer, IFC viewer, Jupyter viewer, Root viewer, SWAN, Media viewer.\r\n        </p><img class=\"guide-img\" src=\"https://new-cernbox-guide.docs.cern.ch/assets/screenshots/apps-context.png\"></img></div>",
           "buttons": ["back", "next"],
           "learnMoreLink": "https://new-cernbox-guide.docs.cern.ch/apps/"
         },
@@ -42,7 +42,7 @@
         },
         {
           "title": "Coming soon",
-          "text": "<div><p>Other features will be coming in the coming months:</p>\r\n        <oc-list><li>Integrations with other services (i.e Indico)</li>\r\n        <li>Improved search</li>\r\n        <li>Auditing and reporting/notifications</li>\r\n        <li>Backup restore UI</li></oc-list>\r\n        <p> Stay tuned!</p></div>",
+          "text": "<div><p>Other features will be coming in the coming months:</p>\r\n        <oc-list><li>Integrations with other services (Indico already available)</li>\r\n        <li>Improved search</li>\r\n        <li>Auditing and reporting/notifications</li>\r\n        <li>Backup restore UI</li></oc-list>\r\n        <p> Stay tuned!</p></div>",
           "buttons": ["back", "next"]
         }
       ]
