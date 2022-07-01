@@ -116,7 +116,7 @@
         "input-bg": "#4F4F4F",
         "input-border": "#4c5f79",
         "input-text-default": "#c2c2c2",
-        "input-text-muted": "#696969",
+        "input-text-muted": "#383838",
         "swatch-brand-default": "#212121",
         "swatch-brand-hover": "#ffffff",
         "swatch-danger-default": "",
