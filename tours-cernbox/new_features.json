@@ -30,7 +30,7 @@
         },
         {
           "title": "4. Improved Projects Integration",
-          "text": "<div><p>Now it's also possible to see and recover files of projects by right clicking on a project and then on \"Open trahsbin\"\r\n        </p><img class=\"guide-img\" src=\"https://new-cernbox-guide.docs.cern.ch/assets/screenshots/projects-trashbin.png\"></img></div>",
+          "text": "<div><p>Now it's also possible to see and recover files of projects by right clicking on a project and then on \"Open trashbin\"\r\n        </p><img class=\"guide-img\" src=\"https://new-cernbox-guide.docs.cern.ch/assets/screenshots/projects-trashbin.png\"></img></div>",
           "buttons": ["back", "next"],
           "learnMoreLink": "https://new-cernbox-guide.docs.cern.ch/projects/"
         },
