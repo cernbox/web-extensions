@@ -34,7 +34,7 @@ export default {
   }),
   computed: {
     rootFile() {
-      const headers = getHeadersWithAuth(this.isPublic, this.getToken, this.publicLinkPassword)
+      const headers = getHeadersWithAuth(this.isPublic, this.accessToken, this.publicLinkPassword)
       return fetch(this.url, { headers }).then((resp) => {
         if (resp.ok) {
           return resp.arrayBuffer()

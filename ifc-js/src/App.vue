@@ -91,7 +91,7 @@ export default {
       ifcLoader.ifcManager.setWasmPath(
         '../../../../../../../../../../../../../../../../cernbox/ifc-js-1.0.1/'
       )
-      const headers = getHeadersWithAuth(isPublic, this.getToken, this.publicLinkPassword)
+      const headers = getHeadersWithAuth(isPublic, this.accessToken, this.publicLinkPassword)
       ifcLoader.setRequestHeader(headers)
       const filePath = `/${this.$route.params.filePath
         .split('/')

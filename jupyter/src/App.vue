@@ -28,7 +28,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Jupyter Viewer',
   computed: {
-    ...mapGetters('Files', ['publicLinkPassword']),
+    ...mapGetters('runtime/auth', ['publicLinkPassword']),
     ...mapGetters('Jupyter Viewer', ['isLoading', 'renderedNotebook', 'lastError'])
   },
   mounted() {
