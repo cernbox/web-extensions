@@ -42,7 +42,7 @@
         },
         {
           "title": "Coming soon",
-          "text": "<div><p>Other features will be coming in the coming months:</p>\r\n        <oc-list><li>Integrations with other services (Indico already available)</li>\r\n        <li>Improved search</li>\r\n        <li>Auditing and reporting/notifications</li>\r\n        <li>Backup restore UI</li></oc-list>\r\n        <p> Stay tuned!</p></div>",
+          "text": "<div><p>Other features will be coming in the coming months:</p>\r\n        <oc-list><li>Integrations with other services</li>\r\n        <li>Improved search</li>\r\n        <li>Auditing and reporting/notifications</li>\r\n        <li>Backup restore UI</li></oc-list>\r\n        <p> Stay tuned!</p></div>",
           "buttons": ["back", "next"]
         }
       ]
