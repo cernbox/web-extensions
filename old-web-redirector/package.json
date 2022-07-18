@@ -1,6 +1,6 @@
 {
   "name": "old-web-redirector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Handle the urls of the old UI and convert them into the new ones",
   "license": "AGPL-3.0",
   "author": "CERNBox",
