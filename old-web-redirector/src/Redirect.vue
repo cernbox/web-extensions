@@ -38,7 +38,7 @@ export default {
 
     const isPublic = this.$route.name.includes('public')
     const view = this.$route.query.view
-    const dir = this.$route.query.dir
+    const dir = this.$route.query.dir || ''
     const first = dir?.split('/').filter(Boolean)[0]
 
     if (isPublic) {
