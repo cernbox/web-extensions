@@ -21,6 +21,7 @@
 <script>
 import 'https://root.cern/js/latest/scripts/JSRoot.core.min.js'
 import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ROOTJSViewer',
@@ -33,6 +34,7 @@ export default {
     isPublic: false
   }),
   computed: {
+    ...mapGetters('runtime/auth', ['publicLinkPassword', 'accessToken']),
     rootFile() {
       const headers = getHeadersWithAuth(this.isPublic, this.accessToken, this.publicLinkPassword)
       return fetch(this.url, { headers }).then((resp) => {

@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import {
   AmbientLight,
   AxesHelper,
@@ -39,6 +41,9 @@ export default {
     this.addAxes()
     this.addIFCModel()
     this.animate()
+  },
+  computed: {
+  ...mapGetters('runtime/auth', ['publicLinkPassword', 'accessToken']),
   },
   methods: {
     init: function () {
