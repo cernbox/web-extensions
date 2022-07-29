@@ -1,17 +1,19 @@
 <template>
   <main>
-    <div class="oc-position-center" v-if="loading">
+    <div class="oc-position-center" v-if="loading && !error">
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
     </div>
-    <div class="oc-flex root-viewer">
+    <div class="oc-position-center" v-if="error">
+      <oc-icon size="xxlarge" name="error-warning" fill-type="line" />
+    </div>
+    <div class="oc-flex root-viewer" v-if="!loading">
       <div id="web-nav-sidebar" class="root-sidebar app-navigation oc-app-navigation-expanded">
         <select id="mode-select" v-model="viewMode" @change="renderViewer">
           <option v-for="item in items" :key="item" :value="item">
             {{ item }}
           </option>
         </select>
-        <button @click="exit">Exit</button>
         <div id="treeViewer"></div>
       </div>
       <div id="mainViewer" class="oc-flex oc-height-1-1 app-content oc-width-1-1"></div>
@@ -19,7 +21,6 @@
   </main>
 </template>
 <script>
-import 'https://root.cern/js/latest/scripts/JSRoot.core.min.js'
 import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
 import { mapGetters } from 'vuex'
 
@@ -27,6 +28,7 @@ export default {
   name: 'ROOTJSViewer',
   data: () => ({
     loading: true,
+    error: false,
     url: '',
     items: ['simple', 'tabs', 'collapsible', 'grid 2x2', 'grid 3x3', 'grid 4x4'],
     viewMode: null,
@@ -53,7 +55,12 @@ export default {
     this.viewMode = this.items[0]
   },
   mounted: function () {
-    this.renderViewer()
+    require.config({
+      onNodeCreated: function(node){
+        node.setAttribute('crossorigin', 'anonymous')
+      }
+    })
+    require([ '//root.cern/js/latest/scripts/JSRoot.core.min.js'], this.renderViewer, this.showError)
   },
   methods: {
     renderViewer: function () {
@@ -69,11 +76,12 @@ export default {
           })
         })
         .catch((error) => {
+          this.showError()
           console.log(error)
         })
     },
-    exit: function () {
-      window.close()
+    showError: function () {
+      this.error = true
     }
   }
 }
