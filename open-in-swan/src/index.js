@@ -14,7 +14,7 @@ const appInfo = {
         .join('/')}`
 
         if (path.startsWith('/eos/')) {
-          window.open(`https://cern.ch/swanserver/cgi-bin/go?projurl=file://${path}`, '_blank')
+          window.open(`https://cern.ch/swanserver/cgi-bin/go?projurl=file:/${path}`, '_blank')
         } else {
           // FIXME
           alert('Cannot open this file in SWAN')
