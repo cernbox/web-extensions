@@ -10,7 +10,6 @@ const appInfo = {
       handler: (info) => {
         const path = `/${info.filePath.split('/')
         .filter(Boolean)
-        .slice(1)
         .join('/')}`
 
         if (path.startsWith('/eos/')) {

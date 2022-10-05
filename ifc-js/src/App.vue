@@ -101,7 +101,6 @@ export default {
       const filePath = `/${this.$route.params.filePath
         .split('/')
         .filter(Boolean)
-        .slice(1)
         .join('/')}`
       const url = getFileUrl(this.$client, isPublic, filePath)
       ifcLoader.load(url, (ifcModel) => {

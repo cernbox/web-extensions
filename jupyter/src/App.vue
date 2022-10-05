@@ -32,7 +32,7 @@ export default {
     ...mapGetters('Jupyter Viewer', ['isLoading', 'renderedNotebook', 'lastError'])
   },
   mounted() {
-    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).slice(1).join('/')}`
+    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
     this.loadFile({
       filePath: filePath,
       client: this.$client,
