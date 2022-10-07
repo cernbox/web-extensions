@@ -1,7 +1,7 @@
 {
   "translations": {
     "en": {
-      "tourName": "New Features",
+      "tourName": "What's new?",
       "tooltip": "See new features of the web",
       "steps": [
         {
@@ -62,7 +62,15 @@
     }
   },
   "exitOnEsc": true,
-  "allowedLocations": ["files-spaces-personal"],
+  "allowedLocations": [
+    "files-spaces-personal",
+    "files-common-favorites",
+    "files-shares-with-me",
+    "files-shares-with-others",
+    "files-shares-via-link",
+    "files-trash-personal",
+    "files-common-projects"
+  ],
   "deniedLocations": [],
   "useModalOverlay": true,
   "tourId": "New Features",
