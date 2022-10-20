@@ -83,7 +83,7 @@ export default {
           console.log('Redirecting old url to projects view')
           // TODO change after moving to spaces
           this.$router.push({
-            name: 'files-spaces-project'
+            name: 'files-common-projects'
           })
           break
 
