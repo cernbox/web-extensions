@@ -4,15 +4,10 @@
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
     </div>
-    <oc-notifications position="top-center">
-      <oc-notification-message
-        v-if="lastError"
-        :message="lastError"
-        title="Error"
-        status="danger"
-        @close="clearLastError"
-      />
-    </oc-notifications>
+    <div class="oc-position-center" v-if="lastError">
+      <oc-icon size="xxlarge" name="error-warning" fill-type="line" />
+      <p v-if="message" class="oc-text-lead">{{ lastError }}</p>
+    </div>
     <div class="oc-container oc-width-1-1" v-if="!isLoading">
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div id="notebook">
@@ -32,11 +27,12 @@ export default {
     ...mapGetters('Jupyter Viewer', ['isLoading', 'renderedNotebook', 'lastError'])
   },
   mounted() {
-    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
+    const isPublic = this.$route.query["contextRouteName"] === 'files-public-files'
+    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).slice(isPublic ? 1 : 0).join('/')}`
     this.loadFile({
       filePath: filePath,
       client: this.$client,
-      public: this.$route.query["contextRouteName"] === 'files-public-files',
+      public: isPublic,
       publicLinkPassword: this.publicLinkPassword
     })
   },

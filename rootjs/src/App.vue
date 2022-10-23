@@ -7,7 +7,7 @@
     <div class="oc-position-center" v-if="error">
       <oc-icon size="xxlarge" name="error-warning" fill-type="line" />
     </div>
-    <div class="oc-flex root-viewer" v-if="!loading">
+    <div class="oc-flex root-viewer">
       <div id="web-nav-sidebar" class="root-sidebar app-navigation oc-app-navigation-expanded">
         <select id="mode-select" v-model="viewMode" @change="renderViewer">
           <option v-for="item in items" :key="item" :value="item">
@@ -50,7 +50,7 @@ export default {
   },
   created() {
     this.isPublic = this.$route.query["contextRouteName"] === 'files-public-files'
-    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).join('/')}`
+    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).slice(this.isPublic ? 1 : 0).join('/')}`
     this.url = getFileUrl(this.$client, this.isPublic, filePath)
     this.viewMode = this.items[0]
   },
