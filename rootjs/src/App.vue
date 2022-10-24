@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main id="rootjs-main">
     <div class="oc-position-center" v-if="loading && !error">
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
@@ -88,10 +88,9 @@ export default {
 </script>
 
 <style>
-.app-container {
-  /* FIXME make app compatible with dark mode */
+#rootjs-main {
   background-color: white !important;
-}
+},
 .root-viewer {
   height: 100%;
 }
