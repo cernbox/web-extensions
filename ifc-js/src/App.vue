@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main id="ifc-main">
     <div class="oc-position-center" v-if="loading">
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
@@ -118,8 +118,7 @@ export default {
 </script>
 
 <style>
-.app-container {
-  /* FIXME make app compatible with dark mode */
+#ifc-main {
   background-color: white !important;
 }
 main {
