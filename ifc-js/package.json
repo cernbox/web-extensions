@@ -1,6 +1,6 @@
 {
   "name": "ifc-js",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "CERNBox web IFC.js integration",
   "license": "AGPL-3.0",
   "author": "CERNBox",
