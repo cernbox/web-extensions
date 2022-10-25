@@ -46,6 +46,54 @@
           "buttons": ["back", "next"]
         }
       ]
+    },
+
+    "fr": {
+      "tourName": "What's new?",
+      "tooltip": "Voir les nouvelles fonctionnalités du web",
+      "steps": [
+        {
+          "title": "Bienvenue sur le nouveau CERNBox !",
+          "text": "Découvrez les nouvelles fonctionnalités et essayez-les vous-même",
+          "buttons": ["retour"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/"
+        },
+        {
+          "title": "1. URL universelles",
+          "text": "<div><p>CERNBox, qui utilise le système de stockage EOS sous le capot, expose désormais son espace de noms complet. Cela signifie que la plupart de nos méthodes d'accès (à l'exception des clients mobiles, pour l'instant) ont une vue cohérente et plus intuitive.\r\n        </p><p><span class=\"guide-highlight\">https://new.cernbox.cern.ch/files/spaces<b>/eos/user/&lt;letter&gt;/&lt;username&gt;</b></span></p>\r\n        <p>Il est désormais possible de simplement copier votre URL et de la partager directement avec quelqu'un d'autre. Si cette personne a les autorisations, elle pourra l'ouvrir.\r\n        </p></div>",
+          "buttons": ["retour", "suivant"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/access/#universal-urls"
+        },
+        {
+          "title": "2. Partage de fichier unique",
+          "text": "<div><p>Désormais, il est possible de partager non seulement des dossiers, mais également des fichiers uniques en mode lecture et écriture !\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/sharing.png\"></img></div>",
+          "buttons": ["retour", "suivant"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/sharing/"
+        },
+        {
+          "title": "3. Écosystème d'applications amélioré",
+          "text": "<div><p>Le nouveau CERNBox intègre diverses applications/extensions de fichiers : Microsoft Office 365, CodiMD, Draw.io, éditeur de texte, visionneuse PDF, visionneuse IFC, visionneuse Jupyter, visionneuse racine, SWAN, visionneuse multimédia.\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/apps-context.png\"></img></div>",
+          "buttons": ["retour", "suivant"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/apps/"
+        },
+        {
+          "title": "4. Amélioration de l'intégration des projets",
+          "text": "<div><p>Maintenant, il est également possible de voir et de récupérer des fichiers de projets en faisant un clic droit sur un projet puis sur \"Ouvrir la corbeille\"\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/projects-trashbin.png\"></img></div>",
+          "buttons": ["retour", "suivant"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/projects/"
+        },
+        {
+          "title": "Comptes légers",
+          "text": "<div><p>Le nouveau CERNBox utilise le nouveau CERN SSO et permet désormais de se connecter avec d'autres comptes, comme social ou léger.\r\n        </p><p>Contrairement aux comptes CERN normaux, ceux-ci n'ont pas de stockage associé. Ils peuvent cependant collaborer sur des ressources partagées ou sur des projets.</p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/lightweight.png\"></img></div>",
+          "buttons": ["retour", "suivant"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/access/#accounts-supported"
+        },
+        {
+          "title": "Bientôt disponible",
+          "text": "<div><p>D'autres fonctionnalités arriveront dans les mois à venir :</p>\r\n        <oc-list><li>Intégrations avec d'autres services</li>\r\n        <li>Recherche améliorée</li>\r\n        <li>Audit et rapports/notifications</li>\r\n        <li>Interface utilisateur de restauration de sauvegarde</li></oc-list>\r\n        <p>Restez à l'écoute !</p></div>",
+          "buttons": ["retour", "suivant"]
+        }
+      ]
     }
   },
   "confirmCancel": false,
@@ -79,3 +127,4 @@
     "location": "files-spaces-personal"
   }
 }
+
