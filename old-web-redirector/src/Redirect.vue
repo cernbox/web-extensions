@@ -42,11 +42,14 @@ export default {
     const first = dir?.split('/').filter(Boolean)[0]
 
     if (isPublic) {
+      // FIXME this works for normal links, but when using a drop pl the UI is not the appropriate
+      // We need to check the pl info from the backend to decide where to send (we cannot use the /s url
+      // because that doesn't accept a path)
       console.log('Redirecting old url to public link')
       this.$router.push({
-        name: 'files-public-files',
+        name: 'files-public-link',
         params: {
-          item: `${this.$route.params.token}${this.$route.query.path || ''}`
+          driveAliasAndItem: `public/${this.$route.params.token}${this.$route.query.path || ''}`
         }
       })
     } else {
@@ -83,7 +86,7 @@ export default {
           console.log('Redirecting old url to projects view')
           // TODO change after moving to spaces
           this.$router.push({
-            name: 'files-common-projects'
+            name: 'files-spaces-projects'
           })
           break
 
@@ -100,10 +103,9 @@ export default {
               console.log('Redirecting old url to a share')
               const path = await this.getSharePath(dir, this.$client)
               this.$router.push({
-                name: path ? 'files-spaces-personal' : 'files-shares-with-me',
+                name: path ? 'files-spaces-generic' : 'files-shares-with-me',
                 params: {
-                  storageId: this.user.id,
-                  item: path
+                  driveAliasAndItem: path
                 }
               })
               break
@@ -112,10 +114,9 @@ export default {
             case '__myprojects':
               console.log('Redirecting old url a project')
               this.$router.push({
-                name: 'files-spaces-personal',
+                name: 'files-spaces-generic',
                 params: {
-                  storageId: this.user.id,
-                  item: this.getProjectPath(dir)
+                  driveAliasAndItem: this.getProjectPath(dir)
                 }
               })
               break
@@ -123,10 +124,9 @@ export default {
             default:
               console.log('Redirecting old url to home')
               this.$router.push({
-                name: 'files-spaces-personal',
+                name: 'files-spaces-generic',
                 params: {
-                  storageId: this.user.id,
-                  item: this.getHomePath(this.user.id, dir)
+                  driveAliasAndItem: this.getHomePath(this.user.id, dir)
                 }
               })
               break
@@ -137,14 +137,14 @@ export default {
   },
   methods: {
     getHomePath: (user, dir) => {
-      return `/eos/user/${user[0]}/${user}${dir}`
+      return `eos/user/${user[0]}/${user}${dir}`
     },
 
     getProjectPath: (dir) => {
       const elems = dir.split('/').filter(Boolean)
       const project = elems[1]
       const path = elems.slice(2).join('/')
-      return `/eos/project/${project[0]}/${project}/${path}`
+      return `eos/project/${project[0]}/${project}/${path}`
     },
 
     getSharePath: async (dir, client) => {

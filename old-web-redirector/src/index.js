@@ -7,7 +7,7 @@ const routes = [
     path: '/apps/files/',
     component: Redirect,
     meta: {
-      auth: true
+      authContext: 'user'
     }
   },
   {
@@ -15,7 +15,7 @@ const routes = [
     path: '/s/:token',
     component: Redirect,
     meta: {
-      auth: false
+      authContext: 'anonymous'
     }
   },
   {
@@ -23,7 +23,7 @@ const routes = [
     path: '*',
     component: Error,
     meta: {
-      auth: false
+      authContext: 'anonymous'
     }
   }
 ]
