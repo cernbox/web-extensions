@@ -1274,10 +1274,10 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-anser@^1.4.9:
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/anser/-/anser-1.4.10.tgz#befa3eddf282684bd03b63dcda3927aef8c2e35b"
-  integrity sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww==
+anser@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/anser/-/anser-2.1.1.tgz#8afae28d345424c82de89cc0e4d1348eb0c5af7c"
+  integrity sha512-nqLm4HxOTpeLOxcmB3QWmV5TcDFhW9y/fyQ+hivtDFcK4OQ+pQ5fzPnXHM1Mfcm0VkLtvVi1TCPr++Qy0Q/3EQ==
 
 ansi-colors@^4.1.1:
   version "4.1.3"
@@ -2079,7 +2079,7 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@8.3.0:
+commander@8.3.0, commander@^8.0.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
@@ -3484,7 +3484,7 @@ he@^1.1.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-highlight.js@^10.1.1:
+highlight.js@^10.7.3:
   version "10.7.3"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.7.3.tgz#697272e3991356e40c3cac566a74eef681756531"
   integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
@@ -3649,21 +3649,21 @@ invariant@^2.2.2:
   dependencies:
     loose-envify "^1.0.0"
 
-ipynb2html-core@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/ipynb2html-core/-/ipynb2html-core-0.3.0.tgz#05716fcb99934f05708b2c8cce0942cd943c7728"
-  integrity sha512-Yh0t7QYMoZgCNSQsnGx94YSi7uD4y8Uswd5gazoqbgtgRLchZB232GQkNA4SghXtiMpD945Z9cKy+UBovvkDPQ==
+ipynb2html-core@0.4.0-rc.1:
+  version "0.4.0-rc.1"
+  resolved "https://registry.yarnpkg.com/ipynb2html-core/-/ipynb2html-core-0.4.0-rc.1.tgz#5c66a13e6408c3ad044df7732aa5c18148de0f90"
+  integrity sha512-tQPOBLvOKl5rbyRIxcoPPS62hOO8NyeD2ATlyiB+w6q0v5Ic/8fvpWgW+V2NRnRGOFaVpDmi1mizQUw4OJfWIA==
 
-ipynb2html@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/ipynb2html/-/ipynb2html-0.3.0.tgz#4cb6a3c2f10cfe5c508af59d8274f8c12a97a953"
-  integrity sha512-ljySokCPjpEGa8U7yY7NSF+hV2BeuQU+T52cXzw9heQoiurc48DxFKrxGsHMYj41hTf/h1Wpr6EIOmDfTWIm3g==
+ipynb2html@0.4.0-rc.1:
+  version "0.4.0-rc.1"
+  resolved "https://registry.yarnpkg.com/ipynb2html/-/ipynb2html-0.4.0-rc.1.tgz#6873f630e34cf266047bda96585dc790f70abde8"
+  integrity sha512-/MW22YAC9HUb3LbvF0QIekU6X3G7ZT0dR1BhybMaOmW2kz28Si0MxZN/wAZfJGwO0XgfKOpLDMzpzA6FhsEpXA==
   dependencies:
-    anser "^1.4.9"
-    highlight.js "^10.1.1"
-    ipynb2html-core "0.3.0"
-    katex "^0.11.1"
-    marked "^1.0.0"
+    anser "^2.1.1"
+    highlight.js "^10.7.3"
+    ipynb2html-core "0.4.0-rc.1"
+    katex "^0.16.3"
+    marked "^4.1.1"
 
 is-accessor-descriptor@^0.1.6:
   version "0.1.6"
@@ -4989,12 +4989,12 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
-katex@^0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.11.1.tgz#df30ca40c565c9df01a466a00d53e079e84ffaa2"
-  integrity sha512-5oANDICCTX0NqYIyAiFCCwjQ7ERu3DQG2JFHLbYOf+fXaMoH8eg/zOq5WSYJsKMi/QebW+Eh3gSM+oss1H/bww==
+katex@^0.16.3:
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.3.tgz#29640560b8fa0403e45f3aa20da5fdbb6d2b83a8"
+  integrity sha512-3EykQddareoRmbtNiNEDgl3IGjryyrp2eg/25fHDEnlHymIDi33bptkMv6K4EOC2LZCybLW/ZkEo6Le+EM9pmA==
   dependencies:
-    commander "^2.19.0"
+    commander "^8.0.0"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
@@ -5317,10 +5317,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@^1.0.0:
-  version "1.2.9"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-1.2.9.tgz#53786f8b05d4c01a2a5a76b7d1ec9943d29d72dc"
-  integrity sha512-H8lIX2SvyitGX+TRdtS06m1jHMijKN/XjfH6Ooii9fvxMlh8QdqBfBDkGUpMWH2kQNrtixjzYUa3SH8ROTgRRw==
+marked@^4.1.1:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.2.2.tgz#1d2075ad6cdfe42e651ac221c32d949a26c0672a"
+  integrity sha512-JjBTFTAvuTgANXx82a5vzK9JLSMoV6V3LBVn4Uhdso6t7vXrGx7g1Cd2r6NYSsxrYbQGFCMqBDhFHyK5q2UvcQ==
 
 md5.js@^1.3.4:
   version "1.3.5"

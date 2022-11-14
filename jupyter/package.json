@@ -39,7 +39,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-vue": "^7.13.0",
     "eslint-plugin-vuejs-accessibility": "^0.7.1",
-    "ipynb2html": "^0.3.0",
+    "ipynb2html": "0.4.0-rc.1",
     "jest": "^26.6.3",
     "jest-axe": "^4.1.0",
     "jest-fetch-mock": "^3.0.3",
