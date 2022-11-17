@@ -90,7 +90,7 @@ export default {
 <style>
 #rootjs-main {
   background-color: white !important;
-},
+}
 .root-viewer {
   height: 100%;
 }
