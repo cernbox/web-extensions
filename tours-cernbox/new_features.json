@@ -111,20 +111,20 @@
   },
   "exitOnEsc": true,
   "allowedLocations": [
-    "files-spaces-personal",
+    "files-spaces-generic",
     "files-common-favorites",
     "files-shares-with-me",
     "files-shares-with-others",
     "files-shares-via-link",
-    "files-trash-personal",
-    "files-common-projects"
+    "files-trash-generic",
+    "files-spaces-projects"
   ],
   "deniedLocations": [],
   "useModalOverlay": true,
   "tourId": "New Features",
   "autostart": {
     "timeout": 3000,
-    "location": "files-spaces-personal"
+    "location": "files-spaces-generic"
   }
 }
 
