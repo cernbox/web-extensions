@@ -14,7 +14,7 @@
     <div v-else>
       <oc-button id="toursButton" v-oc-tooltip="toursTooltip" size="small">
         <oc-icon name="map" />
-        <translate>Tours</translate> </oc-button
+        <span v-translate>Tours</span> </oc-button
       ><oc-drop
         ref="menu"
         drop-id="tours"
