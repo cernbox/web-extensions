@@ -13,6 +13,7 @@ import copy from 'rollup-plugin-copy-watch'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 import svg from 'rollup-plugin-svg'
+import typescript from 'rollup-plugin-typescript2';
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -45,6 +46,7 @@ const plugins = [
   json(),
   //embedCSS(),
   styles(),
+  typescript(),
   globals(),
   builtins(),
   production && terser(),

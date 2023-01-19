@@ -8,6 +8,7 @@
   "type": "module",
   "homepage": "https://github.com/cernbox/web-extensions",
   "scripts": {
+    "preinstall": "npx only-allow pnpm", 
     "lint": "eslint 'src/**/*.{js,vue}' --color",
     "build": "rollup -c",
     "watch": "rollup -c -w",
@@ -64,10 +65,12 @@
     "vuex": "^4.1.0"
   },
   "dependencies": {
-    "web": "cernbox/web#diogo",
     "@vue/compat": "^3.1.0-0",
-    "vue": "^3.1.0-0",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "sass": "^1.57.1",
     "three": "^0.134.0",
+    "vue": "^3.1.0-0",
+    "web": "github:cernbox/web#rebase_new",
     "web-ifc-three": "^0.0.75"
   }
 }

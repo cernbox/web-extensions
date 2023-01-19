@@ -24,10 +24,11 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { IFCLoader } from 'web-ifc-three/IFCLoader'
 import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
-import { OpenFileBar } from "web/packages/web-pkg/src/portals/OpenFileBar.vue'"
+import { OpenFileBar } from "web/packages/web-pkg/src/portals/OpenFileBar.vue"
 import { useAppDefaults} from 'web/packages/web-pkg/src/composables'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'IFCViewer',
   components: {
     OpenFileBar
@@ -130,7 +131,7 @@ export default {
       })
     }
   }
-}
+})
 </script>
 
 <style>
