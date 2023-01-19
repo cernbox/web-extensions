@@ -1,5 +1,6 @@
 <template>
   <main id="ifc-main">
+    <open-file-bar :resource="resource" @close="closeApp"/>
     <div class="oc-position-center" v-if="loading">
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
@@ -20,27 +21,42 @@ import {
   Scene,
   WebGLRenderer
 } from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { IFCLoader } from 'web-ifc-three/IFCLoader'
 import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
+import { OpenFileBar } from "web/packages/web-pkg/src/portals/OpenFileBar.vue'"
+import { useAppDefaults} from 'web/packages/web-pkg/src/composables'
 
 export default {
   name: 'IFCViewer',
+  components: {
+    OpenFileBar
+  },
   data() {
     return {
       loading: true,
       camera: null,
       scene: null,
       renderer: null,
-      controls: null
+      controls: null,
+      resource: null
     }
   },
-  mounted() {
+  setup(){
+    return {
+      ...useAppDefaults({
+        applicationId: 'preview'
+      }),
+  }
+},
+  async mounted() {
     this.init()
     this.addGrid()
     this.addAxes()
     this.addIFCModel()
     this.animate()
+    this.resource = await this.getFileInfo(this.currentFileContext)
+    console.log("ifc resource", this.resource)
   },
   computed: {
   ...mapGetters('runtime/auth', ['publicLinkPassword', 'accessToken']),

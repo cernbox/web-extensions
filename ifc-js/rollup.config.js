@@ -1,13 +1,14 @@
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
 import gzip from 'rollup-plugin-gzip'
-import resolve from 'rollup-plugin-node-resolve'
+import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from 'rollup-plugin-babel'
 import json from '@rollup/plugin-json'
 import builtins from '@erquhart/rollup-plugin-node-builtins'
 import globals from 'rollup-plugin-node-globals'
-import embedCSS from 'rollup-plugin-embed-css'
+//import embedCSS from 'rollup-plugin-embed-css'
+import styles from "rollup-plugin-styles"
 import copy from 'rollup-plugin-copy-watch'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
@@ -42,7 +43,8 @@ const plugins = [
     ]
   }),
   json(),
-  embedCSS(),
+  //embedCSS(),
+  styles(),
   globals(),
   builtins(),
   production && terser(),
