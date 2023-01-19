@@ -16,7 +16,7 @@
         ><li class="oc-menu-item-hover">
           <oc-button type="a" appearance="raw" href="https://cernbox.docs.cern.ch/" target="_blanc">
             <oc-icon :name="'book-2'" fill-type="line" class="oc-p-xs" />
-            <translate>CERNBox documentation</translate>
+            <span v-translate>CERNBox documentation</span>
           </oc-button>
         </li>
         <li class="oc-menu-item-hover">
@@ -27,7 +27,7 @@
             target="_blanc"
           >
             <oc-icon :name="'feedback'" fill-type="line" class="oc-p-xs" />
-            <translate>Give us feedback</translate>
+            <span v-translate>Give us feedback</span>
           </oc-button>
         </li>
         <li class="oc-menu-item-hover">
@@ -38,7 +38,7 @@
             target="_blanc"
           >
             <oc-icon :name="'questionnaire'" fill-type="line" class="oc-p-xs" />
-            <translate>Open support ticket</translate>
+            <span v-translate>Open support ticket</span>
           </oc-button>
         </li>
         <li class="oc-menu-item-hover">
@@ -49,7 +49,7 @@
             target="_blanc"
           >
             <oc-icon :name="'computer'" fill-type="line" class="oc-p-xs" />
-            <translate>CERNBOX clients</translate>
+            <span v-translate>CERNBOX clients</span>
           </oc-button>
         </li>
       </oc-list>
