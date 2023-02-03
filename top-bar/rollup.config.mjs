@@ -7,9 +7,10 @@ import babel from 'rollup-plugin-babel'
 import json from '@rollup/plugin-json'
 import builtins from '@erquhart/rollup-plugin-node-builtins'
 import globals from 'rollup-plugin-node-globals'
-import svg from 'rollup-plugin-svg'
+import postcss from 'rollup-plugin-postcss'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
+import svg from 'rollup-plugin-svg'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -35,6 +36,7 @@ const plugins = [
     include: 'node_modules/**'
   }),
   json(),
+  postcss(),
   globals(),
   builtins(),
   production && terser(),
@@ -49,7 +51,7 @@ if (process.env.SERVER === 'true') {
     serve({
       host: '0.0.0.0',
       contentBase: ['dist'],
-      port: process.env.PORT || 9103
+      port: process.env.PORT || 9102
     })
   )
   plugins.push(
@@ -62,7 +64,7 @@ if (process.env.SERVER === 'true') {
 export default {
   input: 'src/index.js',
   output: {
-    file: 'dist/main.js',
+    file: '../../web/dist/js/app.js',
     format: 'amd',
     sourcemap: production
   },

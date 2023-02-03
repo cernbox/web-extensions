@@ -7,7 +7,7 @@ import babel from 'rollup-plugin-babel'
 import json from '@rollup/plugin-json'
 import builtins from '@erquhart/rollup-plugin-node-builtins'
 import globals from 'rollup-plugin-node-globals'
-import embedCSS from 'rollup-plugin-embed-css'
+import postcss from 'rollup-plugin-postcss'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 import svg from 'rollup-plugin-svg'
@@ -36,7 +36,7 @@ const plugins = [
     include: 'node_modules/**'
   }),
   json(),
-  embedCSS(),
+  postcss(),
   globals(),
   builtins(),
   production && terser(),

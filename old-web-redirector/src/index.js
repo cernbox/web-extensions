@@ -30,7 +30,7 @@ const routes = [
 
 const appInfo = {
   name: 'Redirector',
-  id: 'index.php'
+  id: 'index2.php'
 }
 
 export default {

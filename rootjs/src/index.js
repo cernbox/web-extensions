@@ -6,12 +6,12 @@ const name = 'ROOT Viewer'
 const routes = [
   {
     name: 'view',
-    path: '/:filePath*',
+    path: '/:driveAliasAndItem(.*)?',
     component: App,
     meta: {
+      authContext: 'hybrid',
       title: name,
-      patchCleanPath: true,
-      auth: false
+      patchCleanPath: true
     }
   }
 ]

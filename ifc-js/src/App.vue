@@ -27,12 +27,14 @@ import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
 export default {
   name: 'IFCViewer',
   data() {
+    // Do not declare the internal values, otherwise Vue3 conflicts
+    //https://stackoverflow.com/questions/65693108/threejs-component-working-in-vuejs-2-but-not-3
     return {
       loading: true,
-      camera: null,
-      scene: null,
-      renderer: null,
-      controls: null
+      // camera: null,
+      // scene: null,
+      // renderer: null,
+      // controls: null
     }
   },
   mounted() {
@@ -90,7 +92,7 @@ export default {
       requestAnimationFrame(this.animate)
     },
     addIFCModel: function () {
-      const isPublic = this.$route.query["contextRouteName"] === 'files-public-files'
+      const isPublic = this.$route.query["contextRouteName"].includes('public')
       const ifcLoader = new IFCLoader()
       // FIXME hack to load the wasm... should not be needed
       ifcLoader.ifcManager.setWasmPath(
@@ -98,7 +100,7 @@ export default {
       )
       const headers = getHeadersWithAuth(isPublic, this.accessToken, this.publicLinkPassword)
       ifcLoader.setRequestHeader(headers)
-      const filePath = `/${this.$route.params.filePath
+      const filePath = `/${this.$route.params.driveAliasAndItem
         .split('/')
         .filter(Boolean)
         .slice(isPublic ? 1 : 0)

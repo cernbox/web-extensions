@@ -8,7 +8,7 @@ const appInfo = {
     {
       extension: 'ipynb',
       handler: (info) => {
-        const path = `/${info.filePath.split('/')
+        const path = `/${info.driveAliasAndItem.split('/')
         .filter(Boolean)
         .join('/')}`
 

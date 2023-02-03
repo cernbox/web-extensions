@@ -9,6 +9,7 @@
     </div>
     <div class="oc-flex root-viewer">
       <div id="web-nav-sidebar" class="root-sidebar app-navigation oc-app-navigation-expanded">
+        <p>DIOGO {{ items }}</p>
         <select id="mode-select" v-model="viewMode" @change="renderViewer">
           <option v-for="item in items" :key="item" :value="item">
             {{ item }}
@@ -49,8 +50,8 @@ export default {
     }
   },
   created() {
-    this.isPublic = this.$route.query["contextRouteName"] === 'files-public-files'
-    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).slice(this.isPublic ? 1 : 0).join('/')}`
+    this.isPublic = this.$route.query["contextRouteName"].includes('public')
+    const filePath = `/${this.$route.params.driveAliasAndItem.split('/').filter(Boolean).slice(this.isPublic ? 1 : 0).join('/')}`
     this.url = getFileUrl(this.$client, this.isPublic, filePath)
     this.viewMode = this.items[0]
   },

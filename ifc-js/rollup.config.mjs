@@ -7,8 +7,11 @@ import babel from 'rollup-plugin-babel'
 import json from '@rollup/plugin-json'
 import builtins from '@erquhart/rollup-plugin-node-builtins'
 import globals from 'rollup-plugin-node-globals'
+import postcss from 'rollup-plugin-postcss'
+import copy from 'rollup-plugin-copy-watch'
 import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
+import svg from 'rollup-plugin-svg'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -33,11 +36,20 @@ const plugins = [
   commonjs({
     include: 'node_modules/**'
   }),
+  copy({
+    targets: [
+      { src: 'node_modules/web-ifc/web-ifc.wasm', dest: 'dist' }
+    ]
+  }),
   json(),
+  postcss(),
   globals(),
   builtins(),
   production && terser(),
-  gzip()
+  gzip(),
+  svg({
+    base64: true
+  })
 ]
 
 if (process.env.SERVER === 'true') {
@@ -45,7 +57,7 @@ if (process.env.SERVER === 'true') {
     serve({
       host: '0.0.0.0',
       contentBase: ['dist'],
-      port: process.env.PORT || 9102
+      port: process.env.PORT || 9101
     })
   )
   plugins.push(

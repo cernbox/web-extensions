@@ -1,14 +1,14 @@
 <template>
   <main id="jupyter">
-    <div class="oc-position-center" v-if="isLoading">
+    <div class="oc-position-center" v-if="lastError">
+      <oc-icon size="xxlarge" name="error-warning" fill-type="line" />
+      <p class="oc-text-lead">{{ lastError }}</p>
+    </div>
+    <div class="oc-position-center" v-else-if="isLoading">
       <oc-spinner size="xlarge" />
       <p v-translate class="oc-invisible">Loading app</p>
     </div>
-    <div class="oc-position-center" v-if="lastError">
-      <oc-icon size="xxlarge" name="error-warning" fill-type="line" />
-      <p v-if="message" class="oc-text-lead">{{ lastError }}</p>
-    </div>
-    <div class="oc-container oc-width-1-1" v-if="!isLoading">
+    <div class="oc-container oc-width-1-1" v-else>
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div id="notebook">
         <div id="notebook-container" class="container" v-html="renderedNotebook"></div>
@@ -27,8 +27,8 @@ export default {
     ...mapGetters('Jupyter Viewer', ['isLoading', 'renderedNotebook', 'lastError'])
   },
   mounted() {
-    const isPublic = this.$route.query["contextRouteName"] === 'files-public-files'
-    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).slice(isPublic ? 1 : 0).join('/')}`
+    const isPublic = this.$route.query["contextRouteName"].includes('public')
+    const filePath = `/${this.$route.params.driveAliasAndItem.split('/').filter(Boolean).slice(isPublic ? 1 : 0).join('/')}`
     this.loadFile({
       filePath: filePath,
       client: this.$client,
@@ -37,7 +37,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('Jupyter Viewer', ['loadFile', 'clearLastError'])
+    ...mapActions('Jupyter Viewer', ['loadFile'])
   }
 }
 </script>
