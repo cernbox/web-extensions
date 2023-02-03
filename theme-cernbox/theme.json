@@ -23,7 +23,7 @@
         "background-secondary": "#ffffff",
         "background-hover": "#f8f8f8",
         "border": "",
-        "input-bg": "",
+        "input-bg": "#f0f4f8",
         "input-border": "",
         "input-text-default": "",
         "input-text-muted": "",
