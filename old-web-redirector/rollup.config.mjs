@@ -58,7 +58,7 @@ if (process.env.SERVER === 'true') {
 export default {
   input: 'src/index.js',
   output: {
-    file: '../../web/dist/js/app.js',
+    file: 'dist/main.js',
     format: 'amd',
     sourcemap: production
   },
