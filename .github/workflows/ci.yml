@@ -20,9 +20,14 @@ jobs:
         echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
 
     - name: Install node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: 14
+    - uses: pnpm/action-setup@v2
+      name: Install pnpm
+      id: pnpm-install
+      with:
+        version: 7
 
     - name: Build
       run: |

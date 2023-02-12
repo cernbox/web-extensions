@@ -14,7 +14,7 @@
     >
       <oc-list
         ><li class="oc-menu-item-hover">
-          <oc-button type="a" appearance="raw" href="https://cernbox.docs.cern.ch/" target="_blanc">
+          <oc-button type="a" appearance="raw" href="https://cernbox.docs.cern.ch/" target="_blank">
             <oc-icon :name="'book-2'" fill-type="line" class="oc-p-xs" />
             <span v-translate>CERNBox documentation</span>
           </oc-button>
@@ -24,7 +24,7 @@
             type="a"
             appearance="raw"
             href="https://cern.service-now.com/service-portal?id=sc_cat_item&name=cernbox-feedback&se=CERNBox-Service&cernbox_service_instance=Production"
-            target="_blanc"
+            target="_blank"
           >
             <oc-icon :name="'feedback'" fill-type="line" class="oc-p-xs" />
             <span v-translate>Give us feedback</span>
@@ -35,7 +35,7 @@
             type="a"
             appearance="raw"
             href="https://cern.service-now.com/service-portal?id=service_element&name=CERNBox-Service"
-            target="_blanc"
+            target="_blank"
           >
             <oc-icon :name="'questionnaire'" fill-type="line" class="oc-p-xs" />
             <span v-translate>Open support ticket</span>
@@ -46,7 +46,7 @@
             type="a"
             appearance="raw"
             href="https://cernbox.web.cern.ch/cernbox/downloads/"
-            target="_blanc"
+            target="_blank"
           >
             <oc-icon :name="'computer'" fill-type="line" class="oc-p-xs" />
             <span v-translate>CERNBOX clients</span>

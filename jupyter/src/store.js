@@ -10,7 +10,7 @@ import * as ipynb2html from 'ipynb2html'
 const namespaced = true
 
 const state = {
-  loading: false,
+  loading: true,
   currentFile: '',
   lastError: null,
   notebook: null,
@@ -18,14 +18,12 @@ const state = {
 }
 
 const actions = {
-  clearLastError({ commit }) {
-    commit('ERROR', '')
-  },
   loadFile({ commit }, payload) {
     const filePath = getFilePath(commit, payload.public, payload.filePath, payload.publicLinkPassword)
     const client = payload.client
 
     commit('LOADING', true)
+    commit('ERROR', null)
     commit('CURRENT_FILE', filePath)
     getContents(state, client)
       .then((resp) => {

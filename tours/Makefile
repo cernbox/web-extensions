@@ -6,8 +6,8 @@ clean:
 	rm -rf dist release node_modules
 
 dist:
-	yarn install
-	yarn build
+	pnpm install
+	pnpm build
 
 release/$(NAME).tar.gz: dist
 	mkdir -p release

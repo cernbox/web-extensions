@@ -129,7 +129,7 @@ const getHeadersWithAuth = (isPublic, token, publicLinkPassword) => {
 }
 
 const webdavPath = (path) => {
-  const user = window.Vue.$store.state.user.id
+  const user = window.__$store.state.user.id
   return `files/${user}/${path}`
 }
 
