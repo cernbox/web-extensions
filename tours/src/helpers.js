@@ -25,33 +25,41 @@ export const loadTours = async (locations = []) => {
 }
 /* autostarts the first tour of the tours array with autostart property if the current location matches tour settings for autostart */
 export async function autostartTours(tourInfos, location, token, userId) {
+
+  if (Shepherd.activeTour) {
+    return
+  }
+
   const autostartTours = tourInfos.filter((t) => t.autostart?.location === location)
   if (autostartTours[0]) {
     const t = autostartTours[0]
 
-    let autostartDone = false
+    if (location !== t.autostart.location) {
+      return
+    }
 
-    if (localStorage.getItem('tours/' + t.tourId)) autostartDone = true
-    else if (await isTourAutostartDone(t.tourId, token, userId)) {
+    if (localStorage.getItem('tours/' + t.tourId)) {
+      return
+    }
+
+    const tourDone = await isTourAutostartDone(t.tourId, token, userId)
+    if (tourDone) {
       localStorage.setItem('tours/' + t.tourId, 'true')
-      autostartDone = true
+      return
     }
 
-    // check if autostart not runs already, preference for autostart of the tour exists and location is correct
-    if (!Shepherd.activeTour && !autostartDone && location === t.autostart.location) {
-      // save preference and start the tour
-      saveTourAutostart(t.tourId, token, userId)
-        .then(() => {
-          setTimeout(() => {
-            // save autostart event to local storage to prevent multiple autostarts at opening the app
-            if (!(localStorage.getItem('tours/' + t.tourId) && location === t.autostart.location)) {
-              createTranslatedTour(t).start()
-              localStorage.setItem('tours/' + t.tourId, 'true')
-            }
-          }, t.autostart.timeout)
-        })
-        .catch((err) => console.log(err))
-    }
+    // save preference and start the tour
+    saveTourAutostart(t.tourId, token, userId)
+      .then(() => {
+        setTimeout(() => {
+          // save autostart event to local storage to prevent multiple autostarts at opening the app
+          if (!(localStorage.getItem('tours/' + t.tourId) && location === t.autostart.location)) {
+            createTranslatedTour(t).start()
+            localStorage.setItem('tours/' + t.tourId, 'true')
+          }
+        }, t.autostart.timeout)
+      })
+      .catch((err) => console.log(err))
   }
 }
 
@@ -81,24 +89,29 @@ async function isTourAutostartDone(tourId, token, userId) {
   headers.append('Authorization', 'Bearer ' + token)
   headers.append('X-Requested-With', 'XMLHttpRequest')
 
-  const response = await fetch(
-    '/preferences?' +
-      new URLSearchParams({
-        key: tourId,
-        ns: userId
-      }),
-    {
-      method: 'GET',
-      headers
-    }
-  )
+  try {
+    const response = await fetch(
+      '/preferences?' +
+        new URLSearchParams({
+          key: tourId,
+          ns: userId
+        }),
+      {
+        method: 'GET',
+        headers
+      }
+    )
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return false
+    }
+
+    const data = await response.json()
+    return data.value
+  } catch (error) {
+    console.error(error)
     return false
   }
-
-  const data = await response.json()
-  return data.value
 }
 
 export function createTranslatedTourInfos(tours) {

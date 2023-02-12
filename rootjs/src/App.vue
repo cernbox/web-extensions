@@ -49,8 +49,8 @@ export default {
     }
   },
   created() {
-    this.isPublic = this.$route.query["contextRouteName"] === 'files-public-files'
-    const filePath = `/${this.$route.params.filePath.split('/').filter(Boolean).slice(this.isPublic ? 1 : 0).join('/')}`
+    this.isPublic = this.$route.query["contextRouteName"].includes('public')
+    const filePath = `/${this.$route.params.driveAliasAndItem.split('/').filter(Boolean).slice(this.isPublic ? 1 : 0).join('/')}`
     this.url = getFileUrl(this.$client, this.isPublic, filePath)
     this.viewMode = this.items[0]
   },

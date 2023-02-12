@@ -1,17 +1,20 @@
 import App from './App.vue'
-import logo from './img/logo.svg'
+import { encode } from 'js-base64'
+import logo from './img/logo.svg?raw'
 
 const name = 'ROOT Viewer'
+
+const svg = `data:image/svg+xml;base64,${encode(logo)}`
 
 const routes = [
   {
     name: 'view',
-    path: '/:filePath*',
+    path: '/:driveAliasAndItem(.*)?',
     component: App,
     meta: {
+      authContext: 'hybrid',
       title: name,
-      patchCleanPath: true,
-      auth: false
+      patchCleanPath: true
     }
   }
 ]
@@ -19,7 +22,7 @@ const routes = [
 const appInfo = {
   name: name,
   id: 'rootjs',
-  img: logo,
+  img: svg,
   extensions: [
     {
       extension: 'root',

@@ -1,14 +1,17 @@
-import logo from './img/logo-swan.svg'
+import logo from './img/logo-swan.svg?raw'
+import { encode } from 'js-base64'
+
+const svg = `data:image/svg+xml;base64,${encode(logo)}`
 
 const appInfo = {
   name: 'SWAN',
   id: 'open-in-swan',
-  img: logo,
+  img: svg,
   extensions: [
     {
       extension: 'ipynb',
       handler: (info) => {
-        const path = `/${info.filePath.split('/')
+        const path = `/${info.driveAliasAndItem.split('/')
         .filter(Boolean)
         .join('/')}`
 

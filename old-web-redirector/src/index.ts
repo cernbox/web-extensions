@@ -20,7 +20,7 @@ const routes = [
   },
   {
     name: 'error',
-    path: '*',
+    path: '/*',
     component: Error,
     meta: {
       authContext: 'anonymous'
