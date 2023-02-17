@@ -2,12 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ownclouders/eslint-config': 0.0.1
-  '@ownclouders/extension-sdk': file:../../web/packages/extension-sdk
+  '@ownclouders/extension-sdk': file:../temp-extension-sdk
   '@ownclouders/prettier-config': 0.0.1
   '@ownclouders/tsconfig': 0.0.4
   '@vitejs/plugin-vue': 4.0.0
   eslint: 8.31.0
-  js-base64: ^3.7.5
   prettier: 2.6.2
   sass: 1.58.0
   typescript: ~4.9.5
@@ -16,12 +15,11 @@ specifiers:
 
 devDependencies:
   '@ownclouders/eslint-config': 0.0.1_eslint@8.31.0
-  '@ownclouders/extension-sdk': file:../../web/packages/extension-sdk_6x3rzv5pigev5qtyqxczgau524
+  '@ownclouders/extension-sdk': file:../temp-extension-sdk_6x3rzv5pigev5qtyqxczgau524
   '@ownclouders/prettier-config': 0.0.1
   '@ownclouders/tsconfig': 0.0.4
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
   eslint: 8.31.0
-  js-base64: 3.7.5
   prettier: 2.6.2
   sass: 1.58.0
   typescript: 4.9.5
@@ -1766,10 +1764,6 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /js-base64/3.7.5:
-    resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
-    dev: true
-
   /js-sdsl/4.3.0:
     resolution: {integrity: sha512-mifzlm2+5nZ+lEcLJMoBK0/IH/bDg8XnJfd/Wq6IP+xoCjLZsTOnV2QpxlVbX9bMnkl5PdEjNtBJ9Cj1NjifhQ==}
     dev: true
@@ -2477,11 +2471,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  file:../../web/packages/extension-sdk_6x3rzv5pigev5qtyqxczgau524:
-    resolution: {directory: ../../web/packages/extension-sdk, type: directory}
-    id: file:../../web/packages/extension-sdk
+  file:../temp-extension-sdk_6x3rzv5pigev5qtyqxczgau524:
+    resolution: {directory: ../temp-extension-sdk, type: directory}
+    id: file:../temp-extension-sdk
     name: '@ownclouders/extension-sdk'
-    version: 0.0.1
+    version: 0.0.1-alpha.1
     peerDependencies:
       sass: 1.58.0
       vite: ^4.1.1
