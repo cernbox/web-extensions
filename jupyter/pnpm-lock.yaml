@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ownclouders/eslint-config': 0.0.1
-  '@ownclouders/extension-sdk': file:../../web/packages/extension-sdk
+  '@ownclouders/extension-sdk': file:../temp-extension-sdk
   '@ownclouders/prettier-config': 0.0.1
   '@ownclouders/tsconfig': 0.0.4
   '@vitejs/plugin-vue': 4.0.0
@@ -22,7 +22,7 @@ dependencies:
 
 devDependencies:
   '@ownclouders/eslint-config': 0.0.1_eslint@8.31.0
-  '@ownclouders/extension-sdk': file:../../web/packages/extension-sdk_6x3rzv5pigev5qtyqxczgau524
+  '@ownclouders/extension-sdk': file:../temp-extension-sdk_6x3rzv5pigev5qtyqxczgau524
   '@ownclouders/prettier-config': 0.0.1
   '@ownclouders/tsconfig': 0.0.4
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
@@ -2532,11 +2532,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  file:../../web/packages/extension-sdk_6x3rzv5pigev5qtyqxczgau524:
-    resolution: {directory: ../../web/packages/extension-sdk, type: directory}
-    id: file:../../web/packages/extension-sdk
+  file:../temp-extension-sdk_6x3rzv5pigev5qtyqxczgau524:
+    resolution: {directory: ../temp-extension-sdk, type: directory}
+    id: file:../temp-extension-sdk
     name: '@ownclouders/extension-sdk'
-    version: 0.0.1
+    version: 0.0.1-alpha.1
     peerDependencies:
       sass: 1.58.0
       vite: ^4.1.1
