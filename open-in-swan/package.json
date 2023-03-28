@@ -24,7 +24,7 @@
   ],
   "devDependencies": {
     "@ownclouders/eslint-config": "0.0.1",
-    "@ownclouders/extension-sdk": "file:../temp-extension-sdk",
+    "@ownclouders/extension-sdk": "0.0.1-alpha.1",
     "@ownclouders/prettier-config": "0.0.1",
     "@ownclouders/tsconfig": "0.0.4",
     "@vitejs/plugin-vue": "4.0.0",

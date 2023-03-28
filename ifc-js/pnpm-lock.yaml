@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ownclouders/eslint-config': 0.0.1
-  '@ownclouders/extension-sdk': file:../temp-extension-sdk
+  '@ownclouders/extension-sdk': 0.0.1-alpha.1
   '@ownclouders/prettier-config': 0.0.1
   '@ownclouders/tsconfig': 0.0.4
   '@vitejs/plugin-vue': 4.0.0
@@ -23,7 +23,7 @@ dependencies:
 
 devDependencies:
   '@ownclouders/eslint-config': 0.0.1_eslint@8.31.0
-  '@ownclouders/extension-sdk': file:../temp-extension-sdk_6x3rzv5pigev5qtyqxczgau524
+  '@ownclouders/extension-sdk': 0.0.1-alpha.1_6x3rzv5pigev5qtyqxczgau524
   '@ownclouders/prettier-config': 0.0.1
   '@ownclouders/tsconfig': 0.0.4
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
@@ -367,6 +367,21 @@ packages:
       - eslint-plugin-n
       - jest
       - supports-color
+    dev: true
+
+  /@ownclouders/extension-sdk/0.0.1-alpha.1_6x3rzv5pigev5qtyqxczgau524:
+    resolution: {integrity: sha512-1jRwXaE7V368ybLuhtZ4uMxSsGWidy9rAcn8gVnEXYAJEwnHDQhQ3tS9vViOpu/hpzgWP1S4jmbo8PyPyWyQ/w==}
+    peerDependencies:
+      sass: 1.58.0
+      vite: ^4.1.1
+    dependencies:
+      '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
+      rollup-plugin-node-polyfills: 0.2.1
+      rollup-plugin-serve: 2.0.2
+      sass: 1.58.0
+      vite: 4.1.1_sass@1.58.0
+    transitivePeerDependencies:
+      - vue
     dev: true
 
   /@ownclouders/prettier-config/0.0.1:
@@ -2553,22 +2568,4 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  file:../temp-extension-sdk_6x3rzv5pigev5qtyqxczgau524:
-    resolution: {directory: ../temp-extension-sdk, type: directory}
-    id: file:../temp-extension-sdk
-    name: '@ownclouders/extension-sdk'
-    version: 0.0.1-alpha.1
-    peerDependencies:
-      sass: 1.58.0
-      vite: ^4.1.1
-    dependencies:
-      '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
-      rollup-plugin-node-polyfills: 0.2.1
-      rollup-plugin-serve: 2.0.2
-      sass: 1.58.0
-      vite: 4.1.1_sass@1.58.0
-    transitivePeerDependencies:
-      - vue
     dev: true
