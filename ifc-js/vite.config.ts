@@ -12,8 +12,7 @@ export default defineConfig({
   },
   plugins: [
     viteStaticCopy({
-      targets: [{ src: 'node_modules/web-ifc/web-ifc.wasm', dest: './' }]
+      targets: [{ src: 'node_modules/web-ifc-three/web-ifc.wasm', dest: './' }]
     })
-
   ]
 })
