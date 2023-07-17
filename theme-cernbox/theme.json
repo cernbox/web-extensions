@@ -1,5 +1,6 @@
 {
   "default": {
+    "theme-name": "Default light",
     "general": {
       "name": "CERNBox",
       "slogan": "CERNBox – The CERN Cloud Storage"
@@ -80,6 +81,7 @@
     }
   },
   "default-dark": {
+    "theme-name": "Default dark",
     "general": {
       "name": "CERNBox",
       "slogan": "CERNBox – The CERN Cloud Storage"
@@ -141,6 +143,187 @@
         "text-default": "#c2c2c2",
         "text-inverse": "#000000",
         "text-muted": "#696969",
+        "icon-folder": "#4d7eaf",
+        "icon-archive": "rgb(255, 207, 1)",
+        "icon-image": "rgb(255, 111, 0)",
+        "icon-spreadsheet": "rgb(0, 182, 87)",
+        "icon-document": "rgb(44, 101, 255)",
+        "icon-video": "rgb(0, 187, 219)",
+        "icon-audio": "rgb(208, 67, 236)",
+        "icon-presentation": "rgb(255, 64, 6)",
+        "icon-pdf": "rgb(225, 5, 14)"
+      },
+      "fontSizes": {
+        "default": "",
+        "large": "",
+        "medium": ""
+      },
+      "sizes": {
+        "form-check-default": "",
+        "height-small": "",
+        "height-table-row": "",
+        "icon-default": "",
+        "max-height-logo": "",
+        "max-width-logo": "",
+        "width-medium": ""
+      },
+      "spacing": {
+        "xsmall": "",
+        "small": "",
+        "medium": "",
+        "large": "",
+        "xlarge": "",
+        "xxlarge": ""
+      }
+    }
+  },
+  "high-contrast-light": {
+    "theme-name": "High contrast light",
+    "general": {
+      "name": "CERNBox",
+      "slogan": "CERNBox – The CERN Cloud Storage"
+    },
+    "logo": {
+      "topbar": "cernbox/theme-cernbox/assets/cernbox-lrg.svg",
+      "favicon": "cernbox/theme-cernbox/assets/cernbox-abstract.svg",
+      "login": "cernbox/theme-cernbox/assets/cernbox-lrg.svg",
+      "notFound": "themes/owncloud/assets/cloud.svg"
+    },
+    "loginPage": {
+      "autoRedirect": true,
+      "backgroundImg": "cernbox/theme-cernbox/assets/loginBackground.png"
+    },
+    "designTokens": {
+      "colorPalette": {
+        "background-accentuate": "#0f4b82",
+        "background-default": "#ffffff",
+        "background-highlight": "#edf3fa",
+        "background-muted": "#e2e2e2",
+        "background-secondary": "#f8f8f8",
+        "background-hover": "#f0f0f0",
+        "border": "#383838",
+        "input-bg": "#f0f4f8",
+        "input-border": "#4a4a4a",
+        "input-text-default": "#010d1d",
+        "input-text-muted": "#425167",
+        "swatch-brand-default": "#03142b",
+        "swatch-brand-hover": "#3c5776",
+        "swatch-danger-default": "#a22d15",
+        "swatch-danger-hover": "#a22d15",
+        "swatch-danger-muted": "#EDA247",
+        "swatch-passive-default": "#394960",
+        "swatch-passive-hover": "#97a2b1",
+        "swatch-passive-muted": "#d9d9d9",
+        "swatch-primary-default": "#3c7fd0",
+        "swatch-primary-hover": "#759ed2",
+        "swatch-primary-muted": "#a8c7e3",
+        "swatch-success-default": "#20595b",
+        "swatch-success-hover": "#20595b",
+        "swatch-success-muted": "#57C4ad",
+        "swatch-warning-default": "#ffde94",
+        "swatch-warning-hover": "#ffe8b3",
+        "swatch-primary-muted": "rgb(65 118 183)",
+        "swatch-primary-gradient": "rgb(16 94 190)",
+        "text-default": "#010d1d",
+        "text-inverse": "#ffffff",
+        "text-muted": "#425167",
+        "icon-folder": "#00a3d9",
+        "icon-archive": "#FBBE54",
+        "icon-image": "#EE6B3B",
+        "icon-spreadsheet": "#15C286",
+        "icon-document": "#3B44A6",
+        "icon-video": "#045459",
+        "icon-audio": "#700460",
+        "icon-presentation": "#EE6B3B",
+        "icon-pdf": "#EC0D47"
+      },
+      "fontSizes": {
+        "default": "",
+        "large": "",
+        "medium": ""
+      },
+      "sizes": {
+        "form-check-default": "",
+        "height-small": "80px",
+        "height-table-row": "40px",
+        "icon-default": "",
+        "width-medium": ""
+      },
+      "spacing": {
+        "xsmall": "",
+        "small": "",
+        "medium": "",
+        "large": "",
+        "xlarge": "",
+        "xxlarge": ""
+      }
+    }
+  },
+  "high-contrast-dark": {
+    "theme-name": "High contrast dark",
+    "general": {
+      "name": "CERNBox",
+      "slogan": "CERNBox – The CERN Cloud Storage"
+    },
+    "logo": {
+      "topbar": "cernbox/theme-cernbox/assets/cernbox-lrg.svg",
+      "favicon": "cernbox/theme-cernbox/assets/cernbox-abstract.svg",
+      "login": "cernbox/theme-cernbox/assets/cernbox-lrg.svg",
+      "notFound": "themes/owncloud/assets/cloud.svg"
+    },
+    "loginPage": {
+      "autoRedirect": true,
+      "backgroundImg": "cernbox/theme-cernbox/assets/loginBackground.png"
+    },
+    "designTokens": {
+      "breakpoints": {
+        "xsmall-max": "",
+        "small-default": "",
+        "small-max": "",
+        "medium-default": "",
+        "medium-max": "",
+        "large-default": "",
+        "large-max": "",
+        "xlarge": ""
+      },
+      "colorPalette": {
+        "background-accentuate": "#696969",
+        "background-default": "#202020",
+        "background-highlight": "#9dc7fb12",
+        "background-muted": "#696969",
+        "background-secondary": "#4f4f4f",
+        "background-hover": "#2e2e2e",
+        "border": "#b7bsb7",
+        "input-bg": "#4F4F4F",
+        "input-border": "#4c5f79",
+        "input-text-default": "#ffffff",
+        "input-text-muted": "#ababab",
+        "swatch-brand-default": "#000000",
+        "swatch-brand-hover": "#ffffff",
+        "swatch-brand-contrast": "#fcfcfc",
+        "swatch-danger-default": "#ff8a8a",
+        "swatch-danger-hover": "",
+        "swatch-danger-muted": "",
+        "swatch-inverse-default": "",
+        "swatch-inverse-hover": "",
+        "swatch-inverse-muted": "#696969",
+        "swatch-passive-default": "#bababa",
+        "swatch-passive-hover": "",
+        "swatch-passive-muted": "",
+        "swatch-passive-contrast": "#000000",
+        "swatch-primary-default": "#0868DD",
+        "swatch-primary-hover": "#7BAFEF",
+        "swatch-primary-muted": "",
+        "swatch-primary-gradient": "#245b9d",
+        "swatch-success-default": "",
+        "swatch-success-hover": "",
+        "swatch-success-muted": "",
+        "swatch-warning-default": "#3e3100",
+        "swatch-warning-hover": "",
+        "swatch-warning-muted": "",
+        "text-default": "#ffffff",
+        "text-inverse": "#000000",
+        "text-muted": "#ababab",
         "icon-folder": "#4d7eaf",
         "icon-archive": "rgb(255, 207, 1)",
         "icon-image": "rgb(255, 111, 0)",
