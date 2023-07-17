@@ -1,5 +1,6 @@
 {
   "default": {
+    "theme-name": "Default light",
     "general": {
       "name": "CERNBox",
       "slogan": "CERNBox – The CERN Cloud Storage"
@@ -80,6 +81,7 @@
     }
   },
   "default-dark": {
+    "theme-name": "Default dark",
     "general": {
       "name": "CERNBox",
       "slogan": "CERNBox – The CERN Cloud Storage"
@@ -176,6 +178,7 @@
     }
   },
   "high-contrast-light": {
+    "theme-name": "High contrast light",
     "general": {
       "name": "CERNBox",
       "slogan": "CERNBox – The CERN Cloud Storage"
@@ -257,6 +260,7 @@
     }
   },
   "high-contrast-dark": {
+    "theme-name": "High contrast dark",
     "general": {
       "name": "CERNBox",
       "slogan": "CERNBox – The CERN Cloud Storage"
