@@ -1,4 +1,4 @@
-NAME := top-bar
+NAME := MS-tracing
 
 release: release/$(NAME).tar.gz
 
