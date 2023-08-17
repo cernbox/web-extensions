@@ -1,18 +1,48 @@
 {
-  "name": "preview",
+  "name": "image-editor",
   "version": "0.0.0",
   "private": true,
-  "description": "ownCloud Web Preview",
+  "description": "Image Editor",
+  "author": "CERNBox",
   "license": "AGPL-3.0",
-  "peerDependencies": {
-    "vue-concurrency": "4.0.1",
-    "vue3-gettext": "^2.3.3",
-    "vuex": "4.1.0",
-    "web-client": "github:owncloud/web-client#master",
-    "web-pkg": "github:owncloud/web-pkg#master"
+  "type": "module",
+  "homepage": "https://github.com/cernbox/web-extensions",
+  "scripts": {
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development"
+  },
+  "browserslist": [
+    "last 1 year",
+    "> .2%",
+    "not dead",
+    "not Explorer > 0",
+    "not ExplorerMobile > 0",
+    "not BlackBerry > 0",
+    "not OperaMini all",
+    "not OperaMobile > 0"
+  ],
+  "devDependencies": {
+    "@ownclouders/eslint-config": "0.0.1",
+    "@ownclouders/extension-sdk": "file:../temp-extension-sdk",
+    "@ownclouders/prettier-config": "0.0.1",
+    "@ownclouders/tsconfig": "0.0.4",
+    "@vitejs/plugin-vue": "4.0.0",
+    "eslint": "8.31.0",
+    "prettier": "2.6.2",
+    "sass": "1.58.0",
+    "typescript": "~4.9.5",
+    "vite": "4.1.1",
+    "vue": "3.2.47"
   },
   "dependencies": {
-    "vue": "^3.3.4",
-    "vue-advanced-cropper": "^2.8.8"
+    "vuex": "^4.1.0",
+    "web-client": "github:owncloud/web#master:/packages/web-client",
+    "web-pkg": "github:owncloud/web#master:/packages/web-pkg"
   }
 }
+
+
+
+
+   
