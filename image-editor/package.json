@@ -8,8 +8,8 @@
     "vue-concurrency": "4.0.1",
     "vue3-gettext": "^2.3.3",
     "vuex": "4.1.0",
-    "web-client": "workspace:@ownclouders/web-client@*",
-    "web-pkg": "workspace:@ownclouders/web-pkg@*"
+    "web-client": "github:owncloud/web-client#master",
+    "web-pkg": "github:owncloud/web-pkg#master"
   },
   "dependencies": {
     "vue": "^3.3.4",
