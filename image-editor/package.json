@@ -1,0 +1,18 @@
+{
+  "name": "preview",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ownCloud Web Preview",
+  "license": "AGPL-3.0",
+  "peerDependencies": {
+    "vue-concurrency": "4.0.1",
+    "vue3-gettext": "^2.3.3",
+    "vuex": "4.1.0",
+    "web-client": "workspace:@ownclouders/web-client@*",
+    "web-pkg": "workspace:@ownclouders/web-pkg@*"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-advanced-cropper": "^2.8.8"
+  }
+}
