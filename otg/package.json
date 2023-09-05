@@ -1,0 +1,41 @@
+{
+  "name": "otg",
+  "version": "0.0.0",
+  "description": "otg notification",
+  "license": "AGPL-3.0",
+  "author": "CERNBox",
+  "type": "module",
+  "private": true,
+  "homepage": "https://github.com/cernbox/web-extensions",
+  "scripts": {
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development"
+  },
+  "browserslist": [
+    "last 1 year",
+    "> .2%",
+    "not dead",
+    "not Explorer > 0",
+    "not ExplorerMobile > 0",
+    "not BlackBerry > 0",
+    "not OperaMini all",
+    "not OperaMobile > 0"
+  ],
+  "devDependencies": {
+    "@ownclouders/eslint-config": "0.0.1",
+    "@ownclouders/extension-sdk": "0.0.1-alpha.1",
+    "@ownclouders/prettier-config": "0.0.1",
+    "@ownclouders/tsconfig": "0.0.4",
+    "@vitejs/plugin-vue": "4.0.0",
+    "eslint": "8.31.0",
+    "prettier": "2.6.2",
+    "sass": "1.58.0",
+    "typescript": "~4.9.5",
+    "vite": "4.1.1",
+    "vue": "3.2.47"
+  },
+  "dependencies": {
+    "vuex": "^4.1.0"
+  }
+}
