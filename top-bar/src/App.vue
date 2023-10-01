@@ -1,6 +1,6 @@
 <template>
   <div>
-    <oc-button id="oc-topbar-account-links" appearance="raw" variation="inverse">
+    <oc-button id="oc-topbar-account-links" appearance="raw-inverse" variation="brand">
       <oc-icon name="questionnaire" />
     </oc-button>
     <oc-drop
