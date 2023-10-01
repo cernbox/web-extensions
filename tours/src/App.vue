@@ -104,7 +104,9 @@ export default {
 .guide-highlight {
   background-color: var(--oc-color-background-highlight);
 }
-
+#tours {
+  flex: none;
+}
 #tour {
   height: 100%;
   width: 100%;

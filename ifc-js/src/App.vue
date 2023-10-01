@@ -1,16 +1,12 @@
 <template>
   <main id="ifc-main">
-    <div class="oc-position-center" v-if="loading">
-      <oc-spinner size="xlarge" />
-      <p v-translate class="oc-invisible">Loading app</p>
-    </div>
     <canvas id="threeCanvas"></canvas>
   </main>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
-
+<script lang="ts">
+import { computed, defineComponent, PropType } from 'vue'
+import { AppConfigObject } from '@ownclouders/web-pkg/src/apps'
 import {
   AmbientLight,
   AxesHelper,
@@ -22,19 +18,29 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { IFCLoader } from 'web-ifc-three/IFCLoader'
-import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
 
-export default {
-  name: 'IFCViewer',
-  data() {
-    // Do not declare the internal values, otherwise Vue3 conflicts
-    //https://stackoverflow.com/questions/65693108/threejs-component-working-in-vuejs-2-but-not-3
+export default defineComponent({
+  name: 'IFC Viewer',
+  props: {
+    applicationConfig: { type: Object as PropType<AppConfigObject>, required: true },
+    url: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
+    const config = computed(() => {
+      const { wasmPath = "" } = props.applicationConfig as AppConfigObject
+      return { wasmPath }
+    })
+
+    const davURL = computed(() => {
+      return props.url
+    })
+
     return {
-      loading: true,
-      // camera: null,
-      // scene: null,
-      // renderer: null,
-      // controls: null
+      config,
+      davURL
     }
   },
   mounted() {
@@ -43,9 +49,6 @@ export default {
     this.addAxes()
     this.addIFCModel()
     this.animate()
-  },
-  computed: {
-  ...mapGetters('runtime/auth', ['publicLinkPassword', 'accessToken']),
   },
   methods: {
     init: function () {
@@ -92,31 +95,14 @@ export default {
       requestAnimationFrame(this.animate)
     },
     addIFCModel: function () {
-      const isPublic = this.$route.query["contextRouteName"].includes('public')
       const ifcLoader = new IFCLoader()
-      // FIXME hack to load the wasm... should not be needed
-      ifcLoader.ifcManager.setWasmPath(
-        '../../../../../../../../../../../../../../../../cernbox/ifc-js-2.0.2/'
-      )
-      const headers = getHeadersWithAuth(isPublic, this.accessToken, this.publicLinkPassword)
-      ifcLoader.setRequestHeader(headers)
-      const filePath = `/${this.$route.params.driveAliasAndItem
-        .split('/')
-        .filter(Boolean)
-        .slice(isPublic ? 1 : 0)
-        .join('/')}`
-      const url = getFileUrl(this.$client, isPublic, filePath)
-      ifcLoader.load(url, (ifcModel) => {
-        ifcModel.mesh.onAfterRender = (renderer, scene, camera, geometry, material, group) => {
-          if (this.loading === true) {
-            this.loading = false
-          }
-        }
-        this.scene.add(ifcModel.mesh)
+      ifcLoader.ifcManager.setWasmPath(this.config.wasmPath)
+      ifcLoader.load(this.davURL, (ifcModel) => {
+        this.scene.add(ifcModel)
       })
     }
   }
-}
+})
 </script>
 
 <style>
