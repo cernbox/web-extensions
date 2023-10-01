@@ -1,5 +1,6 @@
 import App from './App.vue'
-import store from './store.js'
+import { AppWrapperRoute } from '@ownclouders/web-pkg'
+
 import { encode } from 'js-base64'
 
 import './css/notebook.min.css'
@@ -8,12 +9,17 @@ import './css/katex.min.css'
 import logo from './img/logo.svg?raw'
 
 const name = 'Jupyter Viewer'
+const appId = 'jupyter'
+
+const svg = `data:image/svg+xml;base64,${encode(logo)}`
 
 const routes = [
   {
-    name: 'view',
     path: '/:driveAliasAndItem(.*)?',
-    component: App,
+    component: AppWrapperRoute(App, {
+      applicationId: appId
+    }),
+    name: appId,
     meta: {
       authContext: 'hybrid',
       title: name,
@@ -22,24 +28,20 @@ const routes = [
   }
 ]
 
-const svg = `data:image/svg+xml;base64,${encode(logo)}`
 
 const appInfo = {
   name: name,
-  id: 'jupyter',
+  id: appId,
   img: svg,
   extensions: [
     {
       extension: 'ipynb',
-      newTab: true,
-      routeName: 'jupyter-view',
-      canBeDefault: true
+      routeName: appId
     }
   ]
 }
 
 export default {
   appInfo,
-  routes,
-  store
+  routes
 }

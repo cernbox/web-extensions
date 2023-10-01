@@ -1,13 +1,6 @@
 <template>
-  <main id="rootjs-main">
-    <div class="oc-position-center" v-if="loading && !error">
-      <oc-spinner size="xlarge" />
-      <p v-translate class="oc-invisible">Loading app</p>
-    </div>
-    <div class="oc-position-center" v-if="error">
-      <oc-icon size="xxlarge" name="error-warning" fill-type="line" />
-    </div>
-    <div class="oc-flex root-viewer">
+  <main id="rootjs-main" class="oc-height-1-1">
+    <div class="oc-flex root-viewer oc-height-1-1">
       <div id="web-nav-sidebar" class="root-sidebar app-navigation oc-app-navigation-expanded">
         <select id="mode-select" v-model="viewMode" @change="renderViewer">
           <option v-for="item in items" :key="item" :value="item">
@@ -20,38 +13,35 @@
     </div>
   </main>
 </template>
-<script>
-import { getFileUrl, getHeadersWithAuth } from '../../common/fileAccess.js'
-import { mapGetters } from 'vuex'
+<script lang="ts">
+import { computed, defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'ROOTJSViewer',
+  props: {
+    url: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
+    const davURL = computed(() => {
+      return props.url
+    })
+
+    return {
+      davURL
+    }
+  },
   data: () => ({
     loading: true,
     error: false,
-    url: '',
     items: ['simple', 'tabs', 'collapsible', 'grid 2x2', 'grid 3x3', 'grid 4x4'],
     viewMode: null,
     painter: null,
     isPublic: false
   }),
-  computed: {
-    ...mapGetters('runtime/auth', ['publicLinkPassword', 'accessToken']),
-    rootFile() {
-      const headers = getHeadersWithAuth(this.isPublic, this.accessToken, this.publicLinkPassword)
-      return fetch(this.url, { headers }).then((resp) => {
-        if (resp.ok) {
-          return resp.arrayBuffer()
-        } else {
-          return Promise.reject('error code: ' + resp.status)
-        }
-      })
-    }
-  },
   created() {
-    this.isPublic = this.$route.query["contextRouteName"].includes('public')
-    const filePath = `/${this.$route.params.driveAliasAndItem.split('/').filter(Boolean).slice(this.isPublic ? 1 : 0).join('/')}`
-    this.url = getFileUrl(this.$client, this.isPublic, filePath)
     this.viewMode = this.items[0]
   },
   mounted: function () {
@@ -60,14 +50,23 @@ export default {
         node.setAttribute('crossorigin', 'anonymous')
       }
     })
-    require([ '//root.cern/js/latest/scripts/JSRoot.core.min.js'], this.renderViewer, this.showError)
+    require(['//root.cern/js/latest/scripts/JSRoot.core.min.js'], this.renderViewer, this.showError)
   },
   methods: {
+    rootFile() {
+      return fetch(this.davURL).then((resp) => {
+        if (resp.ok) {
+          return resp.arrayBuffer()
+        } else {
+          return Promise.reject('error code: ' + resp.status)
+        }
+      })
+    },
     renderViewer: function () {
       if (this.painter !== null) {
         this.painter.cleanup()
       }
-      this.rootFile
+      this.rootFile()
         .then((file) => {
           JSROOT.require('hierarchy').then(() => {
             this.painter = new JSROOT.HierarchyPainter('treeViewer', 'treeViewer')
@@ -81,25 +80,22 @@ export default {
         })
     },
     showError: function () {
-      this.error = true
+      // FIXME waiting for owncloud to implement a way to show error
+      console.error('showError')
     }
   }
-}
+})
 </script>
 
 <style>
 #rootjs-main {
-  background-color: white !important;
-}
-.root-viewer {
-  height: 100%;
-}
-.root-sidebar {
   /* FIXME make app compatible with dark mode */
   background-color: white !important;
+}
+.root-sidebar {
   display: block !important;
   padding: 10px;
-  overflow: scroll !important;
+  overflow: auto !important;
   box-sizing: border-box;
 }
 #mainViewer {

@@ -1,15 +1,6 @@
 <template>
   <main id="jupyter">
-    <div class="oc-position-center" v-if="lastError">
-      <oc-icon size="xxlarge" name="error-warning" fill-type="line" />
-      <p class="oc-text-lead">{{ lastError }}</p>
-    </div>
-    <div class="oc-position-center" v-else-if="isLoading">
-      <oc-spinner size="xlarge" />
-      <p v-translate class="oc-invisible">Loading app</p>
-    </div>
-    <div class="oc-container oc-width-1-1" v-else>
-      <!-- eslint-disable-next-line vue/no-v-html -->
+    <div class="oc-container oc-width-1-1">
       <div id="notebook">
         <div id="notebook-container" class="container" v-html="renderedNotebook"></div>
       </div>
@@ -17,29 +8,42 @@
   </main>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex'
+<script lang="ts">
+import { computed, defineComponent, PropType } from 'vue'
+import { AppConfigObject } from '@ownclouders/web-pkg/src/apps'
+import * as ipynb2html from 'ipynb2html'
 
-export default {
-  name: 'Jupyter Viewer',
-  computed: {
-    ...mapGetters('runtime/auth', ['publicLinkPassword']),
-    ...mapGetters('Jupyter Viewer', ['isLoading', 'renderedNotebook', 'lastError'])
+export default defineComponent({
+  name: 'JupyterViewer',
+  props: {
+    applicationConfig: { type: Object as PropType<AppConfigObject>, required: true },
+    currentContent: {
+      type: String,
+      required: true
+    }
   },
-  mounted() {
-    const isPublic = this.$route.query["contextRouteName"].includes('public')
-    const filePath = `/${this.$route.params.driveAliasAndItem.split('/').filter(Boolean).slice(isPublic ? 1 : 0).join('/')}`
-    this.loadFile({
-      filePath: filePath,
-      client: this.$client,
-      public: isPublic,
-      publicLinkPassword: this.publicLinkPassword
+  setup(props) {
+    const config = computed(() => {
+      const {
+        OpenExternal = false,
+        OpenExternalName = 'Open in Jupyter',
+        OpenUrl
+      } = props.applicationConfig as AppConfigObject
+      return { OpenExternal, OpenExternalName, OpenUrl }
     })
-  },
-  methods: {
-    ...mapActions('Jupyter Viewer', ['loadFile'])
+
+    const renderedNotebook = computed(() => {
+      return props.currentContent
+        ? ipynb2html.render(JSON.parse(props.currentContent)).innerHTML
+        : null
+    })
+
+    return {
+      config,
+      renderedNotebook
+    }
   }
-}
+})
 </script>
 <style>
 #jupyter {

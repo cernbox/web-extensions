@@ -1,16 +1,26 @@
 import App from './App.vue'
+import { AppWrapperRoute } from '@ownclouders/web-pkg'
+
 import { encode } from 'js-base64'
 import logo from './img/logo.svg?raw'
 
 const name = 'ROOT Viewer'
+const appId = 'rootjs'
 
 const svg = `data:image/svg+xml;base64,${encode(logo)}`
 
 const routes = [
   {
-    name: 'view',
     path: '/:driveAliasAndItem(.*)?',
-    component: App,
+    component: AppWrapperRoute(App, {
+      applicationId: appId,
+      urlForResourceOptions: {
+        // Use blob so that the loading screen
+        // represents the loading of the resource
+        disposition: 'inline'
+      }
+    }),
+    name: appId,
     meta: {
       authContext: 'hybrid',
       title: name,
@@ -21,14 +31,12 @@ const routes = [
 
 const appInfo = {
   name: name,
-  id: 'rootjs',
+  id: appId,
   img: svg,
   extensions: [
     {
       extension: 'root',
-      newTab: true,
-      routeName: 'rootjs-view',
-      canBeDefault: true
+      routeName: appId
     }
   ]
 }
