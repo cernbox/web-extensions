@@ -10,7 +10,7 @@ export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
     () =>
       [
         {
-          id: 'com.github.owncloud.web.search-in-folder',
+          id: 'com.github.cernbox.web-extensions.search-in-folder',
           type: 'search',
           searchProvider: new Provider(store, router)
         }
