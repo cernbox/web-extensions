@@ -1,0 +1,43 @@
+{
+  "name": "lightweight-accounts-home",
+  "version": "0.0.0",
+  "description": "Shows a home page for lightweight accounts that don't have a personal space",
+  "license": "AGPL-3.0",
+  "author": "CERNBox",
+  "private": true,
+  "homepage": "https://github.com/cernbox/web-extensions",
+  "type": "module",
+  "scripts": {
+    "check:types": "vue-tsc --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development"
+  },
+  "devDependencies": {
+    "@ownclouders/eslint-config": "0.0.1",
+    "@ownclouders/extension-sdk": "0.0.5-alpha.1",
+    "@ownclouders/prettier-config": "0.0.1",
+    "@ownclouders/tsconfig": "0.0.5-alpha.1",
+    "@types/node": "^20.2.3",
+    "eslint": "8.50.0",
+    "prettier": "3.0.3",
+    "typescript": "4.9.5",
+    "vite": "4.1.1",
+    "vue-tsc": "1.8.15"
+  },
+  "peerDependencies": {
+    "@ownclouders/web-client": "0.0.1",
+    "@ownclouders/web-pkg": "0.0.5-alpha.9",
+    "vue": "3.3.4",
+    "vue-router": "4.2.0",
+    "vue3-gettext": "^2.3.3",
+    "vuex": "4.1.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "design-system*"
+      ]
+    }
+  }
+}
