@@ -98,6 +98,7 @@
 import { computed, defineComponent, unref } from 'vue'
 import debounce from 'lodash-es/debounce'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { useTask } from 'vue-concurrency'
 
 import {
   ResourceTable,
@@ -116,14 +117,9 @@ import {
   useFileListHeaderPosition
 } from '@ownclouders/web-pkg'
 
-import {
-  extractDomSelector,
-  buildResource,
-  DavProperties,
-  buildWebDavFilesPath
-} from '@ownclouders/web-client'
-
-import { useTask } from 'vue-concurrency'
+import { helpers, webdav } from '@ownclouders/web-client'
+const { extractDomSelector, buildResource, buildWebDavFilesPath } = helpers
+const { DavProperties } = webdav
 
 // FIXME:
 // import { basename } from 'path'
