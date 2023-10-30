@@ -3,11 +3,12 @@ import { useGettext } from 'vue3-gettext'
 import { defineWebApplication, usePortalTarget } from '@ownclouders/web-pkg'
 import DirectLink from './components/DirectLink.vue'
 import PathDetails from './components/PathDetails.vue'
+import TopBarLinks from './components/TopBarLinks.vue'
 import translations from '../l10n/translations.json'
 
 export default defineWebApplication({
   setup(args) {
-    const appId = 'cernbox-integration'
+    const appId = 'com.github.cernbox.web-extensions.cernbox-integration'
     const { $gettext } = useGettext()
     const { registerPortal } = usePortalTarget()
 
@@ -32,7 +33,10 @@ export default defineWebApplication({
         name: $gettext('CERNBox Integration'),
         id: appId
       },
-      translations
+      translations,
+      mounted({ portal }) {
+        portal.open('runtime', 'header.right', 60, [TopBarLinks])
+      }
     }
   }
 })

@@ -1,4 +1,4 @@
-NAME := top-bar
+NAME := cernbox-integration
 
 release: release/$(NAME).tar.gz
 
