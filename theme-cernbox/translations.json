@@ -1,0 +1,12 @@
+{
+    "en": {
+        "Spaces": "EOS Projects",
+        "You don't have access to any spaces": "You don't have access to any EOS project",
+        "Select a space to view details": "Select a EOS project to view details"
+    },
+    "fr": {
+        "Spaces":"Projets EOS",
+        "You don't have access to any spaces": "Vous n'avez accès à aucun projet EOS",
+        "Select a space to view details": "Sélectionnez un projet EOS pour afficher les détails"
+    }
+}
