@@ -1,7 +1,7 @@
 {
-  "name": "lightweight-accounts-home",
+  "name": "lightweight-accounts",
   "version": "0.0.0",
-  "description": "Shows a home page for lightweight accounts that don't have a personal space",
+  "description": "Shows a home page for lightweight accounts that don't have a personal space; prevents the redirection to the default home directory",
   "license": "AGPL-3.0",
   "author": "CERNBox",
   "private": true,
