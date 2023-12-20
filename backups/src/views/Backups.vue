@@ -1,5 +1,5 @@
 <template>
-  <div class="oc-flex">
+  <div>
     <backups-section id="backups-section" :empty-message="emptyMessage" />
   </div>
 </template>
