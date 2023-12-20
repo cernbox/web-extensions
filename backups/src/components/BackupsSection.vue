@@ -96,7 +96,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, unref } from 'vue'
-import debounce from 'lodash-es/debounce'
+import { debounce } from 'lodash-es'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 import { useTask } from 'vue-concurrency'
 
@@ -144,15 +144,19 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const accessToken = useAccessToken({ store })
-    const { owncloudSdk } = useClientService()
+    const clientService = useClientService()
 
     const { selectedResourcesIds } = useSelectedResources({ store })
     const { y: fileListHeaderY } = useFileListHeaderPosition('#backups-section-app-bar')
 
-    const fetchResources = async (client, path, properties, signal = null) => {
+    const fetchResources = async (path, signal = null) => {
       const options = signal ? { signal } : {}
       try {
-        return await client.files.list(path, 1, properties, options)
+        let space = store.getters['runtime/spaces/spaces'][0]
+        return await clientService.webdav.listFiles(space, {
+          path
+        })
+        //client.files.list(path, 1, properties, options)
       } catch (error) {
         if (error.name === 'CanceledError') {
           throw error
@@ -166,23 +170,19 @@ export default defineComponent({
       store.commit('Files/CLEAR_CURRENT_FILES_LIST')
 
       const webDavFilesPath = ref.$route.params.item
-        ? buildWebDavFilesPath(`${store.getters.user.id}`, ref.$route.params.item.join('/'))
+        ? buildWebDavFilesPath('/', ref.$route.params.item.join('/')).replace('\/files', '')
         : buildWebDavFilesPath(
-            `${store.getters.user.id}/cback`,
+            `cback`,
             `/eos/user/${store.getters.user.id[0]}/${store.getters.user.id}`
-          )
-      const resourcesPromise = fetchResources(
-        owncloudSdk,
-        webDavFilesPath,
-        DavProperties.Default,
-        signal
-      )
+          ).replace('\/files', '')
+
+      const resourcesPromise = fetchResources(webDavFilesPath, signal)
 
       const getResourcesAndCurrent = async (resourcePromise) => {
         let resources = await resourcePromise
-        resources = resources.map(buildResource)
-        resources.shift()
-        return resources
+        // resources = resources.map(buildResource)
+        // resources.shift()
+        return resources.children
       }
 
       const resources = yield getResourcesAndCurrent(resourcesPromise)
@@ -308,25 +308,20 @@ export default defineComponent({
         }
       } else {
         let webDavFilesPath = buildWebDavFilesPath(
-          `${store.getters.user.id}/cback`,
+          `cback`,
           ref.$route.params.item.join('/')
-        )
+        ).replace('\/files', '')
 
         if (webDavFilesPath.includes('/cback/cback'))
           webDavFilesPath = webDavFilesPath.replace('/cback/cback', '/cback')
 
-        const resourcesPromise = fetchResources(
-          owncloudSdk,
-          webDavFilesPath,
-          DavProperties.Default,
-          signal
-        )
+        const resourcesPromise = fetchResources(webDavFilesPath, signal)
 
         const getResourcesAndCurrent = async (resourcePromise) => {
           let resources = await resourcePromise
-          resources.shift()
-          resources = resources.map(buildResource)
-          return resources
+          //resources.shift()
+          //resources = resources.map(buildResource)
+          return resources.children
         }
 
         resources = yield getResourcesAndCurrent(resourcesPromise)
@@ -355,6 +350,8 @@ export default defineComponent({
         throw new Error(message)
       }
       const data = await response.json()
+      //sort by id
+
       // const data = [
       //   {
       //     id: 23,
@@ -369,7 +366,7 @@ export default defineComponent({
       //     status: 4
       //   }
       // ]
-      return data || []
+      return data.sort((a, b) => b.id - a.id) || []
     }
 
     const loadRestoresTask = useTask(function* (signal, ref) {
