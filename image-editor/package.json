@@ -1,0 +1,61 @@
+{
+  "name": "image-editor",
+  "version": "0.0.0",
+  "description": "Image Editor",
+  "author": "CERNBox",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "homepage": "https://github.com/cernbox/web-extensions",
+  "scripts": {
+    "check:types": "vue-tsc --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development"
+  },
+  "devDependencies": {
+    "@ownclouders/eslint-config": "0.0.1",
+    "@ownclouders/extension-sdk": "0.0.5-alpha.1",
+    "@ownclouders/prettier-config": "0.0.1",
+    "@ownclouders/tsconfig": "0.0.4",
+    "@vitejs/plugin-vue": "4.3.4",
+    "eslint": "8.49.0",
+    "js-base64": "^3.7.5",
+    "prettier": "3.0.3",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "sass": "1.62.0",
+    "typescript": "~5.2.2",
+    "vite": "4.4.9",
+    "vue": "3.3.4"
+  },
+  "peerDependencies": {
+    "@ownclouders/web-client": "0.0.1",
+    "@ownclouders/web-pkg": "0.0.5-alpha.8",
+    "@vueuse/core": "^9.8.2 || ^10.0.0",
+    "axios": "^0.27.2",
+    "fuse.js": "^6.5.3",
+    "lodash-es": "4.17.21",
+    "luxon": "^2.4.0",
+    "p-queue": "^6.6.2",
+    "uuid": "^9.0.0",
+    "vue": "3.3.4",
+    "vue-concurrency": "4.0.0",
+    "vue-router": "4.2.0",
+    "vuex": "4.1.0"
+  },  
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "design-system*"
+      ]
+    }
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21",
+    "vue-concurrency": "^4.0.1"
+  }
+}
+
+
+
+
+   
