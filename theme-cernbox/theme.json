@@ -7,6 +7,40 @@
       "accessDeniedHelp": "",
       "imprint": "",
       "privacy": ""
+    },
+    "shareRoles": {
+      "b1e2218d-eef8-4d4c-b82d-0f1a1b48f3b5": {
+        "name": "UnifiedRoleViewer",
+        "iconName": "eye"
+      },
+      "a8d5fe5e-96e3-418d-825b-534dbdf22b99": {
+        "label": "UnifiedRoleSpaceViewer",
+        "iconName": "eye"
+      },
+      "2d00ce52-1fc2-4dbc-8b95-a73b73395f5a": {
+        "label": "UnifiedRoleFileEditor",
+        "iconName": "pencil"
+      },
+      "fb6c3e19-e378-47e5-b277-9732f9de6e21": {
+        "label": "UnifiedRoleEditor",
+        "iconName": "pencil"
+      },
+      "58c63c02-1d89-4572-916a-870abc5a1b7d": {
+        "label": "UnifiedRoleSpaceEditor",
+        "iconName": "pencil"
+      },
+      "312c0871-5ef7-4b3a-85b6-0e4074c64049": {
+        "label": "UnifiedRoleManager",
+        "iconName": "user-star"
+      },
+      "1c996275-f1c9-4e71-abdf-a42f6495e960": {
+        "label": "UnifiedRoleUploader",
+        "iconName": "upload"
+      },
+      "aa97fe03-7980-45ac-9e50-b325749fd7e6": {
+        "label": "UnifiedRoleSecureView",
+        "iconName": "shield"
+      }
     }
   },
   "clients": {
@@ -22,7 +56,12 @@
           "autoRedirect": true,
           "backgroundImg": "cernbox/theme-cernbox/assets/loginBackground.png"
         },
-        "designTokens": {}
+        "designTokens": {
+          "sizes": {
+            "height-small": "80px",
+            "height-table-row": "40px"
+          }
+        }
       },
       "themes": [
         {
@@ -72,28 +111,8 @@
               "icon-audio": "#700460",
               "icon-presentation": "#EE6B3B",
               "icon-pdf": "#EC0D47",
-              "components-apptopbar-background":"#3c7fd0",
-              "components-apptopbar-border":"transparent"
-            },
-            "fontSizes": {
-              "default": "",
-              "large": "",
-              "medium": ""
-            },
-            "sizes": {
-              "form-check-default": "",
-              "height-small": "80px",
-              "height-table-row": "40px",
-              "icon-default": "",
-              "width-medium": ""
-            },
-            "spacing": {
-              "xsmall": "",
-              "small": "",
-              "medium": "",
-              "large": "",
-              "xlarge": "",
-              "xxlarge": ""
+              "color-components-apptopbar-background":"#3c7fd0",
+              "color-components-apptopbar-border":"transparent"
             }
           }
         },
@@ -101,16 +120,6 @@
           "isDark": true,
           "name": "Dark Theme",
           "designTokens": {
-            "breakpoints": {
-              "xsmall-max": "",
-              "small-default": "",
-              "small-max": "",
-              "medium-default": "",
-              "medium-max": "",
-              "large-default": "",
-              "large-max": "",
-              "xlarge": ""
-            },
             "colorPalette": {
               "background-accentuate": "#696969",
               "background-default": "#292929",
@@ -158,30 +167,8 @@
               "icon-audio": "rgb(208, 67, 236)",
               "icon-presentation": "rgb(255, 64, 6)",
               "icon-pdf": "rgb(225, 5, 14)",
-              "components-apptopbar-background":"#0868DD",
-              "components-apptopbar-border":"transparent"
-            },
-            "fontSizes": {
-              "default": "",
-              "large": "",
-              "medium": ""
-            },
-            "sizes": {
-              "form-check-default": "",
-              "height-small": "",
-              "height-table-row": "",
-              "icon-default": "",
-              "max-height-logo": "",
-              "max-width-logo": "",
-              "width-medium": ""
-            },
-            "spacing": {
-              "xsmall": "",
-              "small": "",
-              "medium": "",
-              "large": "",
-              "xlarge": "",
-              "xxlarge": ""
+              "color-components-apptopbar-background":"#0868DD",
+              "color-components-apptopbar-border":"transparent"
             }
           }
         },
@@ -211,7 +198,6 @@
               "swatch-passive-muted": "#d9d9d9",
               "swatch-primary-default": "#3c7fd0",
               "swatch-primary-hover": "#759ed2",
-              "swatch-primary-muted": "#a8c7e3",
               "swatch-success-default": "#20595b",
               "swatch-success-hover": "#20595b",
               "swatch-success-muted": "#57C4ad",
@@ -233,28 +219,8 @@
               "icon-audio": "#700460",
               "icon-presentation": "#EE6B3B",
               "icon-pdf": "#EC0D47",
-              "components-apptopbar-background":"#3c7fd0",
-              "components-apptopbar-border":"transparent"
-            },
-            "fontSizes": {
-              "default": "",
-              "large": "",
-              "medium": ""
-            },
-            "sizes": {
-              "form-check-default": "",
-              "height-small": "80px",
-              "height-table-row": "40px",
-              "icon-default": "",
-              "width-medium": ""
-            },
-            "spacing": {
-              "xsmall": "",
-              "small": "",
-              "medium": "",
-              "large": "",
-              "xlarge": "",
-              "xxlarge": ""
+              "color-components-apptopbar-background":"#3c7fd0",
+              "color-components-apptopbar-border":"transparent"
             }
           }
         },
@@ -262,16 +228,6 @@
           "isDark": true,
           "name": "High contrast dark",
           "designTokens": {
-            "breakpoints": {
-              "xsmall-max": "",
-              "small-default": "",
-              "small-max": "",
-              "medium-default": "",
-              "medium-max": "",
-              "large-default": "",
-              "large-max": "",
-              "xlarge": ""
-            },
             "colorPalette": {
               "background-accentuate": "#696969",
               "background-default": "#202020",
@@ -321,30 +277,8 @@
               "icon-audio": "rgb(208, 67, 236)",
               "icon-presentation": "rgb(255, 64, 6)",
               "icon-pdf": "rgb(225, 5, 14)",
-              "components-apptopbar-background":"#0868DD",
-              "components-apptopbar-border":"transparent"
-            },
-            "fontSizes": {
-              "default": "",
-              "large": "",
-              "medium": ""
-            },
-            "sizes": {
-              "form-check-default": "",
-              "height-small": "",
-              "height-table-row": "",
-              "icon-default": "",
-              "max-height-logo": "",
-              "max-width-logo": "",
-              "width-medium": ""
-            },
-            "spacing": {
-              "xsmall": "",
-              "small": "",
-              "medium": "",
-              "large": "",
-              "xlarge": "",
-              "xxlarge": ""
+              "color-components-apptopbar-background":"#0868DD",
+              "color-components-apptopbar-border":"transparent"
             }
           }
         }
