@@ -23,17 +23,6 @@
           <oc-button
             type="a"
             appearance="raw"
-            href="https://cern.service-now.com/service-portal?id=sc_cat_item&name=cernbox-feedback&se=CERNBox-Service&cernbox_service_instance=Production"
-            target="_blank"
-          >
-            <oc-icon :name="'feedback'" fill-type="line" class="oc-p-xs" />
-            <span v-translate>Give us feedback</span>
-          </oc-button>
-        </li>
-        <li class="oc-menu-item-hover">
-          <oc-button
-            type="a"
-            appearance="raw"
             href="https://cern.service-now.com/service-portal?id=service_element&name=CERNBox-Service"
             target="_blank"
           >
