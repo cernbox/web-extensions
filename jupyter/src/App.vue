@@ -1,11 +1,12 @@
+
 <template>
-  <main id="jupyter">
-    <div class="oc-container oc-width-1-1">
+  <div class="jupyter-viewer oc-width-1-1 oc-height-1-1">
+    <div id="jupyter" class="oc-width-1-1 oc-height-1-1">
       <div id="notebook">
-        <div id="notebook-container" class="container" v-html="renderedNotebook"></div>
+        <div id="notebook-container" v-html="renderedNotebook"></div>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -47,7 +48,7 @@ export default defineComponent({
 </script>
 <style>
 #jupyter {
-  overflow: scroll !important;
+  overflow: auto;
 }
 #notebook {
   padding-top: 40px;
@@ -65,17 +66,17 @@ export default defineComponent({
 }
 
 @media (min-width: 1200px) {
-  #notebook .container {
+  #notebook-container {
     width: 1140px;
   }
 }
 @media (min-width: 992px) {
-  #notebook .container {
+  #notebook-container {
     width: 940px;
   }
 }
 @media (min-width: 768px) {
-  #notebook .container {
+  #notebook-container {
     width: 768px;
   }
 }
