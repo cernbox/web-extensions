@@ -1,7 +1,10 @@
 
 <template>
   <div class="jupyter-viewer oc-width-1-1 oc-height-1-1">
-    <div id="jupyter" class="oc-width-1-1 oc-height-1-1">
+    <div 
+      id="jupyter"
+      class="oc-width-1-1 oc-height-1-1"
+      :class="{ 'theme-dark': darkTheme }">
       <div id="notebook">
         <div id="notebook-container" v-html="renderedNotebook"></div>
       </div>
@@ -11,7 +14,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { AppConfigObject } from '@ownclouders/web-pkg/src/apps'
+import { AppConfigObject, useThemeStore } from '@ownclouders/web-pkg'
 import * as ipynb2html from 'ipynb2html'
 
 export default defineComponent({
@@ -24,6 +27,10 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const themeStore = useThemeStore()
+    const darkTheme = computed(() => {
+      return themeStore.currentTheme.isDark
+    })
     const config = computed(() => {
       const {
         OpenExternal = false,
@@ -41,6 +48,7 @@ export default defineComponent({
 
     return {
       config,
+      darkTheme,
       renderedNotebook
     }
   }
@@ -81,7 +89,7 @@ export default defineComponent({
   }
 }
 pre {
-  background: var(--oc-color-background-muted);
+  background-color: var(--oc-color-background-muted);
   border: 1px solid #e5e5e5;
   border-radius: 3px;
   color: var(--oc-color-text-default);
@@ -91,6 +99,11 @@ pre {
   -moz-tab-size: 4;
   tab-size: 4;
 }
+.theme-dark .nb-source>pre {
+  background-color: var(--oc-color-text-default);
+  color: var(--oc-color-background-muted);
+}
+
 
 address,
 dl,
@@ -102,7 +115,6 @@ pre,
 ul {
   margin: 0 0 20px;
 }
-user agent stylesheet
 pre {
   display: block;
   font-family: monospace;
