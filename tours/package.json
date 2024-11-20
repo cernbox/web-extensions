@@ -23,19 +23,19 @@
     "not OperaMobile > 0"
   ],
   "devDependencies": {
-    "@ownclouders/eslint-config": "0.0.1",
-    "@ownclouders/extension-sdk": "0.0.1-alpha.4",
+    "@ownclouders/eslint-config": "11.0.4",
+    "@ownclouders/extension-sdk": "11.0.4",
     "@ownclouders/prettier-config": "0.0.1",
-    "@ownclouders/tsconfig": "0.0.4",
-    "@vitejs/plugin-vue": "4.3.4",
-    "eslint": "8.50.0",
-    "prettier": "3.0.3",
-    "sass": "1.68.0",
-    "typescript": "~5.2.2",
-    "vite": "4.4.9",
-    "vue": "3.3.4"
+    "@ownclouders/tsconfig": "0.0.6",
+    "@vitejs/plugin-vue": "5.2.0",
+    "eslint": "9.15.0",
+    "prettier": "3.3.3",
+    "sass": "1.81.0",
+    "typescript": "~5.6.3",
+    "vite": "5.4.11",
+    "vue": "3.5.13"
   },
   "dependencies": {
-    "shepherd.js": "^11.2.0"
+    "shepherd.js": "^14.3.0"
   }
 }

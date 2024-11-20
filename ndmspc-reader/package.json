@@ -23,31 +23,37 @@
     "not OperaMobile > 0"
   ],
   "devDependencies": {
-    "@ownclouders/eslint-config": "0.0.1",
-    "@ownclouders/extension-sdk": "0.0.5-alpha.1",
+    "@ownclouders/eslint-config": "11.0.4",
+    "@ownclouders/extension-sdk": "11.0.4",
     "@ownclouders/prettier-config": "0.0.1",
-    "@ownclouders/tsconfig": "0.0.4",
-    "@vitejs/plugin-vue": "4.3.4",
-    "eslint": "8.49.0",
-    "js-base64": "^3.7.5",
-    "prettier": "3.0.3",
-    "sass": "1.62.0",
-    "typescript": "~5.2.2",
-    "vite": "4.4.9",
-    "vue": "3.3.4",
-    "rollup-plugin-node-polyfills": "^0.2.1"
+    "@ownclouders/tsconfig": "0.0.6",
+    "@vitejs/plugin-vue": "5.2.0",
+    "eslint": "9.15.0",
+    "js-base64": "^3.7.7",
+    "prettier": "3.3.3",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "sass": "1.81.0",
+    "typescript": "~5.6.3",
+    "vite": "5.4.11",
+    "vue": "3.5.13"
   },
   "dependencies": {
+    "@ownclouders/web-client": "11.0.4",
+    "@ownclouders/web-pkg": "11.0.4",
+    "vue-concurrency": "5.0.1",
+    "vue-router": "4.4.5"
   },
   "peerDependencies": {
-    "@ownclouders/web-pkg": "0.0.5-alpha.1",
     "@ownclouders/web-client": "0.0.1",
+    "@ownclouders/web-pkg": "0.0.5-alpha.1",
     "vue-concurrency": "4.0.1",
     "vue-router": "4.2.4"
   },
   "pnpm": {
     "peerDependencyRules": {
-      "ignoreMissing": ["design-system*"]
+      "ignoreMissing": [
+        "design-system*"
+      ]
     }
   }
 }
