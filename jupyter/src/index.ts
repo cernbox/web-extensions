@@ -36,6 +36,7 @@ const appInfo = {
   extensions: [
     {
       extension: 'ipynb',
+      HasPriority: true,
       routeName: appId
     }
   ]
