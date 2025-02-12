@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { AppConfigObject } from '@ownclouders/web-pkg/src/apps'
+import { AppConfigObject } from '@ownclouders/web-pkg'
 import {
   AmbientLight,
   AxesHelper,

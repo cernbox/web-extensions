@@ -39,10 +39,10 @@
   },
   "dependencies": {
     "@ownclouders/web-pkg": "11.0.4",
-    "three": "^0.170.0",
+    "three": "^0.156.1",
     "vue-concurrency": "5.0.1",
     "vue-router": "4.4.5",
-    "web-ifc-three": "^0.0.126"
+    "web-ifc-three": "^0.0.125"
   },
   "peerDependencies": {
     "@ownclouders/web-pkg": "0.0.5-alpha.1",

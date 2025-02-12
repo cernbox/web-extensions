@@ -5,8 +5,8 @@ dependencies:
     specifier: 11.0.4
     version: 11.0.4(@vue/compiler-sfc@3.5.13)(typescript@5.6.3)(vue@3.5.13)
   three:
-    specifier: ^0.170.0
-    version: 0.170.0
+    specifier: ^0.156.1
+    version: 0.156.1
   vue-concurrency:
     specifier: 5.0.1
     version: 5.0.1(vue@3.5.13)
@@ -14,8 +14,8 @@ dependencies:
     specifier: 4.4.5
     version: 4.4.5(vue@3.5.13)
   web-ifc-three:
-    specifier: ^0.0.126
-    version: 0.0.126(three@0.170.0)
+    specifier: ^0.0.125
+    version: 0.0.125(three@0.156.1)
 
 devDependencies:
   '@ownclouders/eslint-config':
@@ -3338,16 +3338,16 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /three-mesh-bvh@0.5.21(three@0.170.0):
+  /three-mesh-bvh@0.5.21(three@0.156.1):
     resolution: {integrity: sha512-TGXPk7YwtlU5rgQJYA25OT6yAdBMeekfC4BTkGNtTWA5glb2rmEpjxvhZncRQSl73QZir2LFOQT0FjfzgG55xw==}
     peerDependencies:
       three: '>= 0.123.0'
     dependencies:
-      three: 0.170.0
+      three: 0.156.1
     dev: false
 
-  /three@0.170.0:
-    resolution: {integrity: sha512-FQK+LEpYc0fBD+J8g6oSEyyNzjp+Q7Ks1C568WWaoMRLW+TkNNWmenWeGgJjV105Gd+p/2ql1ZcjYvNiPZBhuQ==}
+  /three@0.156.1:
+    resolution: {integrity: sha512-kP7H0FK9d/k6t/XvQ9FO6i+QrePoDcNhwl0I02+wmUJRNSLCUIDMcfObnzQvxb37/0Uc9TDT0T1HgsRRrO6SYQ==}
     dev: false
 
   /tippy.js@6.3.7:
@@ -3634,13 +3634,13 @@ packages:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
     dev: false
 
-  /web-ifc-three@0.0.126(three@0.170.0):
-    resolution: {integrity: sha512-P2/jcuSZvpLnGiLcd1H+8N01oWuyIjmU5zUy/rzx8HTrbJn7FCE6uC4SFJyYvmxwN6+uFCRmEvzHkfHrdJzpcQ==}
+  /web-ifc-three@0.0.125(three@0.156.1):
+    resolution: {integrity: sha512-i9hnYQq5XOEJ/eeYgwe44IAiIgbjn46zOcuEuvkV+8liutrDHitv8Ct126BNOBaoe7B9ZYnQk8CL9/YEtdtGOQ==}
     peerDependencies:
       three: ^0.149.0
     dependencies:
-      three: 0.170.0
-      three-mesh-bvh: 0.5.21(three@0.170.0)
+      three: 0.156.1
+      three-mesh-bvh: 0.5.21(three@0.156.1)
       web-ifc: 0.0.39
     dev: false
 
