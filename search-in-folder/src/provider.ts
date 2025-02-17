@@ -3,7 +3,7 @@ import Preview from './preview'
 import { Store } from 'vuex'
 import { Router } from 'vue-router'
 
-function $gettext(msg) {
+function $gettext(msg: string) {
   return msg
 }
 
@@ -22,6 +22,6 @@ export class Provider implements SearchProvider {
   }
 
   public get available() {
-    return !!this.store.getters['Files/currentFolder']
+    return !!this.store.getters.currentFolder
   }
 }

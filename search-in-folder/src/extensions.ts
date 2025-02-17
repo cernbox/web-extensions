@@ -1,9 +1,21 @@
 import { computed } from 'vue'
-import { ApplicationSetupOptions, Extension, useStore, useRouter } from '@ownclouders/web-pkg'
+import { createStore } from 'vuex'
+import { ApplicationSetupOptions, SearchExtension, useRouter } from '@ownclouders/web-pkg'
 import { Provider } from './provider'
 
 export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
-  const store = useStore()
+  const store = createStore({
+    state: {
+      files: [],
+      areHiddenFilesShown: false,
+      currentFolder: null
+    },
+    getters: {
+      files: (state) => state.files,
+      areHiddenFilesShown: (state) => state.areHiddenFilesShown,
+      currentFolder: (state) => state.currentFolder
+    }
+  })
   const router = useRouter()
 
   return computed(
@@ -14,6 +26,6 @@ export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
           type: 'search',
           searchProvider: new Provider(store, router)
         }
-      ] satisfies Extension[]
+      ] satisfies SearchExtension[]
   )
 }

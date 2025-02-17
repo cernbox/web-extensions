@@ -28,8 +28,8 @@ export default class Preview implements SearchPreview {
 
     // no cache required, the filtering is client only and fast enough to recalculate the set
     // of results every time on the fly
-    const resources = filterResources(this.store.getters['Files/files'] as Resource[], term, 5)
-    const areHiddenFilesShown: boolean = this.store.state.Files?.areHiddenFilesShown
+    const resources = filterResources(this.store.getters.files as Resource[], term, 5)
+    const areHiddenFilesShown: boolean = this.store.getters.areHiddenFilesShown
 
     const searchResult = resources.reduce((acc, resource) => {
       // filter results if hidden files shouldn't be shown due to settings
