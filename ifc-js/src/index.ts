@@ -1,7 +1,7 @@
 import App from './App.vue'
 import { AppWrapperRoute } from '@ownclouders/web-pkg'
 
-import logo from './img/logo.svg'
+import logo from './img/logo.svg?raw'
 import { encode } from 'js-base64'
 
 const name = 'IFC Viewer'
