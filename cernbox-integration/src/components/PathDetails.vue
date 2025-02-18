@@ -3,26 +3,11 @@
     <th scope="col" class="oc-pr-s oc-font-semibold" v-text="$gettext('FUSE Path')" />
     <td>
       <div class="oc-flex oc-flex-middle oc-flex-between">
-        <p
-          ref="filePath"
-          v-oc-tooltip="eosPath"
-          class="oc-my-rm oc-text-truncate"
-          v-text="eosPath"
-        />
-        <oc-button
-          v-if="isClipboardCopySupported"
-          v-oc-tooltip="copyEosPathLabel"
-          :aria-label="copyEosPathLabel"
-          appearance="raw"
-          :variation="copiedEos ? 'success' : 'passive'"
-          @click="copyEosPathToClipboard"
-        >
-          <oc-icon
-            v-if="copiedEos"
-            key="oc-copy-to-clipboard-copied"
-            name="checkbox-circle"
-            class="_clipboard-success-animation"
-          />
+        <p ref="filePath" v-oc-tooltip="eosPath" class="oc-my-rm oc-text-truncate" v-text="eosPath" />
+        <oc-button v-if="isClipboardCopySupported" v-oc-tooltip="copyEosPathLabel" :aria-label="copyEosPathLabel"
+          appearance="raw" :variation="copiedEos ? 'success' : 'passive'" @click="copyEosPathToClipboard">
+          <oc-icon v-if="copiedEos" key="oc-copy-to-clipboard-copied" name="checkbox-circle"
+            class="_clipboard-success-animation" />
           <oc-icon v-else key="oc-copy-to-clipboard-copy" name="clipboard" />
         </oc-button>
       </div>
@@ -32,25 +17,11 @@
     <th scope="col" class="oc-pr-s oc-font-semibold" v-text="$gettext('Windows Path')" />
     <td>
       <div class="oc-flex oc-flex-middle oc-flex-between">
-        <p
-          ref="sambaFilePath"
-          v-oc-tooltip="sambaPath"
-          class="oc-my-rm oc-text-truncate"
-          v-text="sambaPath"
-        />
-        <oc-button
-          v-oc-tooltip="copySambaPathLabel"
-          :aria-label="copySambaPathLabel"
-          appearance="raw"
-          :variation="copiedSamba ? 'success' : 'passive'"
-          @click="copySambaPathToClipboard"
-        >
-          <oc-icon
-            v-if="copiedSamba"
-            key="oc-copy-to-clipboard-copied"
-            name="checkbox-circle"
-            class="_clipboard-success-animation"
-          />
+        <p ref="sambaFilePath" v-oc-tooltip="sambaPath" class="oc-my-rm oc-text-truncate" v-text="sambaPath" />
+        <oc-button v-oc-tooltip="copySambaPathLabel" :aria-label="copySambaPathLabel" appearance="raw"
+          :variation="copiedSamba ? 'success' : 'passive'" @click="copySambaPathToClipboard">
+          <oc-icon v-if="copiedSamba" key="oc-copy-to-clipboard-copied" name="checkbox-circle"
+            class="_clipboard-success-animation" />
           <oc-icon v-else key="oc-copy-to-clipboard-copy" name="clipboard" />
         </oc-button>
       </div>
@@ -61,20 +32,10 @@
     <td>
       <div class="oc-flex oc-flex-middle oc-flex-between">
         <p v-oc-tooltip="directLink" class="oc-my-rm oc-text-truncate" v-text="directLink" />
-        <oc-button
-          v-if="isClipboardCopySupported"
-          v-oc-tooltip="copyDirectLinkLabel"
-          :aria-label="copyDirectLinkLabel"
-          appearance="raw"
-          :variation="copiedDirect ? 'success' : 'passive'"
-          @click="copyDirectLinkToClipboard"
-        >
-          <oc-icon
-            v-if="copiedDirect"
-            key="oc-copy-to-clipboard-copied"
-            name="checkbox-circle"
-            class="_clipboard-success-animation"
-          />
+        <oc-button v-if="isClipboardCopySupported" v-oc-tooltip="copyDirectLinkLabel" :aria-label="copyDirectLinkLabel"
+          appearance="raw" :variation="copiedDirect ? 'success' : 'passive'" @click="copyDirectLinkToClipboard">
+          <oc-icon v-if="copiedDirect" key="oc-copy-to-clipboard-copied" name="checkbox-circle"
+            class="_clipboard-success-animation" />
           <oc-icon v-else key="oc-copy-to-clipboard-copy" name="clipboard" />
         </oc-button>
       </div>
@@ -82,20 +43,20 @@
   </tr>
 </template>
 <script lang="ts">
-import { computed, defineComponent, unref } from 'vue'
+import { computed, defineComponent, unref, ref } from 'vue'
 import { Resource, SpaceResource } from '@ownclouders/web-client'
 import { PropType } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import {
   createFileRouteOptions,
   createLocationSpaces,
-  usePublicLinkContext,
+  useConfigStore,
+  useAuthStore,
   useRouter,
-  useStore
+  useMessages,
 } from '@ownclouders/web-pkg'
 import { useGettext } from 'vue3-gettext'
-import { urlJoin } from '@ownclouders/web-client/src/utils'
-import { ref } from 'vue'
+import { urlJoin } from '@ownclouders/web-client'
 
 export default defineComponent({
   props: {
@@ -103,10 +64,13 @@ export default defineComponent({
     resource: { type: Object as PropType<Resource>, required: true }
   },
   setup(props) {
-    const store = useStore()
+    const authStore = useAuthStore()
+    const configStore = useConfigStore()
+    const messageStore = useMessages()
+
     const router = useRouter()
     const { $gettext } = useGettext()
-    const isPublicLinkContext = usePublicLinkContext({ store })
+    const isPublicLinkContext = authStore.publicLinkContextReady
 
     const copiedDirect = ref(false)
     const copiedEos = ref(false)
@@ -117,14 +81,14 @@ export default defineComponent({
       isSupported: isClipboardCopySupported
     } = useClipboard({ legacy: true, copiedDuring: 550 })
 
-    const serverUrl = computed(() => store.getters.configuration.server)
+    const serverUrl = computed(() => configStore.serverUrl)
 
     const directLink = computed(() => {
       const routeOpts =
         props.resource.type === 'space'
           ? createLocationSpaces('files-spaces-generic', {
-              params: { driveAliasAndItem: props.resource.driveAlias }
-            })
+            params: { driveAliasAndItem: props.space.driveAlias }
+          })
           : createFileRouteOptions(props.space, props.resource)
       return !unref(isPublicLinkContext)
         ? urlJoin(unref(serverUrl), router.resolve(routeOpts).fullPath)
@@ -134,7 +98,7 @@ export default defineComponent({
     const copyEosPathToClipboard = () => {
       copy(unref(eosPath))
       copiedEos.value = unref(copied)
-      store.dispatch('showMessage', {
+      messageStore.showMessage({
         title: $gettext('FUSE path copied'),
         desc: $gettext('The FUSE path has been copied to your clipboard.')
       })
@@ -143,7 +107,7 @@ export default defineComponent({
     const copySambaPathToClipboard = () => {
       copy(unref(sambaPath))
       copiedSamba.value = unref(copied)
-      store.dispatch('showMessage', {
+      messageStore.showMessage({
         title: $gettext('Windows path copied'),
         desc: $gettext('The Windows path has been copied to your clipboard.')
       })
@@ -164,17 +128,17 @@ export default defineComponent({
     }
     const sambaPath = computed(() => {
       return getSambaPath(
-        props.resource.type === 'space' ? props.resource.driveAlias : props.resource.path
+        props.resource.type === 'space' ? props.space.driveAlias : props.resource.path
       )
     })
     const eosPath = computed(() => {
-      return props.resource.type === 'space' ? props.resource.driveAlias : props.resource.path
+      return props.resource.type === 'space' ? props.space.driveAlias : props.resource.path
     })
 
     const copyDirectLinkToClipboard = () => {
       copy(unref(directLink))
       copiedDirect.value = unref(copied)
-      store.dispatch('showMessage', {
+      messageStore.showMessage({
         title: $gettext('Direct link copied'),
         desc: $gettext('The direct link has been copied to your clipboard.')
       })
