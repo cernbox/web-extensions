@@ -1,21 +1,9 @@
 import { computed } from 'vue'
-import { createStore } from 'vuex'
-import { ApplicationSetupOptions, SearchExtension, useRouter } from '@ownclouders/web-pkg'
+import { ApplicationSetupOptions, SearchExtension, useResourcesStore, useRouter } from '@ownclouders/web-pkg'
 import { Provider } from './provider'
 
 export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
-  const store = createStore({
-    state: {
-      files: [],
-      areHiddenFilesShown: false,
-      currentFolder: null
-    },
-    getters: {
-      files: (state) => state.files,
-      areHiddenFilesShown: (state) => state.areHiddenFilesShown,
-      currentFolder: (state) => state.currentFolder
-    }
-  })
+  const store = useResourcesStore()
   const router = useRouter()
 
   return computed(

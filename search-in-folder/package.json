@@ -31,8 +31,7 @@
     "@ownclouders/web-pkg": "0.0.5-alpha.9",
     "vue": "3.3.4",
     "vue-router": "4.2.0",
-    "vue3-gettext": "^2.3.3",
-    "vuex": "4.1.0"
+    "vue3-gettext": "^2.3.3"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -45,8 +44,7 @@
     "@ownclouders/web-client": "11.0.4",
     "vue": "3.5.13",
     "vue-router": "4.4.5",
-    "vue3-gettext": "3.0.0-beta.5",
-    "vuex": "4.1.0"
+    "vue3-gettext": "3.0.0-beta.5"
   },
   "packageManager": "pnpm@10.3.0+sha512.ee592eda8815a8a293c206bb0917c4bb0ff274c50def7cbc17be05ec641fc2d1b02490ce660061356bd0d126a4d7eb2ec8830e6959fb8a447571c631d5a2442d"
 }
