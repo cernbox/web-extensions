@@ -1,22 +1,25 @@
 import App from './App.vue'
-import store from './store'
+import { useToursStore } from './store'
 import { loadTours } from './helpers'
+import { useConfigStore } from '@ownclouders/web-pkg'
 
 const appInfo = {
   name: 'Tours',
   id: 'tours'
 }
 
-const mounted = async function ({ instance, portal, router, store }) {
+const mounted = async function ({ instance, portal, router }) {
   portal.open('runtime', 'header.right', 1, [App])
 
-  const { tours } = await loadTours(store.getters.configuration?.options?.tours)
-  await store.dispatch('setAllTranslatedTourInfos', tours)
-  await store.dispatch('setCurrentTranslatedTourInfos')
+  const store = useToursStore()
+
+  const { tours } = await loadTours(store.tours)
+
+  store.setAllTranslatedTourInfos(tours)
+  store.setCurrentTranslatedTourInfos()
 }
 
 export default {
   appInfo,
-  mounted,
-  store
+  mounted
 }

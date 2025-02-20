@@ -1,12 +1,7 @@
 <template>
   <div v-if="toursAllowed" id="tours">
-    <oc-button
-      v-if="tours.length === 1"
-      id="toursButton"
-      v-oc-tooltip="tours[0].tooltip"
-      size="small"
-      @click.stop="startTour(0)"
-    >
+    <oc-button v-if="tours.length === 1" id="toursButton" v-oc-tooltip="tours[0].tooltip" size="small"
+      @click.stop="startTour(0)">
       <oc-icon name="map" />
       {{ tours[0].tourName }}
     </oc-button>
@@ -14,44 +9,34 @@
     <div v-else>
       <oc-button id="toursButton" v-oc-tooltip="toursTooltip" size="small">
         <oc-icon name="map" />
-        <translate>Tours</translate> </oc-button
-      ><oc-drop
-        ref="menu"
-        drop-id="tours"
-        toggle="#toursButton"
-        mode="click"
-        close-on-click
-        padding-size="small"
-      >
+        <translate>Tours</translate>
+      </oc-button>
+      <oc-drop ref="menu" drop-id="tours" toggle="#toursButton" mode="click" close-on-click padding-size="small">
         <oc-list class="user-menu-list">
-          <li
-            v-for="(tour, id) in tours"
-            :id="tour.tourName"
-            :key="`tour-${tour.title}-list-${id}`"
-            class="user-menu-list"
-            @click.stop="startTour(id)"
-          >
+          <li v-for="(tour, id) in tours" :id="tour.tourName" :key="`tour-${tour.title}-list-${id}`"
+            class="user-menu-list" @click.stop="startTour(id)">
             <oc-button v-oc-tooltip="tour.tooltip" appearance="raw">
               <span class="profile-info-wrapper" :class="'oc-py-xs'">
                 {{ tour.tourName }}
-              </span></oc-button
-            >
-          </li></oc-list
-        >
+              </span></oc-button>
+          </li>
+        </oc-list>
       </oc-drop>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import { createTranslatedTour, autostartTours } from './helpers'
+import { mapState, mapActions } from 'pinia'
+import { useAuthStore, useUserStore } from '@ownclouders/web-pkg'
+import { useToursStore } from './store'
 
 export default {
   computed: {
-    ...mapGetters(['currentTranslatedTourInfos']),
-    ...mapGetters('runtime/auth', ['accessToken']),
-    ...mapGetters(['user']),
+    ...mapState(useToursStore, ['currentTranslatedTourInfos']),
+    ...mapState(useAuthStore, ['accessToken']),
+    ...mapState(useUserStore, ['user']),
 
     tours() {
       return this.currentTranslatedTourInfos
@@ -77,13 +62,14 @@ export default {
     },
     selectedLanguage: {
       immediate: true,
-      handler(language) {
+      handler() {
         this.setCurrentTranslatedTourInfos(this.language)
       }
     }
   },
   methods: {
-    ...mapActions(['setCurrentTranslatedTourInfos']),
+    ...mapActions(useToursStore, ['setCurrentTranslatedTourInfos']),
+
     startTour(id) {
       createTranslatedTour(this.tours[id]).start()
     },
@@ -97,6 +83,7 @@ export default {
     }
   }
 }
+
 </script>
 <style src="shepherd.js/dist/css/shepherd.css"></style>
 
@@ -104,16 +91,20 @@ export default {
 .guide-highlight {
   background-color: var(--oc-color-background-highlight);
 }
+
 #tours {
   flex: none;
 }
+
 #tour {
   height: 100%;
   width: 100%;
 }
+
 .guide-img {
   width: 100%;
 }
+
 .shepherd-element {
   max-width: 700px !important;
 }
@@ -127,6 +118,7 @@ export default {
   display: flex !important;
   flex-flow: row wrap !important;
   padding: var(--oc-space-small) var(--oc-space-medium) !important;
+
   h3 {
     color: var(--oc-color-swatch-inverse-default) !important;
     font-size: 1rem !important;
@@ -134,9 +126,11 @@ export default {
     margin: 0 !important;
   }
 }
+
 .shepherd-text {
   border-top: 1px solid var(--oc-color-swatch-brand-default) !important;
 }
+
 .shepherd-element {
   border-radius: 15px !important;
   background-color: var(--oc-color-background-default) !important;
@@ -150,13 +144,16 @@ export default {
   color: var(--oc-color-text-default) !important;
   padding: var(--oc-space-medium) !important;
 }
+
 .shepherd-footer {
   border: 0 !important;
 }
+
 .shepherd-button {
   background-color: var(--oc-color-swatch-primary-default) !important;
   border-color: var(--oc-color-swatch-primary-default) !important;
 }
+
 .shepherd-button-secondary {
   background-color: initial !important;
   color: var(--oc-color-swatch-passive-default) !important;
