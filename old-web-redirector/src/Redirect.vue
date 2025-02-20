@@ -7,12 +7,14 @@
   </main>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+
+import { useUserStore } from '@ownclouders/web-pkg'
+import { mapState } from 'pinia'
 
 export default {
   name: 'Redirector',
   computed: {
-    ...mapGetters(['user'])
+    ...mapState(useUserStore, ['user']),
   },
 
   async mounted() {
@@ -93,7 +95,7 @@ export default {
         case 'eostrashbin':
           console.log('Redirecting old url to trashbin')
           this.$router.push({
-            name: 'files-trash-personal'
+            name: 'files-trash-overview'
           })
           break
 

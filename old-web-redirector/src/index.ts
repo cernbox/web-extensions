@@ -30,7 +30,7 @@ const routes = [
 
 const appInfo = {
   name: 'Redirector',
-  id: 'index.php'
+  id: 'index.php' // it doesn't work with 'index.php' as id, it needs to be alphanumeric
 }
 
 export default {
