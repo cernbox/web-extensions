@@ -1,6 +1,5 @@
 import { useGettext } from 'vue3-gettext'
-import { defineWebApplication, useRouter, useStore } from '@ownclouders/web-pkg'
-import { User } from '@ownclouders/web-client'
+import { defineWebApplication, useRouter, useUserStore } from '@ownclouders/web-pkg'
 import translations from '../l10n/translations.json'
 import { extensions } from './extensions'
 import App from './components/App.vue'
@@ -8,7 +7,7 @@ import App from './components/App.vue'
 export default defineWebApplication({
   setup(args) {
     const { $gettext } = useGettext()
-    const store = useStore()
+    const userStore = useUserStore()
     const router = useRouter()
 
     router.addRoute({
@@ -17,8 +16,9 @@ export default defineWebApplication({
       component: App,
       meta: { entryPoint: true, authContext: 'user' },
       beforeEnter: (to, from, next) => {
-        const user = store.getters.user as User
-        if (user.role?.name === 'user-light') {
+        const user = userStore.user
+        const roles = user.appRoleAssignments as any[] // types don't match
+        if (roles?.some((role) => role.name === 'user-light')) {
           next()
         }
         next({ path: '/files' })
