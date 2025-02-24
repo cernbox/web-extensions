@@ -7,12 +7,14 @@
   </main>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+
+import { useUserStore } from '@ownclouders/web-pkg'
+import { mapState } from 'pinia'
 
 export default {
   name: 'Redirector',
   computed: {
-    ...mapGetters(['user'])
+    ...mapState(useUserStore, ['user']),
   },
 
   async mounted() {
@@ -23,7 +25,7 @@ export default {
     index.php/apps/files/?dir=/&view=sharingout -> shared by others
     index.php/apps/files/?dir=/&view=sharinglinks - shared by link
     index.php/apps/files/?dir=/&view=projectspaces-personal -> projects
-    index.php/apps/files/?dir=/&view=eostrashbin -> trasbin
+    index.php/apps/files/?dir=/&view=eostrashbin -> trashbin
 
 
     index.php/apps/files/?dir=/my/path& -> /eos/user/[letter]/[username]/my/path
@@ -93,7 +95,7 @@ export default {
         case 'eostrashbin':
           console.log('Redirecting old url to trashbin')
           this.$router.push({
-            name: 'files-trash-personal'
+            name: 'files-trash-overview'
           })
           break
 
