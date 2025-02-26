@@ -27,6 +27,7 @@
     "@ownclouders/extension-sdk": "11.0.4",
     "@ownclouders/prettier-config": "0.0.1",
     "@ownclouders/tsconfig": "0.0.6",
+    "@ownclouders/web-pkg": "^11.0.7",
     "@vitejs/plugin-vue": "5.2.0",
     "eslint": "9.15.0",
     "prettier": "3.3.3",
@@ -36,6 +37,8 @@
     "vue": "3.5.13"
   },
   "dependencies": {
+    "pinia": "^3.0.1",
     "shepherd.js": "^14.3.0"
-  }
+  },
+  "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
 }
