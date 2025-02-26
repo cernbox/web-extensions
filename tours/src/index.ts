@@ -1,22 +1,32 @@
 import App from './App.vue'
-import store from './store'
+import { useToursStore } from './store'
 import { loadTours } from './helpers'
+import { CustomComponentExtension, defineWebApplication, useUserStore } from '@ownclouders/web-pkg'
+import { computed } from 'vue'
 
-const appInfo = {
-  name: 'Tours',
-  id: 'tours'
-}
+export default defineWebApplication({
+  setup({ applicationConfig }) {
+    const userStore = useUserStore()
+    const config = applicationConfig || {}
 
-const mounted = async function ({ instance, portal, router, store }) {
-  portal.open('runtime', 'header.right', 1, [App])
+    const appInfo = {
+      id: 'tours',
+      name: 'Tours',
+    }
 
-  const { tours } = await loadTours(store.getters.configuration?.options?.tours)
-  await store.dispatch('setAllTranslatedTourInfos', tours)
-  await store.dispatch('setCurrentTranslatedTourInfos')
-}
+    const mounted = async function ({ portal = null }) {
+      portal.open('runtime', 'header.right', 1, [App])
+      const toursStore = useToursStore()
 
-export default {
-  appInfo,
-  mounted,
-  store
-}
+      const { tours } = await loadTours(config.tours || [])
+
+      toursStore.setAllTranslatedTourInfos(tours)
+      toursStore.setCurrentTranslatedTourInfos()
+    }
+
+    return {
+      appInfo,
+      mounted,
+    }
+  }
+})
