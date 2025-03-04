@@ -82,20 +82,20 @@
   </tr>
 </template>
 <script lang="ts">
-import { computed, defineComponent, unref } from 'vue'
+import { computed, defineComponent, unref, ref } from 'vue'
 import { Resource, SpaceResource } from '@ownclouders/web-client'
 import { PropType } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import {
   createFileRouteOptions,
   createLocationSpaces,
-  usePublicLinkContext,
+  useConfigStore,
+  useAuthStore,
   useRouter,
-  useStore
+  useMessages
 } from '@ownclouders/web-pkg'
 import { useGettext } from 'vue3-gettext'
-import { urlJoin } from '@ownclouders/web-client/src/utils'
-import { ref } from 'vue'
+import { urlJoin } from '@ownclouders/web-client'
 
 export default defineComponent({
   props: {
@@ -103,10 +103,13 @@ export default defineComponent({
     resource: { type: Object as PropType<Resource>, required: true }
   },
   setup(props) {
-    const store = useStore()
+    const authStore = useAuthStore()
+    const configStore = useConfigStore()
+    const messageStore = useMessages()
+
     const router = useRouter()
     const { $gettext } = useGettext()
-    const isPublicLinkContext = usePublicLinkContext({ store })
+    const isPublicLinkContext = authStore.publicLinkContextReady
 
     const copiedDirect = ref(false)
     const copiedEos = ref(false)
@@ -117,13 +120,13 @@ export default defineComponent({
       isSupported: isClipboardCopySupported
     } = useClipboard({ legacy: true, copiedDuring: 550 })
 
-    const serverUrl = computed(() => store.getters.configuration.server)
+    const serverUrl = computed(() => configStore.serverUrl)
 
     const directLink = computed(() => {
       const routeOpts =
         props.resource.type === 'space'
           ? createLocationSpaces('files-spaces-generic', {
-              params: { driveAliasAndItem: props.resource.driveAlias }
+              params: { driveAliasAndItem: props.space.driveAlias }
             })
           : createFileRouteOptions(props.space, props.resource)
       return !unref(isPublicLinkContext)
@@ -134,7 +137,7 @@ export default defineComponent({
     const copyEosPathToClipboard = () => {
       copy(unref(eosPath))
       copiedEos.value = unref(copied)
-      store.dispatch('showMessage', {
+      messageStore.showMessage({
         title: $gettext('FUSE path copied'),
         desc: $gettext('The FUSE path has been copied to your clipboard.')
       })
@@ -143,13 +146,13 @@ export default defineComponent({
     const copySambaPathToClipboard = () => {
       copy(unref(sambaPath))
       copiedSamba.value = unref(copied)
-      store.dispatch('showMessage', {
+      messageStore.showMessage({
         title: $gettext('Windows path copied'),
         desc: $gettext('The Windows path has been copied to your clipboard.')
       })
     }
 
-    const getSambaPath = (path) => {
+    const getSambaPath = (path: string) => {
       const pathMappings = {
         user: '\\\\cernbox-smb\\eos\\user\\',
         project: '\\\\eosproject-smb\\eos\\project\\',
@@ -163,18 +166,16 @@ export default defineComponent({
       }
     }
     const sambaPath = computed(() => {
-      return getSambaPath(
-        props.resource.type === 'space' ? props.resource.driveAlias : props.resource.path
-      )
+      return getSambaPath(props.space.driveAlias.concat(props.resource.path))
     })
     const eosPath = computed(() => {
-      return props.resource.type === 'space' ? props.resource.driveAlias : props.resource.path
+      return props.space.path.concat(props.space.driveAlias, props.resource.path)
     })
 
     const copyDirectLinkToClipboard = () => {
       copy(unref(directLink))
       copiedDirect.value = unref(copied)
-      store.dispatch('showMessage', {
+      messageStore.showMessage({
         title: $gettext('Direct link copied'),
         desc: $gettext('The direct link has been copied to your clipboard.')
       })
