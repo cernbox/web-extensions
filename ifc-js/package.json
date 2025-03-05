@@ -27,6 +27,8 @@
     "@ownclouders/extension-sdk": "11.0.4",
     "@ownclouders/prettier-config": "0.0.1",
     "@ownclouders/tsconfig": "0.0.6",
+    "@ownclouders/web-pkg": "11.0.4",
+    "@types/three": "^0.173.0",
     "@vitejs/plugin-vue": "5.2.0",
     "eslint": "9.15.0",
     "js-base64": "^3.7.7",
@@ -34,15 +36,14 @@
     "sass": "1.81.0",
     "typescript": "~5.6.3",
     "vite": "5.4.11",
-    "vite-plugin-static-copy": "^2.1.0",
     "vue": "3.5.13"
   },
   "dependencies": {
-    "@ownclouders/web-pkg": "11.0.4",
-    "three": "^0.156.1",
+    "@thatopen/components": "^2.4.4",
+    "@thatopen/fragments": "^2.4.0",
+    "three": "^0.160.1",
     "vue-concurrency": "5.0.1",
-    "vue-router": "4.4.5",
-    "web-ifc-three": "^0.0.125"
+    "vue-router": "4.4.5"
   },
   "peerDependencies": {
     "@ownclouders/web-pkg": "0.0.5-alpha.1",
@@ -55,5 +56,6 @@
         "design-system*"
       ]
     }
-  }
+  },
+  "packageManager": "pnpm@10.3.0+sha512.ee592eda8815a8a293c206bb0917c4bb0ff274c50def7cbc17be05ec641fc2d1b02490ce660061356bd0d126a4d7eb2ec8830e6959fb8a447571c631d5a2442d"
 }
