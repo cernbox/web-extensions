@@ -1,4 +1,4 @@
 {
-  "extends": "@ownclouders/tsconfig",
-  "compilerOptions": {}
+    "extends": "@ownclouders/tsconfig",
+    "compilerOptions": {}
 }

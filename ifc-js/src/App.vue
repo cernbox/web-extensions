@@ -5,8 +5,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import { AppConfigObject } from '@ownclouders/web-pkg'
+import { computed, defineComponent } from 'vue'
 import {
   AmbientLight,
   AxesHelper,
@@ -16,38 +15,31 @@ import {
   Scene,
   WebGLRenderer
 } from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { IFCLoader } from 'web-ifc-three/IFCLoader'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import { Components, IfcLoader } from '@thatopen/components'
 
 export default defineComponent({
   name: 'IFC Viewer',
   props: {
-    applicationConfig: { type: Object as PropType<AppConfigObject>, required: true },
     url: {
       type: String,
       required: true
     }
   },
   setup(props) {
-    const config = computed(() => {
-      const { wasmPath = "" } = props.applicationConfig as AppConfigObject
-      return { wasmPath }
-    })
-
     const davURL = computed(() => {
       return props.url
     })
 
     return {
-      config,
       davURL
     }
   },
-  mounted() {
+  async mounted() {
     this.init()
     this.addGrid()
     this.addAxes()
-    this.addIFCModel()
+    await this.addIFCModel()
     this.animate()
   },
   methods: {
@@ -56,7 +48,6 @@ export default defineComponent({
 
       this.scene = new Scene()
       const lightColor = 0xffffff
-
       const ambientLight = new AmbientLight(lightColor, 0.5)
       this.scene.add(ambientLight)
 
@@ -66,13 +57,13 @@ export default defineComponent({
       this.scene.add(directionalLight)
       this.scene.add(directionalLight.target)
 
-      this.camera = new PerspectiveCamera(75, threeCanvas.clientWidth / threeCanvas.clientHeight)
+      this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight)
       this.camera.position.z = 15
       this.camera.position.y = 13
       this.camera.position.x = 8
 
       this.renderer = new WebGLRenderer({ canvas: threeCanvas, alpha: true })
-      this.renderer.setSize(threeCanvas.clientWidth, threeCanvas.clientHeight)
+      this.renderer.setSize(window.innerWidth, window.innerHeight)
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
       this.controls = new OrbitControls(this.camera, threeCanvas)
@@ -94,12 +85,20 @@ export default defineComponent({
       this.renderer.render(this.scene, this.camera)
       requestAnimationFrame(this.animate)
     },
-    addIFCModel: function () {
-      const ifcLoader = new IFCLoader()
-      ifcLoader.ifcManager.setWasmPath(this.config.wasmPath)
-      ifcLoader.load(this.davURL, (ifcModel) => {
-        this.scene.add(ifcModel)
-      })
+    addIFCModel: async function () {
+      const components = new Components()
+      components.init()
+      const loader = components.get(IfcLoader)
+
+      await loader.setup()
+
+      const file = await fetch(this.davURL)
+      const data = await file.arrayBuffer()
+      const buffer = new Uint8Array(data)
+      const model = await loader.load(buffer)
+
+      model.name = 'IFC Model'
+      this.scene.add(model)
     }
   }
 })
@@ -109,10 +108,12 @@ export default defineComponent({
 #ifc-main {
   background-color: white !important;
 }
+
 main {
   width: 100%;
   height: 100%;
 }
+
 #threeCanvas {
   width: 100%;
   height: 100%;
