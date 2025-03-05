@@ -1,5 +1,4 @@
 import { defineConfig } from '@ownclouders/extension-sdk'
-import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
   server: {},
@@ -10,9 +9,4 @@ export default defineConfig({
       }
     }
   },
-  plugins: [
-    viteStaticCopy({
-      targets: [{ src: 'node_modules/web-ifc-three/web-ifc.wasm', dest: './' }]
-    })
-  ]
 })
