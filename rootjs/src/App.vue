@@ -60,7 +60,7 @@ export default {
         node.setAttribute('crossorigin', 'anonymous')
       }
     })
-    require([ '//root.cern/js/latest/scripts/JSRoot.core.min.js'], this.renderViewer, this.showError)
+    require([ '//root.cern/js/7.8.2/scripts/JSRoot.core.min.js'], this.renderViewer, this.showError)
   },
   methods: {
     renderViewer: function () {
