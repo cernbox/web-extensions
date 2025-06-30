@@ -1,12 +1,13 @@
 {
-    "en": {
-        "Spaces": "EOS Projects",
-        "You don't have access to any spaces": "You don't have access to any EOS project",
-        "Select a space to view details": "Select a EOS project to view details"
-    },
-    "fr": {
-        "Spaces":"Projets EOS",
-        "You don't have access to any spaces": "Vous n'avez accès à aucun projet EOS",
-        "Select a space to view details": "Sélectionnez un projet EOS pour afficher les détails"
-    }
+  "en": {
+    "Permanent link": "Direct link",
+    "Permanent link copied": "Direct link copied",
+    "The permanent link has been copied to your clipboard.": "The direct link has been copied to your clipboard."
+  },
+  "fr": {
+    "Permanent link": "Lien direct",
+    "Permanent link copied": "Lien direct copié",
+    "The permanent link has been copied to your clipboard.": "Le lien direct a été copié dans votre presse-papiers."
+  }
 }
+
