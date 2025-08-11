@@ -1,5 +1,5 @@
 <template>
-  <tr v-if="!isPublicLinkContext" data-testid="eosPath">
+  <tr v-if="!isPublicLinkContext && !isTrashbinContext" data-testid="eosPath">
     <th scope="col" class="oc-pr-s oc-font-semibold" v-text="$gettext('FUSE Path')" />
     <td>
       <div class="oc-flex oc-flex-middle oc-flex-between">
@@ -28,7 +28,7 @@
       </div>
     </td>
   </tr>
-  <tr v-if="sambaPath && !isPublicLinkContext" data-testid="sambaPath">
+  <tr v-if="sambaPath && !isPublicLinkContext && !isTrashbinContext" data-testid="sambaPath">
     <th scope="col" class="oc-pr-s oc-font-semibold" v-text="$gettext('Windows Path')" />
     <td>
       <div class="oc-flex oc-flex-middle oc-flex-between">
@@ -56,7 +56,7 @@
       </div>
     </td>
   </tr>
-  <tr data-testid="eosDirectLink">
+  <tr v-if="!isTrashbinContext" data-testid="eosDirectLink">
     <th scope="col" class="oc-pr-s oc-font-semibold" v-text="$gettext('Direct link')" />
     <td>
       <div class="oc-flex oc-flex-middle oc-flex-between">
@@ -89,6 +89,7 @@ import { useClipboard } from '@vueuse/core'
 import {
   createFileRouteOptions,
   createLocationSpaces,
+  isLocationTrashActive,
   useConfigStore,
   useAuthStore,
   useRouter,
@@ -121,6 +122,10 @@ export default defineComponent({
     } = useClipboard({ legacy: true, copiedDuring: 550 })
 
     const serverUrl = computed(() => configStore.serverUrl)
+
+    const isTrashbinContext = computed(() => {
+      return isLocationTrashActive(router, 'files-trash-generic')
+    })
 
     const directLink = computed(() => {
       const routeOpts =
@@ -183,6 +188,7 @@ export default defineComponent({
 
     return {
       isPublicLinkContext,
+      isTrashbinContext,
       isClipboardCopySupported,
       directLink,
       copiedDirect,
