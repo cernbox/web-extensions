@@ -128,14 +128,8 @@ export default defineComponent({
     })
 
     const directLink = computed(() => {
-      const routeOpts =
-        props.resource.type === 'space'
-          ? createLocationSpaces('files-spaces-generic', {
-              params: { driveAliasAndItem: props.space.driveAlias }
-            })
-          : createFileRouteOptions(props.space, props.resource)
       return !unref(isPublicLinkContext)
-        ? urlJoin(unref(serverUrl), router.resolve(routeOpts).fullPath)
+        ? props.resource.privateLink
         : urlJoin(unref(serverUrl), props.resource.downloadURL)
     })
 
