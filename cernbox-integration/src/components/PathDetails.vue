@@ -86,15 +86,7 @@ import { computed, defineComponent, unref, ref } from 'vue'
 import { Resource, SpaceResource } from '@ownclouders/web-client'
 import { PropType } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import {
-  createFileRouteOptions,
-  createLocationSpaces,
-  isLocationTrashActive,
-  useConfigStore,
-  useAuthStore,
-  useRouter,
-  useMessages
-} from '@ownclouders/web-pkg'
+import { isLocationTrashActive, useAuthStore, useRouter, useMessages } from '@ownclouders/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import { urlJoin } from '@ownclouders/web-client'
 
@@ -105,7 +97,6 @@ export default defineComponent({
   },
   setup(props) {
     const authStore = useAuthStore()
-    const configStore = useConfigStore()
     const messageStore = useMessages()
 
     const router = useRouter()
@@ -121,8 +112,6 @@ export default defineComponent({
       isSupported: isClipboardCopySupported
     } = useClipboard({ legacy: true, copiedDuring: 550 })
 
-    const serverUrl = computed(() => configStore.serverUrl)
-
     const isTrashbinContext = computed(() => {
       return isLocationTrashActive(router, 'files-trash-generic')
     })
@@ -130,7 +119,7 @@ export default defineComponent({
     const directLink = computed(() => {
       return !unref(isPublicLinkContext)
         ? props.resource.privateLink
-        : urlJoin(unref(serverUrl), props.resource.downloadURL)
+        : urlJoin(props.resource.downloadURL)
     })
 
     const copyEosPathToClipboard = () => {

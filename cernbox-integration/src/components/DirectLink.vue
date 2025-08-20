@@ -19,17 +19,11 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, unref } from 'vue'
-import { Resource, SpaceResource, urlJoin } from '@ownclouders/web-client'
+import { defineComponent, unref } from 'vue'
+import { Resource, SpaceResource } from '@ownclouders/web-client'
 import { PropType } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import {
-  createFileRouteOptions,
-  useAuthStore,
-  useConfigStore,
-  useMessages,
-  useRouter
-} from '@ownclouders/web-pkg'
+import { useAuthStore, useMessages, useRouter } from '@ownclouders/web-pkg'
 import { useGettext } from 'vue3-gettext'
 
 export default defineComponent({
@@ -39,7 +33,6 @@ export default defineComponent({
   },
   setup(props) {
     const authStore = useAuthStore()
-    const configStore = useConfigStore()
     const messageStore = useMessages()
 
     const isPublicLinkContext = authStore.publicLinkContextReady
@@ -47,11 +40,9 @@ export default defineComponent({
     const router = useRouter()
     const { $gettext } = useGettext()
 
-    const serverUrl = computed(() => configStore.serverUrl)
-
     const directLink = !unref(isPublicLinkContext)
       ? props.resource.privateLink
-      : urlJoin(unref(serverUrl), props.resource.downloadURL)
+      : props.resource.downloadURL
 
     const { copy, isSupported: isClipboardCopySupported } = useClipboard({
       legacy: true,
