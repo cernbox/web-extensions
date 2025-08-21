@@ -6,6 +6,20 @@ if (appsRegex.test(window.location.pathname)) {
   window.location.pathname = window.location.pathname.replace("/spaces", "");
 }
 
+externalLinksRegex = /^\/external\//i;
+if (externalLinksRegex.test(window.location.pathname)) {
+  let { search } = window.location;
+  const urlParams = new URLSearchParams(search);
+  const app = urlParams.get("app");
+
+  if (app === "MS 365 on Cloud") {
+    const newApp = "MS365";
+    urlParams.set("app", newApp);
+    search = `?${urlParams.toString()}`;
+    window.location.search = search;
+  }
+}
+
 const root = document.querySelector(":root");
 
 const qaBoxRegex = /^qa\./i;
