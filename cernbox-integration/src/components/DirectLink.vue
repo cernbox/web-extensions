@@ -23,7 +23,7 @@ import { defineComponent, unref } from 'vue'
 import { Resource, SpaceResource } from '@ownclouders/web-client'
 import { PropType } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import { useAuthStore, useMessages, useRouter } from '@ownclouders/web-pkg'
+import { useMessages } from '@ownclouders/web-pkg'
 import { useGettext } from 'vue3-gettext'
 
 export default defineComponent({
@@ -32,17 +32,11 @@ export default defineComponent({
     resource: { type: Object as PropType<Resource>, required: true }
   },
   setup(props) {
-    const authStore = useAuthStore()
     const messageStore = useMessages()
 
-    const isPublicLinkContext = authStore.publicLinkContextReady
-
-    const router = useRouter()
     const { $gettext } = useGettext()
 
-    const directLink = !unref(isPublicLinkContext)
-      ? props.resource.privateLink
-      : props.resource.downloadURL
+    const directLink = props.resource.privateLink
 
     const { copy, isSupported: isClipboardCopySupported } = useClipboard({
       legacy: true,
