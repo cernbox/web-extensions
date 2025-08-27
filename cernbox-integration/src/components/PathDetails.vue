@@ -88,7 +88,6 @@ import { PropType } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import { isLocationTrashActive, useAuthStore, useRouter, useMessages } from '@ownclouders/web-pkg'
 import { useGettext } from 'vue3-gettext'
-import { urlJoin } from '@ownclouders/web-client'
 
 export default defineComponent({
   props: {
@@ -116,11 +115,7 @@ export default defineComponent({
       return isLocationTrashActive(router, 'files-trash-generic')
     })
 
-    const directLink = computed(() => {
-      return !unref(isPublicLinkContext)
-        ? props.resource.privateLink
-        : urlJoin(props.resource.downloadURL)
-    })
+    const directLink = computed(() => props.resource.privateLink)
 
     const copyEosPathToClipboard = () => {
       copy(unref(eosPath))
