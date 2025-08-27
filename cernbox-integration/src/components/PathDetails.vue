@@ -23,7 +23,7 @@
             name="checkbox-circle"
             class="_clipboard-success-animation"
           />
-          <oc-icon v-else key="oc-copy-to-clipboard-copy" name="clipboard" />
+          <oc-icon v-else key="oc-copy-to-clipboard-copy" name="file-copy" />
         </oc-button>
       </div>
     </td>
@@ -51,7 +51,7 @@
             name="checkbox-circle"
             class="_clipboard-success-animation"
           />
-          <oc-icon v-else key="oc-copy-to-clipboard-copy" name="clipboard" />
+          <oc-icon v-else key="oc-copy-to-clipboard-copy" name="file-copy" />
         </oc-button>
       </div>
     </td>
@@ -75,7 +75,7 @@
             name="checkbox-circle"
             class="_clipboard-success-animation"
           />
-          <oc-icon v-else key="oc-copy-to-clipboard-copy" name="clipboard" />
+          <oc-icon v-else key="oc-copy-to-clipboard-copy" name="file-copy" />
         </oc-button>
       </div>
     </td>
