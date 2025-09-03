@@ -3,12 +3,26 @@
     "Permanent link": "Direct link",
     "Copy permanent link": "Copy direct link",
     "Permanent link copied": "Direct link copied",
-    "The permanent link has been copied to your clipboard.": "The direct link has been copied to your clipboard."
+    "The permanent link has been copied to your clipboard.": "The direct link has been copied to your clipboard.",
+    "Internal": "Primary/groups",
+    "Internal users": "Primary users and groups",
+    "Guests": "External",
+    "Guest users": "External users",
+    "External": "Federated",
+    "External users": "Federated users",
+    "No external users found.": "No federated users found."
   },
   "fr": {
     "Permanent link": "Lien direct",
     "Copy permanent link": "Copier le lien direct",
     "Permanent link copied": "Lien direct copié",
-    "The permanent link has been copied to your clipboard.": "Le lien direct a été copié dans votre presse-papiers."
+    "The permanent link has been copied to your clipboard.": "Le lien direct a été copié dans votre presse-papiers.",
+    "Internal": "Primaire/groupes",
+    "Internal users": "Utilisateurs primaires et groupes",
+    "Guests": "Externe",
+    "Guest users": "Utilisateurs externes",
+    "External": "Fédéré",
+    "External users": "Utilisateurs fédérés",
+    "No external users found.": "Aucun utilisateur fédéré trouvé."
   }
 }
