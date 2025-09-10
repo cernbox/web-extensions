@@ -11,38 +11,29 @@
           "learnMoreLink": "https://cernbox.docs.cern.ch/web/"
         },
         {
-          "title": "1.  Universal URLs",
-          "text": "<div><p>CERNBox, which uses the EOS storage system under the hood, now exposes its full namespace. This means most of our access methods (excluding the mobile clients, for now) have a consistent and more intuitive view.\r\n        </p><p><span class=\"guide-highlight\">https://new.cernbox.cern.ch/files/spaces<b>/eos/user/&lt;letter&gt;/&lt;username&gt;</b></span></p>\r\n        <p>Now it's possible to just copy your URL and share it directly with someone else. If that person has permissions, he/she will be able to open it.\r\n        </p></div>",
+          "title": "1. Spaces",
+          "text": "<div><p>The new view \"Spaces\" includes all EOS Projects.\r\n </p><img class=\"guid-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/spaces.png\"></img>\r\n <p>With this update, it's also possible to add some extra info to each space, e.g. <span class=\"guide-highlight\">Description</span> and <span class=\"guide-highlight\">Image</span>.\r\n</p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/space-info.png\"></img></div>",
           "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/access/#universal-urls"
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web"
         },
         {
-          "title": "2.  Single File Sharing",
-          "text": "<div><p>Now, it's possible to share not only folders but also single files in both read and write modes!\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/sharing.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/sharing/"
+          "title": "2. Sidebar Updates - Sharing",
+          "text": "<div><p>Now, it's possible to share the current file inside the editor view via sidebar</p><p>Other than that, there's a new account search when sharing with simpler filters.</p><p>OBS: \"Direct link\" refers to the file/folder link in its space, it's not a share by itself</p></div>",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "3. Improved App Ecosystem",
-          "text": "<div><p>The new CERNBox has diverse application/file extensions integrations: Microsoft Office 365, CodiMD, Draw.io, text editor, PDF viewer, IFC viewer, Jupyter viewer, Root viewer, SWAN, Media viewer.\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/apps-context.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/apps/"
+          "title": "3. Usability improvements",
+          "text": "<div><p>The new update also brings some usability improvements.</p><p>Among these updates, you can find:\r\n<ul><li>Larger columns in the UI</li><li>Improved search for files</li><li>Easier way to access the thrashbin</li><li>Better shortcuts</li><li>New Duplicate action</li></ul></p></div>",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "4. Improved Projects Integration",
-          "text": "<div><p>Now it's also possible to see and recover files of projects by right clicking on a project and then on \"Open trashbin\"\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/projects-trashbin.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/projects/"
+          "title": "4. Better Error Handling",
+          "text": "<div><p>The new CERNBox web includes better error handling and feedback.</p><p>Many know bugs were patched and the feedback was improved.</p><p>Now, when an error occurs, a message will be displayed proviing the incident code.\r\n</p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/error-popup.png\"></img></div>",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "Lightweight accounts",
-          "text": "<div><p>The new CERNBox uses the new CERN SSO and it now allows signing in with other accounts, like social or lightweight.\r\n        </p><p>Unlike the normal CERN accounts, these do not have storage associated with them. They can, however, collaborate on shared resources or on Projects.</p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/lightweight.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/access/#accounts-supported"
-        },
-        {
-          "title": "Coming soon",
-          "text": "<div><p>Other features will be coming in the coming months:</p>\r\n        <oc-list><li>Integrations with other services</li>\r\n        <li>Improved search</li>\r\n        <li>Auditing and reporting/notifications</li>\r\n        <li>Backup restore UI</li></oc-list>\r\n        <p> Stay tuned!</p></div>",
+          "title": "Other updates",
+          "text": "<div><p>In case you want to check the complete changelog, the full list of new features can be find at our <a href=\"https://cernbox.docs.cern.ch/web/\" target=\"_blank\" rel=\"noopener\">documentation</a>.</p></div>",
           "buttons": ["back", "next"]
         }
       ]
@@ -59,38 +50,28 @@
           "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/"
         },
         {
-          "title": "1. URL universelles",
-          "text": "<div><p>CERNBox, qui utilise le système de stockage EOS sous le capot, expose désormais son espace de noms complet. Cela signifie que la plupart de nos méthodes d'accès (à l'exception des clients mobiles, pour l'instant) ont une vue cohérente et plus intuitive.\r\n        </p><p><span class=\"guide-highlight\">https://new.cernbox.cern.ch/files/spaces<b>/eos/user/&lt;letter&gt;/&lt;username&gt;</b></span></p>\r\n        <p>Il est désormais possible de simplement copier votre URL et de la partager directement avec quelqu'un d'autre. Si cette personne a les autorisations, elle pourra l'ouvrir.\r\n        </p></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/access/#universal-urls"
+          "title": "1. Spaces",
+          "text": "<div><p>La nouvelle vue « Espaces » inclut tous les projets EOS.\r\n </p><img class=\"guid-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/spaces.png\"></img>\r\n <p>Avec cette mise à jour, il est également possible d'ajouter des informations supplémentaires à chaque espace, par exemple une <span class=\"guide-highlight\">description</span> et une <span class=\"guide-highlight\">image</span>.\r\n</p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/space-info.png\"></img></div>",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "2. Partage de fichier unique",
-          "text": "<div><p>Désormais, il est possible de partager non seulement des dossiers, mais également des fichiers uniques en mode lecture et écriture !\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/sharing.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/sharing/"
+          "title": "2. Barre Latérale - Partage",
+          "text": "<div><p>Il est désormais possible de partager le fichier actuel dans la vue de l'éditeur via la barre latérale</p><p>En outre, il existe une nouvelle recherche de compte lors du partage avec des filtres plus simples.</p><p>OBS : « Lien direct » fait référence au lien du fichier/dossier dans son espace, ce n'est pas un partage en soi</p></div>",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "3. Écosystème d'applications amélioré",
-          "text": "<div><p>Le nouveau CERNBox intègre diverses applications/extensions de fichiers : Microsoft Office 365, CodiMD, Draw.io, éditeur de texte, visionneuse PDF, visionneuse IFC, visionneuse Jupyter, visionneuse racine, SWAN, visionneuse multimédia.\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/apps-context.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/apps/"
+          "title": "3. Usabilité Améliorée",
+          "text": "<div><p>La nouvelle mise à jour apporte également quelques améliorations d'ergonomie.</p><p>Parmi ces mises à jour, vous pouvez trouver :\r\n<ul><li>Des colonnes plus grandes dans l'interface utilisateur</li><li>Une recherche de fichiers améliorée</li><li>Un moyen plus simple d'accéder à la corbeille</li><li>De meilleurs raccourcis</li><li>Une nouvelle action Dupliquer</li></ul></p></div>",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "4. Amélioration de l'intégration des projets",
-          "text": "<div><p>Maintenant, il est également possible de voir et de récupérer des fichiers de projets en faisant un clic droit sur un projet puis sur \"Ouvrir la corbeille\"\r\n        </p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/projects-trashbin.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/projects/"
+          "title": "4. Meilleure Gestion des Erreurs",
+          "text": "<div><p>Le nouveau site Web de CERNBox inclut une meilleure gestion des erreurs et un meilleur retour d'information.</p><p>De nombreux bugs connus ont été corrigés et le retour d'information a été amélioré.</p><p>Désormais, lorsqu'une erreur se produit, un message s'affiche avec le code de l'incident.\r\n</p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/error-popup.png\"></img></div>",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "Comptes légers",
-          "text": "<div><p>Le nouveau CERNBox utilise le nouveau CERN SSO et permet désormais de se connecter avec d'autres comptes, comme social ou léger.\r\n        </p><p>Contrairement aux comptes CERN normaux, ceux-ci n'ont pas de stockage associé. Ils peuvent cependant collaborer sur des ressources partagées ou sur des projets.</p><img class=\"guide-img\" src=\"https://cernbox.docs.cern.ch/assets/screenshots/lightweight.png\"></img></div>",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/access/#accounts-supported"
-        },
-        {
-          "title": "Bientôt disponible",
-          "text": "<div><p>D'autres fonctionnalités arriveront dans les mois à venir :</p>\r\n        <oc-list><li>Intégrations avec d'autres services</li>\r\n        <li>Recherche améliorée</li>\r\n        <li>Audit et rapports/notifications</li>\r\n        <li>Interface utilisateur de restauration de sauvegarde</li></oc-list>\r\n        <p>Restez à l'écoute !</p></div>",
+          "title": "Outres mises à jour",
+          "text": "<div><p>Si vous souhaitez consulter le journal des modifications complet, la liste complète des nouvelles fonctionnalités est disponible dans notre <a href=\"https://cernbox.docs.cern.ch/web/\" target=\"_blank\" rel=\"noopener\">documentation</a>.</p></div>",
           "buttons": ["back", "next"]
         }
       ]
