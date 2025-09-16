@@ -149,10 +149,10 @@ export default defineComponent({
       }
     }
     const sambaPath = computed(() => {
-      return getSambaPath(props.space.driveAlias.concat(props.resource.path))
+      return getSambaPath(props.space.driveAlias.concat('/', props.resource.path))
     })
     const eosPath = computed(() => {
-      return props.space.path.concat(props.space.driveAlias, props.resource.path)
+      return props.space.path.concat(props.space.driveAlias, '/', props.resource.path)
     })
 
     const copyDirectLinkToClipboard = () => {
