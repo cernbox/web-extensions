@@ -1,9 +1,16 @@
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { ApplicationSetupOptions, SidebarNavExtension, useUserStore } from '@ownclouders/web-pkg'
+import {
+  ApplicationSetupOptions, 
+  SidebarNavExtension, 
+  useUserStore, 
+  useSpacesStore 
+} from '@ownclouders/web-pkg'
+import { isPersonalSpaceResource } from '@ownclouders/web-client'
 
 export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
   const userStore = useUserStore()
+  const spacesStore = useSpacesStore()
   const { $gettext } = useGettext()
 
   return computed(
@@ -15,9 +22,11 @@ export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
           navItem: {
             activeFor: [{ path: '/files/lightweight-accounts-home' }],
             isVisible: () => {
-              const user = userStore.user
-              const roles = user.appRoleAssignments as any[] // types don't match
-              return roles?.some((role) => role.name === 'user-light')
+              const userHasPersonalSpace = !!spacesStore.spaces.find(
+                (drive) => isPersonalSpaceResource(drive) && drive.isOwner(userStore.user)
+              )
+              // Lightweight accounts do not have personal spaces
+              return !userHasPersonalSpace
             },
             name: () => $gettext('Home'),
             icon: 'home',
