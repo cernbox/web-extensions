@@ -1,10 +1,5 @@
 import { useGettext } from 'vue3-gettext'
-import { 
-  defineWebApplication, 
-  useRouter, 
-  useUserStore,
-  useSpacesStore
-} from '@ownclouders/web-pkg'
+import { defineWebApplication, useRouter, useUserStore, useSpacesStore } from '@ownclouders/web-pkg'
 import { watch } from 'vue'
 import { isPersonalSpaceResource } from '@ownclouders/web-client'
 import translations from '../l10n/translations.json'
@@ -25,7 +20,13 @@ export default defineWebApplication({
       meta: { entryPoint: true, authContext: 'user' },
       beforeEnter: (to, from, next) => {
         if (spacesStore.spacesInitialized) {
-          next()
+          const userHasPersonalSpace = !!spacesStore.spaces.find(
+            (drive) => isPersonalSpaceResource(drive) && drive.isOwner(userStore.user)
+          )
+          if (!userHasPersonalSpace) {
+            next()
+          }
+          next({ path: '/files' })
         }
         watch(
           () => spacesStore.spacesInitialized,

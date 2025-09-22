@@ -1,10 +1,10 @@
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import {
-  ApplicationSetupOptions, 
-  SidebarNavExtension, 
-  useUserStore, 
-  useSpacesStore 
+  ApplicationSetupOptions,
+  SidebarNavExtension,
+  useUserStore,
+  useSpacesStore
 } from '@ownclouders/web-pkg'
 import { isPersonalSpaceResource } from '@ownclouders/web-client'
 
