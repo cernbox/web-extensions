@@ -55,8 +55,10 @@ export default {
         '.oc-notification-message-otg .oc-notification-message-title'
       ).parentElement
 
-      otgNotificationHeaders.append(link)
-    }, 50)
+      if (otgNotificationHeaders && link) {
+        otgNotificationHeaders.append(link)
+      }
+    }, 100)
   }
 }
 </script>
