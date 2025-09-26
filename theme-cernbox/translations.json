@@ -10,7 +10,11 @@
     "Guest users": "External users",
     "External": "Federated",
     "External users": "Federated users",
-    "No external users found.": "No federated users found."
+    "No external users found.": "No federated users found.",
+    "Shared via link": "Shared publicly",
+    "Public links": "Share publicly",
+    "This folder has no public link.": "This folder has not been shared publicly.",
+    "This file has no public link.": "This file has not been shared publicly."
   },
   "fr": {
     "Permanent link": "Lien direct",
@@ -23,6 +27,10 @@
     "Guest users": "Utilisateurs externes",
     "External": "Fédéré",
     "External users": "Utilisateurs fédérés",
-    "No external users found.": "Aucun utilisateur fédéré trouvé."
+    "No external users found.": "Aucun utilisateur fédéré trouvé.",
+    "Shared via link": "Partagé publiquement",
+    "Public links": "Partager publiquement",
+    "This folder has no public link.": "Ce dossier n'a pas été partagé publiquement.",
+    "This file has no public link.": "Ce fichier n'a pas été partagé publiquement."
   }
 }
