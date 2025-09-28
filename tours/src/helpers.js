@@ -126,6 +126,11 @@ export function createTranslatedTourInfos(tours) {
         exitOnEsc: t.exitOnEsc,
         useModalOverlay: t.useModalOverlay === true,
         tooltip: t.translations[language].tooltip,
+        tourId: t.tourId,
+        autostart: t.autostart,
+        allowedLocations: t.allowedLocations,
+        deniedLocations: t.deniedLocations,
+        defaultLanguage: t.defaultLanguage,
         defaultStepOptions: {
           ...(t.defaultStepOptions?.cancelIcon && {
             cancelIcon: {
@@ -134,23 +139,38 @@ export function createTranslatedTourInfos(tours) {
           }),
           ...(t.defaultStepOptions?.classes && { classes: t.defaultStepOptions?.classes }),
           ...(t.defaultStepOptions?.scrollTo && { scrollTo: t.defaultStepOptions.scrollTo })
-        }
+        },
+        preloadImages: t.preloadImages || [],
+        steps: []
       }
-      translatedTour.steps = []
-      t.translations[language].steps.forEach((s, j) => {
-        const buttons = addButtons(s.buttons, s.learnMoreLink)
+
+      const style = document.createElement("style");
+      const steps = t.translations[language].steps
+      steps.forEach((s, j) => {
+        const buttons = addButtons(
+          s.buttons,
+          s.learnMoreLink,
+          j === steps.length - 1)
+        const stepId = `step-${t.tourId}-${j}`;
         translatedTour.steps.push({
           title: s.title,
+          classes: s.style ? `step-${s.style}` : 'step-normal',
+          attachTo: s.attachTo,
           text: s.text,
           buttons: buttons,
-          id: j
+          id: stepId,
         })
+        if (s.style == "cover") {
+          translatedTour.preloadImages.push(s.coverImage)
+          style.innerHTML += `
+            dialog[data-shepherd-step-id="${stepId}"].step-cover .shepherd-header {
+              background-image: url('${s.coverImage}');
+              background-size: cover;
+            }
+          `;
+        }
       })
-      translatedTour.tourId = t.tourId
-      translatedTour.autostart = t.autostart
-      translatedTour.allowedLocations = t.allowedLocations
-      translatedTour.deniedLocations = t.deniedLocations
-      translatedTour.defaultLanguage = t.defaultLanguage
+      document.head.appendChild(style);
 
       if (!createdTourInfos[language]) createdTourInfos[language] = []
       createdTourInfos[language].push(translatedTour)
@@ -168,6 +188,11 @@ export function createTranslatedTour(tourInfo) {
     exitOnEsc: tourInfo.exitOnEsc,
     useModalOverlay: tourInfo.useModalOverlay === true,
     tooltip: tourInfo.tooltip,
+    tourId: tourInfo.tourId,
+    autostart: tourInfo.autostart,
+    allowedLocations: tourInfo.allowedLocations,
+    deniedLocations: tourInfo.deniedLocations,
+    defaultLanguage: tourInfo.defaultLanguage,
     defaultStepOptions: {
       ...(tourInfo.defaultStepOptions?.cancelIcon && {
         cancelIcon: {
@@ -183,26 +208,18 @@ export function createTranslatedTour(tourInfo) {
     }
   })
 
-  tourInfo.steps.forEach((s, j) => {
-    const buttons = s.buttons
+  tour.addSteps(tourInfo.steps)
 
-    tour.addStep({
-      title: s.title,
-      text: s.text,
-      buttons: buttons,
-      id: j
-    })
+  // preload images to avoid them loading only when the step is shown
+  tourInfo.preloadImages.forEach(url => {
+    const img = new Image()
+    img.src = url
   })
-  tour.tourId = tourInfo.tourId
-  tour.autostart = tourInfo.autostart
-  tour.allowedLocations = tourInfo.allowedLocations
-  tour.deniedLocations = tourInfo.deniedLocations
-  tour.defaultLanguage = tourInfo.defaultLanguage
 
   return tour
 }
 
-function addButtons(buttons, learnMoreLink) {
+function addButtons(buttons, learnMoreLink, isLastStep = false) {
   const actionButtons = []
 
   learnMoreLink &&
@@ -231,7 +248,7 @@ function addButtons(buttons, learnMoreLink) {
         return this.next()
       },
       classes: 'oc-button oc-button-m oc-button-primary',
-      text: $gettext('Next')
+      text: isLastStep ? $gettext('Close') : $gettext('Next')
     })
 
   return actionButtons

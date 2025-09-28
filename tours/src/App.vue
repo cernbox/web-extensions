@@ -107,28 +107,71 @@ export default {
 
 .shepherd-element {
   max-width: 700px !important;
+  box-shadow: 5px 0 25px rgb(0 0 0 / 30%) !important;
 }
 
-.shepherd-header {
-  align-items: center !important;
-  background-color: var(--oc-color-swatch-brand-default) !important;
-  border: 1px solid var(--oc-color-swatch-brand-default) !important;
-  border: 0 !important;
-  box-shadow: 5px 0 25px rgb(0 0 0 / 30%) !important;
-  display: flex !important;
-  flex-flow: row wrap !important;
-  padding: var(--oc-space-small) var(--oc-space-medium) !important;
+.step-cover {
+  .shepherd-header {
+    height: 250px;
+    align-items: initial !important;
 
-  h3 {
-    color: var(--oc-color-swatch-inverse-default) !important;
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
+    h3 {
+      align-items: end;
+      color: var(--oc-color-swatch-brand-default) !important;
+      text-shadow: 
+        0 0 5px white,
+        0 0 10px white,
+        0 0 20px white,
+        0 0 40px white;
+      font-size: 2rem !important;
+      font-weight: 600 !important;
+      margin: 0 !important;
+    }
+
+    button {
+      height: 0;
+    }
+  }
+}
+
+.step-normal {
+  .shepherd-header{
+    align-items: center !important;
+    background-color: var(--oc-color-swatch-brand-default) !important;
+    border: 0 !important;
+    display: flex !important;
+    flex-flow: row wrap !important;
+    padding: var(--oc-space-small) var(--oc-space-medium) !important;
+
+    h3 {
+      color: var(--oc-color-swatch-inverse-default) !important;
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      margin: 0 !important;
+    }
+
+    .shepherd-cancel-icon {
+      color: hsla(0,0%,100%,.75);
+    }
+  }
+}
+.step-hidden-header{
+  .shepherd-header {
+    float: inline-end;
+    background: transparent !important;
+
+    h3 {
+      display: none;
+    }
   }
 }
 
 .shepherd-text {
   border-top: 1px solid var(--oc-color-swatch-brand-default) !important;
+}
+
+.shepherd-header {
+  border-radius: 15px 15px 0 0 !important;
 }
 
 .shepherd-element {
@@ -138,9 +181,7 @@ export default {
 
 .shepherd-text,
 .shepherd-footer {
-  background-color: var(--oc-color-background-default) !important;
   border: 0 !important;
-  //box-shadow: 5px 0 25px rgb(0 0 0 / 30%) !important;
   color: var(--oc-color-text-default) !important;
   padding: var(--oc-space-medium) !important;
 }
@@ -159,5 +200,9 @@ export default {
   color: var(--oc-color-swatch-passive-default) !important;
   border: 1px solid transparent !important;
   border-color: var(--oc-color-swatch-passive-default) !important;
+}
+
+.shepherd-cancel-icon {
+  padding-right: 8px;
 }
 </style>
