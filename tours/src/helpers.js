@@ -56,28 +56,26 @@ export async function autostartTours(tourInfos, location, token, userId) {
       return
     }
 
-    if (localStorage.getItem('tours/' + t.tourId)) {
-      return
-    }
-
     const tourDone = await isTourAutostartDone(t.tourId, token, userId)
+    localStorage.setItem('tours/' + t.tourId, tourDone)
     if (tourDone) {
-      localStorage.setItem('tours/' + t.tourId, 'true')
       return
     }
 
-    // save preference and start the tour
-    saveTourAutostart(t.tourId, token, userId)
-      .then(() => {
-        setTimeout(() => {
-          // save autostart event to local storage to prevent multiple autostarts at opening the app
-          if (!(localStorage.getItem('tours/' + t.tourId) && location === t.autostart.location)) {
-            createTranslatedTour(t).start()
-            localStorage.setItem('tours/' + t.tourId, 'true')
-          }
-        }, t.autostart.timeout)
-      })
-      .catch((err) => console.log(err))
+    const tourCompleted = () => {
+      saveTourAutostart(t.tourId, token, userId).catch((err) => console.log(err))
+    }
+
+    setTimeout(() => {
+      // save autostart event to local storage to prevent multiple autostarts at opening the app
+      if (localStorage.getItem('tours/' + t.tourId) === "false" && location === t.autostart.location) {
+        localStorage.setItem('tours/' + t.tourId, "true")
+        const tour = createTranslatedTour(t)
+        tour.start()
+        tour.on('cancel', tourCompleted)
+        tour.on('complete', tourCompleted)
+      }
+    }, t.autostart.timeout)
   }
 }
 
