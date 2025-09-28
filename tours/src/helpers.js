@@ -9,12 +9,13 @@ const $gettext = function (text) {
 export const loadTours = async (locations = []) => {
   const tours = []
   for (const l of locations) {
+    const folderPath = l.substring(0, l.lastIndexOf("/"));
     if (l.split('.').pop() === 'json') {
       try {
         const response = await fetch(l)
         if (response.ok) {
           const tour = await response.json()
-          tours.push(tour)
+          tours.push(replaceFolderPlaceholders(tour, folderPath))
         }
       } catch (e) {
         console.error(`Failed to load tours '${l}' is not a valid json file.`)
@@ -23,6 +24,23 @@ export const loadTours = async (locations = []) => {
   }
   return { tours }
 }
+
+// Recursive function to replace placeholders
+function replaceFolderPlaceholders(obj, folder) {
+  if (Array.isArray(obj)) {
+    return obj.map(item => replaceFolderPlaceholders(item, folder));
+  } else if (obj !== null && typeof obj === "object") {
+    const newObj = {};
+    for (const key in obj) {
+      newObj[key] = replaceFolderPlaceholders(obj[key], folder);
+    }
+    return newObj;
+  } else if (typeof obj === "string") {
+    return obj.replace(/{folder}/g, folder);
+  }
+  return obj;
+}
+
 /* autostarts the first tour of the tours array with autostart property if the current location matches tour settings for autostart */
 export async function autostartTours(tourInfos, location, token, userId) {
 
