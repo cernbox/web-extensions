@@ -14,7 +14,8 @@
     "Shared via link": "Shared publicly",
     "Public links": "Share publicly",
     "This folder has no public link.": "This folder has not been shared publicly.",
-    "This file has no public link.": "This file has not been shared publicly."
+    "This file has no public link.": "This file has not been shared publicly.",
+    "You have not shared any resource via link.": "You have not shared any resource publicly."
   },
   "fr": {
     "Permanent link": "Lien direct",
@@ -31,6 +32,7 @@
     "Shared via link": "Partagé publiquement",
     "Public links": "Partager publiquement",
     "This folder has no public link.": "Ce dossier n'a pas été partagé publiquement.",
-    "This file has no public link.": "Ce fichier n'a pas été partagé publiquement."
+    "This file has no public link.": "Ce fichier n'a pas été partagé publiquement.",
+    "You have not shared any resource via link.": "Vous n'avez partagé aucune ressource publiquement."
   }
 }
