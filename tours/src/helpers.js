@@ -165,6 +165,7 @@ export function createTranslatedTourInfos(tours) {
       steps.forEach((s, j) => {
         const buttons = addButtons(
           s.buttons,
+          s.learnMoreName,
           s.learnMoreLink,
           j === steps.length - 1)
         const stepId = `step-${t.tourId}-${j}`;
@@ -235,7 +236,7 @@ export function createTranslatedTour(tourInfo) {
   return tour
 }
 
-function addButtons(buttons, learnMoreLink, isLastStep = false) {
+function addButtons(buttons, learnMoreName, learnMoreLink, isLastStep = false) {
   const actionButtons = []
 
   learnMoreLink &&
@@ -244,7 +245,7 @@ function addButtons(buttons, learnMoreLink, isLastStep = false) {
         return window.open(learnMoreLink, '_blank').focus()
       },
       classes: 'oc-button oc-button-m oc-button-passive',
-      text: $gettext('Learn more'),
+      text: learnMoreName ? learnMoreName : $gettext('Learn more'),
       secondary: true
     })
 
