@@ -112,24 +112,30 @@ export default {
 
 .step-cover {
   .shepherd-header {
-    height: 250px;
+    height: 300px;
     align-items: initial !important;
 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 !important;
+
     h3 {
-      align-items: end;
-      color: var(--oc-color-swatch-brand-default) !important;
-      text-shadow: 
-        0 0 5px white,
-        0 0 10px white,
-        0 0 20px white,
-        0 0 40px white;
+      color: var(--oc-color-text-default) !important;
       font-size: 2rem !important;
       font-weight: 600 !important;
       margin: 0 !important;
+      position: relative;
+      padding: var(--oc-space-medium) var(--oc-space-medium) 0 var(--oc-space-medium) !important;
+      background-color: var(--oc-color-background-default) !important;
+      flex: none !important;
     }
 
     button {
-      height: 0;
+      position: absolute;
+      top: 10px;
+      right: 10px;
     }
   }
 }
