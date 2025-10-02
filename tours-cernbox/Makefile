@@ -1,5 +1,5 @@
 release:
 	mkdir -p release
-	tar -czf release/tours-cernbox.tar.gz ./new_features.json
+	tar -czf release/tours-cernbox.tar.gz ./*.json ./screenshots
 clean:
 	rm -rf release
