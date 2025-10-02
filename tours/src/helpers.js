@@ -74,7 +74,7 @@ export async function autostartTours(tourInfos, location, token, userId) {
     }
 
     const tourCompleted = () => {
-      saveTourAutostartStatus(t, token, userId).catch((err) => console.log(err))
+      saveTourAutostartStatus(t.tourId, token, userId).catch((err) => console.log(err))
       setTourBrowserStatus(t, "finished")
     }
 
