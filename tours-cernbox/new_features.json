@@ -49,7 +49,7 @@
             "element": "#_userMenuButton",
             "on": "bottom"
           },
-          "text": "You can now configure your settings by clicking on your avatar in the top right corner and then \"Preferences\".<br>There you can change your language and theme (light/dark).<br><br>To adapt to the new security requirements, you will have to re-login to CERNBox Web every day.",
+          "text": "You can now configure your settings by clicking on your avatar in the top right corner and then \"Preferences\".<br>There you can change your language and theme (light/dark).",
           "buttons": ["back", "next"],
           "learnMoreLink": "https://cernbox.docs.cern.ch/web/sharing/"
         },
