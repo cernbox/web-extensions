@@ -41,12 +41,16 @@ function replaceFolderPlaceholders(obj, folder) {
   return obj;
 }
 
+function getTourBrowserStatus(t) {
+  return localStorage.getItem('tours/' + t.tourId)
+}
+
+function setTourBrowserStatus(t, status) {
+  return localStorage.setItem('tours/' + t.tourId, status)
+}
+
 /* autostarts the first tour of the tours array with autostart property if the current location matches tour settings for autostart */
 export async function autostartTours(tourInfos, location, token, userId) {
-
-  if (Shepherd.activeTour) {
-    return
-  }
 
   const autostartTours = tourInfos.filter((t) => t.autostart?.location === location)
   if (autostartTours[0]) {
@@ -56,20 +60,32 @@ export async function autostartTours(tourInfos, location, token, userId) {
       return
     }
 
-    const tourDone = await isTourAutostartDone(t.tourId, token, userId)
-    localStorage.setItem('tours/' + t.tourId, tourDone)
-    if (tourDone) {
+    let status = getTourBrowserStatus(t)
+
+    if (!status || status === "opened") {
+      status = await isTourAutostartDone(t.tourId, token, userId) || "not-started"
+      setTourBrowserStatus(t, status)
+    }
+
+    if (status === "finished") {
+      // we alread showed this tour to user
       return
     }
 
     const tourCompleted = () => {
-      saveTourAutostart(t.tourId, token, userId).catch((err) => console.log(err))
+      saveTourAutostartStatus(t, token, userId, "finished").catch((err) => console.log(err))
+      setTourBrowserStatus(t, "finished")
     }
 
     setTimeout(() => {
+
+      if (Shepherd.activeTour) {
+        return
+      }
+
       // save autostart event to local storage to prevent multiple autostarts at opening the app
-      if (localStorage.getItem('tours/' + t.tourId) === "false" && location === t.autostart.location) {
-        localStorage.setItem('tours/' + t.tourId, "true")
+      if (location === t.autostart.location) {
+        setTourBrowserStatus(t, "opened")
         const tour = createTranslatedTour(t)
         tour.start()
         tour.on('cancel', tourCompleted)
@@ -79,7 +95,7 @@ export async function autostartTours(tourInfos, location, token, userId) {
   }
 }
 
-async function saveTourAutostart(tourId, token, userId) {
+async function saveTourAutostartStatus(tourId, token, userId, status) {
   const headers = new Headers()
   headers.append('Authorization', 'Bearer ' + token)
   headers.append('X-Requested-With', 'XMLHttpRequest')
@@ -87,7 +103,7 @@ async function saveTourAutostart(tourId, token, userId) {
   const formData = new FormData()
   formData.append('key', tourId)
   formData.append('ns', userId)
-  formData.append('value', true)
+  formData.append('value', status)
   const response = await fetch('/preferences', {
     method: 'POST',
     headers,
