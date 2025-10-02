@@ -63,7 +63,8 @@ export async function autostartTours(tourInfos, location, token, userId) {
     let status = getTourBrowserStatus(t)
 
     if (!status || status === "opened") {
-      status = await isTourAutostartDone(t.tourId, token, userId) || "not-started"
+      const dbStatus = await isTourAutostartDone(t.tourId, token, userId)
+      status = dbStatus ? "finished" : "not-started"
       setTourBrowserStatus(t, status)
     }
 
@@ -73,7 +74,7 @@ export async function autostartTours(tourInfos, location, token, userId) {
     }
 
     const tourCompleted = () => {
-      saveTourAutostartStatus(t, token, userId, "finished").catch((err) => console.log(err))
+      saveTourAutostartStatus(t, token, userId).catch((err) => console.log(err))
       setTourBrowserStatus(t, "finished")
     }
 
@@ -95,7 +96,7 @@ export async function autostartTours(tourInfos, location, token, userId) {
   }
 }
 
-async function saveTourAutostartStatus(tourId, token, userId, status) {
+async function saveTourAutostartStatus(tourId, token, userId) {
   const headers = new Headers()
   headers.append('Authorization', 'Bearer ' + token)
   headers.append('X-Requested-With', 'XMLHttpRequest')
@@ -103,7 +104,7 @@ async function saveTourAutostartStatus(tourId, token, userId, status) {
   const formData = new FormData()
   formData.append('key', tourId)
   formData.append('ns', userId)
-  formData.append('value', status)
+  formData.append('value', true)
   const response = await fetch('/preferences', {
     method: 'POST',
     headers,
