@@ -29,7 +29,7 @@
 <script>
 import { createTranslatedTour, autostartTours } from './helpers'
 import { mapState, mapActions } from 'pinia'
-import { useAuthStore, useUserStore } from '@ownclouders/web-pkg'
+import { useAuthStore, useUserStore, useSpacesStore } from '@ownclouders/web-pkg'
 import { useToursStore } from './store'
 
 export default {
@@ -37,6 +37,7 @@ export default {
     ...mapState(useToursStore, ['currentTranslatedTourInfos']),
     ...mapState(useAuthStore, ['accessToken']),
     ...mapState(useUserStore, ['user']),
+    ...mapState(useSpacesStore, ['personalSpace', 'spacesInitialized']),
 
     tours() {
       return this.currentTranslatedTourInfos
@@ -53,11 +54,13 @@ export default {
   },
   watch: {
     $route: {
-      immediate: true,
-      handler: function (to) {
-        if (this.user?.id && this.accessToken && this.currentTranslatedTourInfos.length > 0) {
-          autostartTours(this.currentTranslatedTourInfos, to.name, this.accessToken, this.user.id)
+      immediate: false,
+      handler: function (from, to) {
+        if (from.name === to.name) {
+          // This catches e.g. query parameter changes
+          return
         }
+        this.tryAutostart(to)
       }
     },
     selectedLanguage: {
@@ -66,6 +69,22 @@ export default {
         this.setCurrentTranslatedTourInfos(this.language)
       }
     }
+  },
+  mounted() {
+    this.stopSpacesWatch = this.$watch(
+      () => this.spacesInitialized,
+      (val) => {
+        // when we start, fetching spaces takes longer to initialize, so we
+        // need to wait for it before autostarting tours.
+        // Watching just for route changes will already be late on the first load.
+        if (val === true) {
+          this.tryAutostart(this.$route)
+          // unregister after success
+          this.stopSpacesWatch()
+        }
+      },
+      { immediate: true }
+    )
   },
   methods: {
     ...mapActions(useToursStore, ['setCurrentTranslatedTourInfos']),
@@ -80,6 +99,14 @@ export default {
       else if (tour.deniedLocations?.length)
         return !tour.deniedLocations?.includes(this.$route.name)
       return true
+    },
+
+    tryAutostart(route) {
+      // If user doesn't have a personal space, it's a lightweight account
+      // and we don't want to start tours automatically
+      if (this.personalSpace && this.user?.id && this.accessToken && this.currentTranslatedTourInfos.length > 0) {
+        autostartTours(this.currentTranslatedTourInfos, route.name, this.accessToken, this.user.id)
+      }
     }
   }
 }
