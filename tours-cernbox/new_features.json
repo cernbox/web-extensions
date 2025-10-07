@@ -9,6 +9,8 @@
           "style": "cover",
           "coverImage": "{folder}/screenshots/update-cover.png",
           "text": "The CERNBox Web interface has been updated with new features and improvements. See what's new in this quick tour!",
+          "learnMoreName": "See documentation",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/",
           "buttons": ["next"]
         },
         {
@@ -21,7 +23,7 @@
           },
           "text": "Your Projects are now in <b>Spaces</b>, a new section that groups any collaborative area.<br>If you are an admin, you can even personalise them by adding a cover image and a description and now <b>you can see any share done by any other admin</b>.<br><br>Access to other EOS areas is also possible through Spaces.",
           "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/spaces-projects/"
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/spaces/"
         },
         {
           "title": "Sharing made easier",
@@ -41,7 +43,7 @@
           "coverImage": "{folder}/screenshots/bug-report.png",
           "text": "This update brings many usability improvements: larger and cleaner file listing, easier way to access a Project trashbin, more shortcuts, duplicate action, ...<br><br>Many known bugs were also patched and the error handling was improved: now, when an error occurs, a <strong>message will be displayed providing the incident code</strong> that can be given to support.",
           "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/sharing/"
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/data-security/trash-bin/"
         },
         {
           "title": "Configuration and other changes",
@@ -51,7 +53,7 @@
           },
           "text": "You can now configure your settings by clicking on your avatar in the top right corner and then \"Preferences\".<br>There you can change your language and theme (light/dark).",
           "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/sharing/"
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/interface/"
         },
         {
           "title": "Give us your feedback",
@@ -60,7 +62,7 @@
           "text": "We hope you like the new features!<br>If you have any questions or suggestions, please don't hesitate to open a <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'> SNow ticket</a>.<br><br>You can also check the changelog for more details.",
           "buttons": ["back", "next"],
           "learnMoreName": "View changelog",
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/"
+          "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/"
         }
       ]
     }
@@ -90,7 +92,7 @@
   ],
   "deniedLocations": [],
   "useModalOverlay": true,
-  "tourId": "update-2051002",
+  "tourId": "update-2051008",
   "autostart": {
     "timeout": 3000,
     "location": "files-spaces-generic"
