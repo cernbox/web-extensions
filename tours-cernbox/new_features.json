@@ -65,6 +65,72 @@
           "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/"
         }
       ]
+    },
+    "fr": {
+      "tourName": "Quoi de neuf ?",
+      "tooltip": "Découvrez les nouveautés du Web",
+      "steps": [
+        {
+          "title": "CERNBox a été mis à jour !",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/update-cover.png",
+          "text": "L’interface Web de CERNBox a été mise à jour avec de nouvelles fonctionnalités et des améliorations. Découvrez les nouveautés dans cette visite rapide !",
+          "learnMoreName": "Voir la documentation",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/",
+          "buttons": ["next"]
+        },
+        {
+          "title": "Espaces",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/spaces.png",
+          "attachTo": {
+            "element": "a[data-nav-name='files-spaces-projects']",
+            "on": "right"
+          },
+          "text": "Vos projets se trouvent désormais dans les <b>Espaces</b>, une nouvelle section qui regroupe toutes les zones collaboratives.<br>Si vous êtes administrateur, vous pouvez même les personnaliser en ajoutant une image de couverture et une description, et maintenant <b>vous pouvez voir tous les partages effectués par d’autres administrateurs</b>.<br><br>L’accès à d’autres zones EOS est également possible via les Espaces.",
+          "buttons": ["back", "next"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/spaces/"
+        },
+        {
+          "title": "Partage simplifié",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/sidebar.png",
+          "attachTo": {
+            "element": "#files-toggle-sidebar",
+            "on": "bottom"
+          },
+          "text": "Vous pouvez désormais accéder aux détails d’un fichier même depuis une application. Cela signifie que vous pouvez partager des fichiers, gérer les autorisations et consulter l’historique des versions sans quitter l’application.<br>La recherche de différents types de comptes a également été améliorée !<br><br>Il suffit de cliquer sur l’icône en haut à droite pour ouvrir la barre latérale.",
+          "buttons": ["back", "next"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/sharing/"
+        },
+        {
+          "title": "Améliorations de l’ergonomie et corrections de bugs",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/bug-report.png",
+          "text": "Cette mise à jour apporte de nombreuses améliorations ergonomiques : liste de fichiers plus grande et plus claire, accès plus simple à la corbeille d’un projet, nouveaux raccourcis, action de duplication, etc.<br><br>De nombreux bugs connus ont également été corrigés et la gestion des erreurs a été améliorée : désormais, lorsqu’une erreur se produit, un <strong>message s’affiche avec un code d’incident</strong> que vous pouvez communiquer au support.",
+          "buttons": ["back", "next"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/data-security/trash-bin/"
+        },
+        {
+          "title": "Configuration et autres changements",
+          "attachTo": {
+            "element": "#_userMenuButton",
+            "on": "bottom"
+          },
+          "text": "Vous pouvez maintenant configurer vos paramètres en cliquant sur votre avatar en haut à droite, puis sur « Préférences ».<br>De là, vous pouvez changer la langue et le thème (clair/sombre).",
+          "buttons": ["back", "next"],
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/interface/"
+        },
+        {
+          "title": "Donnez-nous votre avis",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/update-cover.png",
+          "text": "Nous espérons que vous appréciez les nouvelles fonctionnalités !<br>Si vous avez des questions ou des suggestions, n’hésitez pas à ouvrir un <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'>ticket SNow</a>.<br><br>Vous pouvez également consulter le journal des modifications pour plus de détails.",
+          "buttons": ["back", "next"],
+          "learnMoreName": "Voir le changelog",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/"
+        }
+      ]
     }
   },
   "confirmCancel": false,
