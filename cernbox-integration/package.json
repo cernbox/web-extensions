@@ -1,6 +1,6 @@
 {
   "name": "cernbox-integration",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Provides components for cernbox integration",
   "license": "AGPL-3.0",
   "author": "CERNBox",
