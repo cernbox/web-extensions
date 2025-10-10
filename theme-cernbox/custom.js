@@ -20,6 +20,21 @@ if (externalLinksRegex.test(window.location.pathname)) {
   }
 }
 
+const enableMatomo = () => {
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDomains", ["*.cernbox.cern.ch"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://piwikui.web.cern.ch/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '8164']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+}
+
 const root = document.querySelector(":root");
 
 const qaBoxRegex = /^qa\./i;
@@ -29,6 +44,7 @@ const devBoxRegex = /^cbox-ocisdev-([A-z]*)\./i;
 if (qaBoxRegex.test(window.location.hostname)) {
   root.style.setProperty("--oc-color-swatch-brand-default", "#7F1734");
   root.style.setProperty("--oc-color-swatch-brand-hover", "#A01C41");
+  enableMatomo();
 } else if (testBoxRegex.test(window.location.hostname)) {
   root.style.setProperty("--oc-color-swatch-brand-default", "#004225");
   root.style.setProperty("--oc-color-swatch-brand-hover", "#1E4D2B");
