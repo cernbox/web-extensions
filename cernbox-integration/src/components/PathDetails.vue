@@ -56,7 +56,7 @@
       </div>
     </td>
   </tr>
-  <tr v-if="!isTrashbinContext" data-testid="eosDirectLink">
+  <tr v-if="!isTrashbinContext && !isPublicLinkContext" data-testid="eosDirectLink">
     <th scope="col" class="oc-pr-s oc-font-semibold" v-text="$gettext('Direct link')" />
     <td>
       <div class="oc-flex oc-flex-middle oc-flex-between">
@@ -71,6 +71,30 @@
         >
           <oc-icon
             v-if="copiedDirect"
+            key="oc-copy-to-clipboard-copied"
+            name="checkbox-circle"
+            class="_clipboard-success-animation"
+          />
+          <oc-icon v-else key="oc-copy-to-clipboard-copy" name="file-copy" />
+        </oc-button>
+      </div>
+    </td>
+  </tr>
+  <tr v-if="isPublicLinkContext" data-testid="eosDownloadLink">
+    <th scope="col" class="oc-pr-s oc-font-semibold" v-text="$gettext('Download link')" />
+    <td>
+      <div class="oc-flex oc-flex-middle oc-flex-between">
+        <p v-oc-tooltip="downloadLink" class="oc-my-rm oc-text-truncate" v-text="downloadLink" />
+        <oc-button
+          v-if="isClipboardCopySupported"
+          v-oc-tooltip="copyDownloadLinkLabel"
+          :aria-label="copyDownloadLinkLabel"
+          appearance="raw"
+          :variation="copiedDownload ? 'success' : 'passive'"
+          @click="copyDownloadLinkToClipboard"
+        >
+          <oc-icon
+            v-if="copiedDownload"
             key="oc-copy-to-clipboard-copied"
             name="checkbox-circle"
             class="_clipboard-success-animation"
@@ -103,6 +127,7 @@ export default defineComponent({
     const isPublicLinkContext = authStore.publicLinkContextReady
 
     const copiedDirect = ref(false)
+    const copiedDownload = ref(false)
     const copiedEos = ref(false)
     const copiedSamba = ref(false)
     const {
@@ -116,6 +141,8 @@ export default defineComponent({
     })
 
     const directLink = computed(() => props.resource.privateLink)
+
+    const downloadLink = computed(() => props.resource.downloadURL)
 
     const copyEosPathToClipboard = () => {
       copy(unref(eosPath))
@@ -171,20 +198,33 @@ export default defineComponent({
       })
     }
 
+    const copyDownloadLinkToClipboard = () => {
+      copy(unref(downloadLink))
+      copiedDirect.value = unref(copied)
+      messageStore.showMessage({
+        title: $gettext('Download link copied'),
+        desc: $gettext('The download link has been copied to your clipboard.')
+      })
+    }
+
     return {
       isPublicLinkContext,
       isTrashbinContext,
       isClipboardCopySupported,
       directLink,
       copiedDirect,
+      downloadLink,
+      copiedDownload,
       copiedEos,
       copiedSamba,
       sambaPath,
       eosPath,
       copyDirectLinkToClipboard,
+      copyDownloadLinkToClipboard,
       copyEosPathToClipboard,
       copySambaPathToClipboard,
       copyDirectLinkLabel: computed(() => $gettext('Copy direct link')),
+      copyDownloadLinkLabel: computed(() => $gettext('Copy download link')),
       copyEosPathLabel: computed(() => $gettext('Copy FUSE path')),
       copySambaPathLabel: computed(() => $gettext('Copy Windows path'))
     }
