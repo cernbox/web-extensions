@@ -2,47 +2,33 @@
   <main></main>
 </template>
 <script lang="ts">
-export default {
-  name: 'MS Monitoring',
+import { defineComponent, onMounted, onBeforeUnmount, watch, unref } from 'vue'
+import { useResourcesStore, useAuthStore, useRoute } from '@ownclouders/web-pkg'
 
+export default defineComponent({
+  name: 'MS Monitoring',
   data: () => ({
     func: undefined,
     events: []
   }),
 
-  computed: {},
-  watch: {
-    $route(to, from) {
-      if (to.name !== 'web-app-external' && from.name === 'web-app-external')
-        window.removeEventListener('message', this.func)
-      else this.listenToMSEvents()
-    }
-  },
+  setup() {
+    const resourcesStore = useResourcesStore()
+    const authStore = useAuthStore()
+    const route = useRoute()
 
-  mounted() {
-    this.listenToMSEvents()
-  },
-
-  beforeUnmount() {
-    window.removeEventListener('message', this.func)
-  },
-  methods: {
-    listenToMSEvents() {
-      if (window.location.href.includes('app=MS') && this.$route.query?.fileId) {
-        this.func = (event) => {
-          if (JSON.parse(event.data).MessageId === 'App_LoadingStatus') {
-            this.sendReport()
-          }
-        }
-        window.addEventListener('message', this.func)
+    const listenToMSEvents = (event: MessageEvent) => {
+      if (JSON.parse(event.data).MessageId === 'App_LoadingStatus') {
+        sendReport()
       }
-    },
-    async sendReport() {
-      const accessToken = this.$store.getters['runtime/auth/accessToken']
+    }
+
+    const sendReport = async () => {
+      const accessToken = authStore.accessToken
       const headers = new Headers()
-      headers.append('Authorization', 'Bearer ' + accessToken)
+      headers.append('Authorization', `Bearer ${accessToken}`)
       headers.append('X-Requested-With', 'XMLHttpRequest')
-      const response = await fetch(`/app/notify?file_id=${this.$route.query.fileId}`, {
+      const response = await fetch(`/app/notify?file_id=${resourcesStore.resources[0].id}`, {
         method: 'POST',
         headers
       })
@@ -50,62 +36,36 @@ export default {
         console.error('Error sending notify feedback about MS')
       }
     }
-  }
-}
-</script>
 
+    // because of the leading slash, the first element after splitting the path is always empty
+    // path: /external-xxx/file/... -> ['', 'external-xxx', 'file', ...]
+    // path: /files/... -> ['', 'files', ...]
+    const isExternalApp = (path: string) => {
+      const validSegments = path.split('/').filter(Boolean)
+      return validSegments[0].includes('external-')
+    }
 
-
-/*     catchMicrosoftError() {
-  if (this.wordExtensions.some((e) => this.fileName.endsWith(e))) {
-    this.events = []
-    if (!this.func)
-      this.func = (event) => {
-        this.events.push(JSON.parse(event.data))
+    onMounted(() => {
+      if (isExternalApp(unref(route).path)) {
+        window.addEventListener('message', listenToMSEvents)
       }
-    window.removeEventListener('message', this.func)
-    if (
-      window.location.href.includes('app=MS') &&
-      this.writePermissions &&
-      !this.debugMicrosoft
-    ) {
-      const timeInterval = 7 * 1000
-      // (this.fileName && this.fileName.endsWith('.ppt')) ||
-      // this.fileName.endsWith('.pptx') ||
-      // this.fileName.endsWith('.odp')
-      //   ? 13 * 1000
-      //   :
-      window.addEventListener('message', this.func)
+    })
 
-      setTimeout(() => {
-        if (
-          !this.events.some((e) => {
-            return e.MessageId === 'App_LoadingStatus'
-          })
-        ) {
-          this.modal = true
-          setTimeout(() => {
-            if (
-              this.events.some((e) => {
-                return e.MessageId === 'App_LoadingStatus'
-              })
-            )
-              this.modal = false
-            window.removeEventListener('message', this.func)
-          }, timeInterval)
+    watch(
+      () => unref(route).path,
+      (to, from) => {
+        if (!isExternalApp(from) && isExternalApp(to)) {
+          window.addEventListener('message', listenToMSEvents)
         }
-      }, timeInterval)
-    }
-  }
-},
-async catchClickMicrosoftEdit() {
-  if (!this.func2)
-    this.func2 = async (event) => {
-      if (JSON.parse(event.data).MessageId === 'UI_Edit') {
-        await this.onCreate(true)
-        this.catchMicrosoftError()
+        if (isExternalApp(from) && !isExternalApp(to)) {
+          window.removeEventListener('message', listenToMSEvents)
+        }
       }
-    }
-  window.removeEventListener('message', this.func2)
-  window.addEventListener('message', await this.func2)
-},*/
+    )
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('message', listenToMSEvents)
+    })
+  }
+})
+</script>
