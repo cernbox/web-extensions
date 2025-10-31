@@ -51,10 +51,14 @@ export default {
 
     // Notification header is not available immediately, so we use a timeout
     setTimeout(() => {
-      const otgNotificationHeaders = document.querySelector(
+      const otgTitle = document.querySelector(
         '.oc-notification-message-otg .oc-notification-message-title'
-      ).parentElement
+      )
+      if (!otgTitle) {
+        return
+      }
 
+      const otgNotificationHeaders = otgTitle.parentElement
       if (otgNotificationHeaders && link) {
         otgNotificationHeaders.append(link)
       }
