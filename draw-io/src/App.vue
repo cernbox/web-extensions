@@ -21,7 +21,7 @@ import {
   nextTick
 } from 'vue'
 import { Resource } from '@ownclouders/web-client'
-import { AppConfigObject } from '@ownclouders/web-pkg'
+import { AppConfigObject, useThemeStore } from '@ownclouders/web-pkg'
 import { useGettext } from 'vue3-gettext'
 
 export default defineComponent({
@@ -52,7 +52,9 @@ export default defineComponent({
   },
   emits: ['update:currentContent', 'save', 'close'],
   setup(props, { emit }) {
-    const { $gettext } = useGettext()
+    const language = useGettext()
+    const { $gettext } = language
+    const themeStore = useThemeStore()
 
     const drawIoEditor = ref<HTMLElement>()
 
@@ -74,7 +76,13 @@ export default defineComponent({
         picker: 0,
         stealth: 1,
         spin: 1,
+        splash: 0,
+        saveAndExit: 0,
+        noSaveBtn: 1,
+        noExitBtn: 1,
         proto: 'json',
+        lang: language.current,
+        dark: themeStore.currentTheme.isDark ? 1 : 0,
         ui: unref(config).theme
       })
 
