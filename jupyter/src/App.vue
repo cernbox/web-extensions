@@ -121,4 +121,9 @@ pre {
   white-space: pre;
   margin: 1em 0px;
 }
+pre *{
+  font-family: monospace;
+  white-space: pre;
+  font-size: 1.1em;
+}
 </style>
