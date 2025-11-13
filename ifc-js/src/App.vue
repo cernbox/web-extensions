@@ -105,10 +105,6 @@ export default defineComponent({
 </script>
 
 <style>
-#ifc-main {
-  background-color: white !important;
-}
-
 main {
   width: 100%;
   height: 100%;
