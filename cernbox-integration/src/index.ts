@@ -1,6 +1,6 @@
-import { h } from 'vue'
+import { h, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { defineWebApplication, usePortalTarget } from '@ownclouders/web-pkg'
+import { defineWebApplication, usePortalTarget, useConfigStore } from '@ownclouders/web-pkg'
 import DirectLink from './components/DirectLink.vue'
 import PathDetails from './components/PathDetails.vue'
 import TopBarLinks from './components/TopBarLinks.vue'
@@ -11,6 +11,7 @@ export default defineWebApplication({
     const appId = 'com.github.cernbox.web-extensions.cernbox-integration'
     const { $gettext } = useGettext()
     const { registerPortal } = usePortalTarget()
+    const configStore = useConfigStore()
 
     registerPortal({
       to: 'app.files.sidebar.sharing.shared-with.top',
@@ -35,7 +36,9 @@ export default defineWebApplication({
       },
       translations,
       mounted({ portal }) {
-        portal.open('runtime', 'header.right', 60, [TopBarLinks])
+        if (!unref(configStore).options.embed?.enabled) {
+          portal.open('runtime', 'header.right', 60, [TopBarLinks])
+        }
       }
     }
   }
