@@ -35,22 +35,18 @@ export default defineComponent({
     const iframeSource = ref('')
 
     onMounted(async () => {
-      // get direct url to file and clean query parameters
       const signedUrl = await clientService.webdav.getFileUrl(props.space, props.resource, {
         isUrlSigningEnabled: true,
         username: user.id
       })
-      const fileUrl = new URL(signedUrl)
-      fileUrl.search = '' // remmove signature...
 
       const query = qs.stringify({
-        // file: `${fileUrl.href}?access_token=${authStore.accessToken}`,
         noselect: 'file',
         topname: props.resource.name,
         info: 'ROOT viewer',
-      })
-      iframeSource.value = `${url}?${query}&file=${fileUrl.href}?access_token=${authStore.accessToken}`
-      // iframeSource.value = `${url}?${query}`
+        file: `'${signedUrl}'`,
+      }, { encode: false })
+      iframeSource.value = `${url}?${query}`
     })
 
     return {
