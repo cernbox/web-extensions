@@ -1,0 +1,31 @@
+{
+  "name": "codimd",
+  "version": "1.0.0",
+  "description": "CERNBox CodiMD integration",
+  "license": "AGPL-3.0",
+  "author": "CERNBox",
+  "type": "module",
+  "private": true,
+  "homepage": "https://github.com/cernbox/web-extensions",
+  "scripts": {
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development"
+  },
+  "dependencies": {
+    "@ownclouders/web-client": "^12.1.2",
+    "@ownclouders/web-pkg": "^12.1.2",
+    "vue3-gettext": "4.0.0-beta.1"
+  },
+  "devDependencies": {
+    "@ownclouders/eslint-config": "^12.1.2",
+    "@ownclouders/extension-sdk": "^12.1.2",
+    "@ownclouders/prettier-config": "^0.0.1",
+    "@ownclouders/tsconfig": "^0.0.6",
+    "eslint": "^9.39.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4",
+    "vue": "^3.5.25"
+  }
+}
