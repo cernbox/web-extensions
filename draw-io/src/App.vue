@@ -248,7 +248,11 @@ export default defineComponent({
     // ------------------------------------------------------------------------
 
     onMounted(() => {
-      window.addEventListener('message', handleMessage)
+      if (!unref(route).params || !unref(route).params['driveAliasAndItem']) {
+        openEmptyEditor('draw-io', 'drawio', true)
+      } else {
+        window.addEventListener('message', handleMessage)
+      }
     })
 
     onBeforeUnmount(() => {
