@@ -22,6 +22,15 @@ export default defineWebApplication({
 
     const routes = [
       {
+        name: 'draw-io-redirect',
+        path: '/',
+        component: App,
+        meta: {
+          authContext: 'hybrid',
+          patchCleanPath: true
+        }
+      },
+      {
         name: 'draw-io',
         path: '/:driveAliasAndItem(.*)?',
         component: AppWrapperRoute(App, {
