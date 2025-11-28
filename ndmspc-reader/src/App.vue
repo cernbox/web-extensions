@@ -37,7 +37,7 @@ export default defineComponent({
     const ndmspcViewer: VNodeRef = ref()
 
     const config = computed(() => {
-      const { url = 'https://ndmspc.gitlab.io/react-ndmspc/' } = props.applicationConfig as any
+      const { url = 'https://ndmspc.gitlab.io/ndmspc-cernbox/' } = props.applicationConfig as any
       return { url }
     })
     const origin = computed(() => {
