@@ -14,6 +14,7 @@ import {
   ApplicationFileExtension,
   EDITOR_MODE_EDIT,
   resolveFileNameDuplicate,
+  useAppConfig,
   useAppsStore,
   useClientService,
   useConfigStore,
@@ -76,8 +77,8 @@ export default defineComponent({
     const configStore = useConfigStore()
     const appsStore = useAppsStore()
     const resourcesStore = useResourcesStore()
-    const resources = ref(resourcesStore.resources)
-    const currentFolder = ref(resourcesStore.currentFolder)
+    const resources = computed(() => resourcesStore.resources)
+    const currentFolder = computed(() => resourcesStore.currentFolder)
     const spacesStore = useSpacesStore()
     const clientService = useClientService()
     const { getMatchingSpace } = useGetMatchingSpace()
@@ -89,8 +90,14 @@ export default defineComponent({
     const drawIoEditor = ref<HTMLElement>()
 
     const config = computed(() => {
-      const { url = 'https://embed.diagrams.net', theme = 'minimal' } = props.applicationConfig
-      return { url, theme }
+      const {
+        url = 'https://embed.diagrams.net',
+        theme = 'minimal',
+        defaultFolder = ''
+      } = props.applicationConfig ||
+      unref(useAppConfig({ appsStore, applicationId: 'draw-io' }).applicationConfig) ||
+      {}
+      return { url, theme, defaultFolder }
     })
 
     const urlHost = computed(() => {
@@ -229,6 +236,7 @@ export default defineComponent({
       }
 
       let fileName = $gettext('New file') + `.${extension}`
+
       if (destinationFiles.some((f) => f.name === fileName)) {
         fileName = resolveFileNameDuplicate(fileName, extension, destinationFiles)
       }
@@ -247,8 +255,27 @@ export default defineComponent({
     // End duplicated code
     // ------------------------------------------------------------------------
 
-    onMounted(() => {
+    onMounted(async () => {
       if (!unref(route).params || !unref(route).params['driveAliasAndItem']) {
+        // set default folder if configured
+        if (unref(config) && unref(config).defaultFolder) {
+          const rootFolderResources = await clientService.webdav.listFiles(
+            spacesStore.personalSpace
+          )
+          let defaultFolderResource = rootFolderResources.children.find(
+            (res) => res.isFolder && res.name === unref(config).defaultFolder
+          )
+          // if default folder not found, we create in personal space root
+          if (!defaultFolderResource) {
+            defaultFolderResource = await clientService.webdav.createFolder(
+              spacesStore.personalSpace,
+              {
+                path: unref(config).defaultFolder
+              }
+            )
+          }
+          resourcesStore.setCurrentFolder(defaultFolderResource)
+        }
         openEmptyEditor('draw-io', 'drawio', true)
       } else {
         window.addEventListener('message', handleMessage)
