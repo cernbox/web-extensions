@@ -9,7 +9,6 @@
 <script lang="ts">
 import { isShareSpaceResource, Resource, SpaceResource, urlJoin } from '@ownclouders/web-client'
 import {
-  AppConfigObject,
   useRoute,
   useRouter,
   useSpacesStore,
@@ -22,23 +21,21 @@ import {
   EDITOR_MODE_EDIT,
   ApplicationFileExtension,
   useConfigStore,
-  useWindowOpen
+  useWindowOpen,
+  useAppConfig
 } from '@ownclouders/web-pkg'
-import { defineComponent, onMounted, PropType, ref, unref } from 'vue'
+import { computed, defineComponent, onMounted, PropType, ref, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 
-// https://cernbox.cern.ch/codimd -> https://cernbox.cern.ch/external-codimd/eos/user/<letter>/<username>/New file.md
+// https://cernbox.cern.ch/codimd -> https://cernbox.cern.ch/external-codimd/eos/user/<letter>/<username>/<default_folder>/New file.md
 
 export default defineComponent({
   name: 'CodiMD Redirector',
   props: {
-    applicationConfig: { type: Object as PropType<AppConfigObject>, required: true },
-    currentContent: {
-      type: String,
+    resource: {
+      type: Object as PropType<Resource>,
       required: true
-    },
-    isReadOnly: { type: Boolean, required: false },
-    resource: { type: Object as PropType<Resource>, required: true }
+    }
   },
 
   setup(props) {
@@ -46,8 +43,8 @@ export default defineComponent({
     const appsStore = useAppsStore()
     const resourcesStore = useResourcesStore()
 
-    const resources = ref(resourcesStore.resources)
-    const currentFolder = ref(resourcesStore.currentFolder)
+    const resources = computed(() => resourcesStore.resources)
+    const currentFolder = computed(() => resourcesStore.currentFolder)
 
     const spacesStore = useSpacesStore()
     const clientService = useClientService()
@@ -57,6 +54,13 @@ export default defineComponent({
     const { getEditorRouteOpts } = useFileActions()
 
     const { openUrl } = useWindowOpen()
+
+    const config = computed(() => {
+      const { defaultFolder = '' } = unref(
+        useAppConfig({ appsStore, applicationId: 'codimd' }).applicationConfig
+      )
+      return { defaultFolder }
+    })
 
     const router = useRouter()
     const route = useRoute()
@@ -126,6 +130,25 @@ export default defineComponent({
 
     onMounted(async () => {
       if (!unref(route).params || !unref(route).params['driveAliasAndItem']) {
+        // set default folder if configured
+        if (unref(config) && unref(config).defaultFolder) {
+          const rootFolderResources = await clientService.webdav.listFiles(
+            spacesStore.personalSpace
+          )
+          let defaultFolderResource = rootFolderResources.children.find(
+            (res) => res.isFolder && res.name === unref(config).defaultFolder
+          )
+          // if default folder not found, we create in personal space root
+          if (!defaultFolderResource) {
+            defaultFolderResource = await clientService.webdav.createFolder(
+              spacesStore.personalSpace,
+              {
+                path: unref(config).defaultFolder
+              }
+            )
+          }
+          resourcesStore.setCurrentFolder(defaultFolderResource)
+        }
         openEmptyEditor('codimd', 'md', true)
       } else {
         router.replace({
