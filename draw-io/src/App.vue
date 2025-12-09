@@ -274,7 +274,14 @@ export default defineComponent({
               }
             )
           }
-          resourcesStore.setCurrentFolder(defaultFolderResource)
+          const resources = await clientService.webdav.listFiles(spacesStore.personalSpace, {
+            path: defaultFolderResource.path
+          })
+          resourcesStore.clearResourceList()
+          resourcesStore.initResourceList({
+            resources: resources.children,
+            currentFolder: defaultFolderResource
+          })
         }
         openEmptyEditor('draw-io', 'drawio', true)
       } else {
