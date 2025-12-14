@@ -5,129 +5,56 @@
       "tooltip": "See the updates to Web",
       "steps": [
         {
-          "title": "CERNBox was updated!",
+          "title": "CERNBox applications were updated!",
           "style": "cover",
           "coverImage": "{folder}/screenshots/update-cover.png",
-          "text": "The CERNBox Web interface has been updated with new features and improvements. See what's new in this quick tour!",
+          "text": "The applications integrated in the CERNBox Web interface have been updated with new features and improvements. See what's new in this quick tour!",
           "learnMoreName": "See documentation",
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/apps/",
           "buttons": ["next"]
         },
         {
-          "title": "Spaces",
+          "title": "ODF support",
           "style": "cover",
-          "coverImage": "{folder}/screenshots/spaces.png",
-          "attachTo": {
-            "element": "a[data-nav-name='files-spaces-projects']",
-            "on": "right"
-          },
-          "text": "Your Projects are now in <b>Spaces</b>, a new section that groups any collaborative area.<br>If you are an admin, you can even personalise them by adding a cover image and a description and now <b>you can see any share done by any other admin</b>.<br><br>Access to other EOS areas is also possible through Spaces.",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/spaces/"
+          "coverImage": "{folder}/screenshots/collabora.png",
+          "text": "Introducing support for editing .odt, .ods and .odp files using Collabora Online!<br>You can now create, edit and collaborate on Open Document Format files seamlessly within your browser.<br><br>This integration is experimental, send us your feedback!",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "Sharing made easier",
+          "title": "CodiMD improvements",
           "style": "cover",
-          "coverImage": "{folder}/screenshots/sidebar.png",
-          "attachTo": {
-            "element": "#files-toggle-sidebar",
-            "on": "bottom"
-          },
-          "text": "Now you can access the file details even from inside an app. This means you can share files, manage permissions, and see version history without leaving the app.<br>Searching for different types of accounts has also been improved!<br><br>Just click on the icon in the top right corner to open the sidebar.",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/sharing/"
+          "coverImage": "{folder}/screenshots/codimd.png",
+          "text": "Creating collaborative Markdown notes is now easier: simply navigate to <a href='https://cernbox.cern.ch/codimd' target='_blank'>cernbox.cern.ch/codimd</a> or select CodiMD from the app switcher in the top-left corner, to create a new note.",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "Usability improvements and bug fixes",
+          "title": "ROOT viewer",
           "style": "cover",
-          "coverImage": "{folder}/screenshots/bug-report.png",
-          "text": "This update brings many usability improvements: larger and cleaner file listing, easier way to access a Project trashbin, more shortcuts, duplicate action, ...<br><br>Many known bugs were also patched and the error handling was improved: now, when an error occurs, a <strong>message will be displayed providing the incident code</strong> that can be given to support.",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/data-security/trash-bin/"
+          "coverImage": "{folder}/screenshots/root-viewer.png",
+          "text": "We’ve upgraded the ROOT viewer to use root.cern/js, so new features and fixes arrive faster.<br>Made in cooperation with the ROOT team, this new viewer also supports much larger files than before.",
+          "buttons": ["back", "next"]
         },
         {
-          "title": "Configuration and other changes",
-          "attachTo": {
-            "element": "#_userMenuButton",
-            "on": "bottom"
-          },
-          "text": "You can now configure your settings by clicking on your avatar in the top right corner and then \"Preferences\".<br>There you can change your language and theme (light/dark).",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/interface/"
+          "title": "Draw.io",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/drawio.png",
+          "text": "Draw.io has been updated to the latest version, bringing new shapes, improved dark mode and language features to enhance your diagramming experience within CERNBox Web.",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Jupyter Viewer",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/jupyter.png",
+          "text": "Support for Jupyter Notebooks has been improved with support for displaying script outputs (e.g. JSROOT plots).<br>You can now preview .ipynb files directly in CERNBox Web with better fidelity.",
+          "buttons": ["back", "next"]
         },
         {
           "title": "Give us your feedback",
           "style": "cover",
           "coverImage": "{folder}/screenshots/update-cover.png",
-          "text": "We hope you like the new features!<br>If you have any questions or suggestions, please don't hesitate to open a <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'> SNow ticket</a>.<br><br>You can also check the changelog for more details.",
+          "text": "There have been many more improvements to the other applications integrated in CERNBox Web. We've also integrated a new application: NDMSPC viewer.<br><br>We would love to <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'>hear your thoughts and feedback</a> on these updates!",
           "buttons": ["back", "next"],
           "learnMoreName": "View changelog",
-          "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/"
-        }
-      ]
-    },
-    "fr": {
-      "tourName": "Quoi de neuf ?",
-      "tooltip": "Découvrez les nouveautés du Web",
-      "steps": [
-        {
-          "title": "CERNBox a été mis à jour !",
-          "style": "cover",
-          "coverImage": "{folder}/screenshots/update-cover.png",
-          "text": "L’interface Web de CERNBox a été mise à jour avec de nouvelles fonctionnalités et des améliorations. Découvrez les nouveautés dans cette visite rapide !",
-          "learnMoreName": "Voir la documentation",
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/",
-          "buttons": ["next"]
-        },
-        {
-          "title": "Espaces",
-          "style": "cover",
-          "coverImage": "{folder}/screenshots/spaces.png",
-          "attachTo": {
-            "element": "a[data-nav-name='files-spaces-projects']",
-            "on": "right"
-          },
-          "text": "Vos projets se trouvent désormais dans les <b>Espaces</b>, une nouvelle section qui regroupe toutes les zones collaboratives.<br>Si vous êtes administrateur, vous pouvez même les personnaliser en ajoutant une image de couverture et une description, et maintenant <b>vous pouvez voir tous les partages effectués par d’autres administrateurs</b>.<br><br>L’accès à d’autres zones EOS est également possible via les Espaces.",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/spaces/"
-        },
-        {
-          "title": "Partage simplifié",
-          "style": "cover",
-          "coverImage": "{folder}/screenshots/sidebar.png",
-          "attachTo": {
-            "element": "#files-toggle-sidebar",
-            "on": "bottom"
-          },
-          "text": "Vous pouvez désormais accéder aux détails d’un fichier même depuis une application. Cela signifie que vous pouvez partager des fichiers, gérer les autorisations et consulter l’historique des versions sans quitter l’application.<br>La recherche de différents types de comptes a également été améliorée !<br><br>Il suffit de cliquer sur l’icône en haut à droite pour ouvrir la barre latérale.",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/sharing/"
-        },
-        {
-          "title": "Améliorations de l’ergonomie et corrections de bugs",
-          "style": "cover",
-          "coverImage": "{folder}/screenshots/bug-report.png",
-          "text": "Cette mise à jour apporte de nombreuses améliorations ergonomiques : liste de fichiers plus grande et plus claire, accès plus simple à la corbeille d’un projet, nouveaux raccourcis, action de duplication, etc.<br><br>De nombreux bugs connus ont également été corrigés et la gestion des erreurs a été améliorée : désormais, lorsqu’une erreur se produit, un <strong>message s’affiche avec un code d’incident</strong> que vous pouvez communiquer au support.",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/data-security/trash-bin/"
-        },
-        {
-          "title": "Configuration et autres changements",
-          "attachTo": {
-            "element": "#_userMenuButton",
-            "on": "bottom"
-          },
-          "text": "Vous pouvez maintenant configurer vos paramètres en cliquant sur votre avatar en haut à droite, puis sur « Préférences ».<br>De là, vous pouvez changer la langue et le thème (clair/sombre).",
-          "buttons": ["back", "next"],
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/interface/"
-        },
-        {
-          "title": "Donnez-nous votre avis",
-          "style": "cover",
-          "coverImage": "{folder}/screenshots/update-cover.png",
-          "text": "Nous espérons que vous appréciez les nouvelles fonctionnalités !<br>Si vous avez des questions ou des suggestions, n’hésitez pas à ouvrir un <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'>ticket SNow</a>.<br><br>Vous pouvez également consulter le journal des modifications pour plus de détails.",
-          "buttons": ["back", "next"],
-          "learnMoreName": "Voir le changelog",
           "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/"
         }
       ]
@@ -158,15 +85,17 @@
   ],
   "deniedLocations": [],
   "useModalOverlay": true,
-  "tourId": "update-2051008",
+  "tourId": "update-2051214",
   "autostart": {
     "timeout": 3000,
     "location": "files-spaces-generic"
   },
   "preloadImages": [
     "{folder}/screenshots/update-cover.png",
-    "{folder}/screenshots/spaces.png",
-    "{folder}/screenshots/sidebar.png",
-    "{folder}/screenshots/bug-report.png"
+    "{folder}/screenshots/collabora.png",
+    "{folder}/screenshots/codimd.png",
+    "{folder}/screenshots/root-viewer.png",
+    "{folder}/screenshots/drawio.png",
+    "{folder}/screenshots/jupyter.png"
   ]
 }
