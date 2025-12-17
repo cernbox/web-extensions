@@ -91,6 +91,7 @@ export default defineWebApplication({
       id: appId,
       icon: 'markdown',
       color: '#2F2F2F',
+      hasEditor: false,
       defaultExtension: 'md',
       meta: {
         fileSizeLimit: 2000000
