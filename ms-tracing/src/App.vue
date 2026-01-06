@@ -18,6 +18,7 @@ export default defineComponent({
     const route = useRoute()
 
     const listenToMSEvents = (event: MessageEvent) => {
+      console.debug('MS Event received:', event)
       if (JSON.parse(event.data).MessageId === 'App_LoadingStatus') {
         sendReport()
       }
@@ -40,13 +41,20 @@ export default defineComponent({
     // because of the leading slash, the first element after splitting the path is always empty
     // path: /external-xxx/file/... -> ['', 'external-xxx', 'file', ...]
     // path: /files/... -> ['', 'files', ...]
-    const isExternalApp = (path: string) => {
+    const isExternalAppMS365 = (path: string) => {
       const validSegments = path.split('/').filter(Boolean)
-      return validSegments[0].includes('external-')
+      const isExternal = validSegments[0].includes('external-')
+      if (!isExternal) {
+        return false
+      }
+      const appId = validSegments[0].replace('external-', '').toLowerCase()
+      if (appId === 'ms365') {
+        return true
+      }
     }
 
     onMounted(() => {
-      if (isExternalApp(unref(route).path)) {
+      if (isExternalAppMS365(unref(route).path)) {
         window.addEventListener('message', listenToMSEvents)
       }
     })
@@ -54,10 +62,10 @@ export default defineComponent({
     watch(
       () => unref(route).path,
       (to, from) => {
-        if (!isExternalApp(from) && isExternalApp(to)) {
+        if (!isExternalAppMS365(from) && isExternalAppMS365(to)) {
           window.addEventListener('message', listenToMSEvents)
         }
-        if (isExternalApp(from) && !isExternalApp(to)) {
+        if (isExternalAppMS365(from) && !isExternalAppMS365(to)) {
           window.removeEventListener('message', listenToMSEvents)
         }
       }
