@@ -1,9 +1,9 @@
 import { buildIncomingShareResource, IncomingShareResource } from '@ownclouders/web-client'
 import {
-  useSharesStore,
+  ClientService,
   useConfigStore,
   useResourcesStore,
-  ClientService
+  useSharesStore
 } from '@ownclouders/web-pkg'
 
 const sharesStore = useSharesStore()
@@ -39,20 +39,23 @@ const loadResources = (clientService: ClientService) => {
   })
 }
 
-const processShare = (resource: IncomingEmbeddedShareResource) => {
-  console.debug('Process share clicked', {
-    name: resource.name,
-    sharedBy: resource.sharedBy,
-    sharedOn: resource.sdate,
-    status: resource.status
-  })
-  // clientService.httpAuthenticated
-  //   .post('sciencemesh', {
-  //     shareId: resource.id
-  //   })
-  //   .then(() => {
-  //     loadResources()
-  //   })
+const processShare = (resource: IncomingEmbeddedShareResource, clientService: ClientService) => {
+  console.log('Processing share:', resource)
+  clientService.httpAuthenticated
+    .post(
+      'sciencemesh/process-embedded-share',
+      {},
+      {
+        params: {
+          destination: resource.path,
+          share_id: resource.id,
+          process: resource.status.toLowerCase() === 'pending' ? 'true' : 'false'
+        }
+      }
+    )
+    .then(() => {
+      loadResources(clientService)
+    })
 }
 
 export { loadResources, processShare }
