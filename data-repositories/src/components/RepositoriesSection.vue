@@ -40,14 +40,16 @@
         v-oc-tooltip="
           resource.status && resource.status.toLowerCase() === 'pending'
             ? 'Process share'
-            : 'Reprocess share'
+            : 'Unprocess share'
         "
         appearance="raw"
-        @click.stop="processShare(resource)"
+        @click.stop="processShareWrapper(resource)"
       >
         <oc-icon
           :name="
-            resource.status && resource.status.toLowerCase() === 'pending' ? 'check' : 'refresh'
+            resource.status && resource.status.toLowerCase() === 'pending'
+              ? 'check'
+              : 'arrow-go-back'
           "
           fill-type="line"
         />
@@ -81,6 +83,7 @@ import {
   NoContentMessage,
   Pagination,
   SortDir,
+  useClientService,
   useFileActionsToggleHideShare,
   useGetMatchingSpace,
   usePagination,
@@ -161,6 +164,7 @@ export default defineComponent({
     const { $gettext } = useGettext()
     const areHiddenFilesShown = ref(false)
     const { getMatchingSpace } = useGetMatchingSpace()
+    const clientService = useClientService()
 
     const displayedFields = computed(() => {
       return ['name', 'sharedBy', 'sdate', 'status']
@@ -194,6 +198,10 @@ export default defineComponent({
     const { selectedResourcesIds, selectedResources, isResourceInSelection } =
       useSelectedResources()
 
+    const processShareWrapper = (resource: IncomingEmbeddedShareResource) => {
+      processShare(resource, clientService)
+    }
+
     return {
       areHiddenFilesShown,
       displayedFields,
@@ -207,7 +215,7 @@ export default defineComponent({
       selectedResources,
       getMatchingSpace,
       isResourceInSelection,
-      processShare,
+      processShareWrapper,
       toggleShowMore,
       toggleMoreLabel
     }
