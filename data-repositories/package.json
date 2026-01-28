@@ -1,0 +1,36 @@
+{
+  "name": "data-repositories",
+  "version": "0.0.1",
+  "description": "ownCloud Data Repositories integration",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color"
+  },
+  "devDependencies": {
+    "@ownclouders/eslint-config": "11.0.4",
+    "@ownclouders/extension-sdk": "^12.1.1",
+    "@ownclouders/prettier-config": "0.0.1",
+    "@ownclouders/tsconfig": "0.0.6",
+    "@ownclouders/web-test-helpers": "^12.1.1",
+    "@types/node": "^22.19.1",
+    "eslint": "9.15.0",
+    "prettier": "3.3.3",
+    "sass-embedded": "^1.97.2",
+    "typescript": "5.6.3",
+    "vite": "7.1.9",
+    "vue": "^3.5.24"
+  },
+  "dependencies": {
+    "@ownclouders/design-system": "^12.1.2",
+    "@ownclouders/web-client": "^12.1.2",
+    "@ownclouders/web-pkg": "^12.1.2",
+    "@vueuse/core": "^14.1.0",
+    "lodash-es": "^4.17.22",
+    "pinia": "^3.0.4",
+    "vue3-gettext": "4.0.0-beta.1"
+  }
+}
