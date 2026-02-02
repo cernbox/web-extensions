@@ -39,15 +39,18 @@ const loadResources = (clientService: ClientService) => {
   })
 }
 
-const processShare = (resource: IncomingEmbeddedShareResource, clientService: ClientService) => {
-  console.log('Processing share:', resource)
+const processShare = (
+  resource: IncomingEmbeddedShareResource,
+  destination: string,
+  clientService: ClientService
+) => {
   clientService.httpAuthenticated
     .post(
       'sciencemesh/process-embedded-share',
       {},
       {
         params: {
-          destination: resource.path,
+          destination,
           share_id: resource.id,
           process: resource.status.toLowerCase() === 'pending' ? 'true' : 'false'
         }

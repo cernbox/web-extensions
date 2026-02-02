@@ -43,7 +43,7 @@
             : 'Unprocess share'
         "
         appearance="raw"
-        @click.stop="processShareWrapper(resource)"
+        @click.stop="handleClick(resource)"
       >
         <oc-icon
           :name="
@@ -84,6 +84,7 @@ import {
   Pagination,
   SortDir,
   useClientService,
+  useConfigStore,
   useFileActionsToggleHideShare,
   useGetMatchingSpace,
   usePagination,
@@ -91,7 +92,7 @@ import {
 } from '@ownclouders/web-pkg'
 import CustomResourceTable from './CustomResourceTable.vue'
 
-import { computed, defineComponent, PropType, ref, unref } from 'vue'
+import { computed, defineComponent, onMounted, onUnmounted, PropType, ref, unref } from 'vue'
 import { IncomingEmbeddedShareResource, processShare } from '../functions'
 import ListInfo from './ListInfo.vue'
 import { useGettext } from 'vue3-gettext'
@@ -165,6 +166,7 @@ export default defineComponent({
     const areHiddenFilesShown = ref(false)
     const { getMatchingSpace } = useGetMatchingSpace()
     const clientService = useClientService()
+    const configStore = useConfigStore()
 
     const displayedFields = computed(() => {
       return ['name', 'sharedBy', 'sdate', 'status']
@@ -198,9 +200,102 @@ export default defineComponent({
     const { selectedResourcesIds, selectedResources, isResourceInSelection } =
       useSelectedResources()
 
-    const processShareWrapper = (resource: IncomingEmbeddedShareResource) => {
-      processShare(resource, clientService)
+    const handleClick = (resource: IncomingEmbeddedShareResource) => {
+      resourceSelected.value = resource
+      if (resource.status && resource.status.toLowerCase() === 'pending') {
+        showLocationPicker()
+      } else {
+        processShareWrapper(resource, '')
+      }
     }
+
+    const resourceSelected = ref(null)
+
+    const processShareWrapper = (resource: IncomingEmbeddedShareResource, location: string) => {
+      processShare(resource, location, clientService)
+    }
+
+    const showLocationPicker = () => {
+      // Overlay to dim the background
+      const overlay = document.createElement('div')
+      overlay.id = 'iframe-overlay'
+      overlay.style.position = 'fixed'
+      overlay.style.top = '0'
+      overlay.style.left = '0'
+      overlay.style.width = '100vw'
+      overlay.style.height = '100vh'
+      overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+      overlay.style.zIndex = '999'
+      document.body.appendChild(overlay)
+
+      // Iframe for selecting the target location
+      const iframe = document.createElement('iframe')
+      iframe.src = `${configStore.serverUrl}?embed=true&embed-target=location&hide-logo=true&hide-navigation=true`
+      iframe.id = 'location-selector-iframe'
+      iframe.style.width = '50vw'
+      iframe.style.height = '60vh'
+
+      // div container to hold the iframe and title
+      const container = document.createElement('div')
+      container.id = 'location-selector-container'
+      container.style.position = 'fixed'
+      container.style.top = '50%'
+      container.style.left = '50%'
+      container.style.transform = 'translate(-50%, -50%)'
+      container.style.zIndex = '1000'
+      container.style.borderRadius = '16px'
+      container.style.overflow = 'hidden'
+      container.appendChild(iframe)
+
+      container.style.display = 'flex'
+      container.style.flexDirection = 'column'
+      container.style.alignItems = 'start'
+      container.style.backgroundColor = 'var(--oc-color-swatch-brand-default)'
+
+      // Title above the iframe
+      const title = document.createElement('h3')
+      title.innerText = $gettext('Select a location to process the share')
+      title.style.color = 'var(--oc-color-swatch-primary-contrast)'
+      title.style.padding = '0 16px'
+      container.prepend(title)
+
+      document.body.appendChild(container)
+    }
+
+    const selectLocation = (event: MessageEvent) => {
+      const container = document.getElementById('location-selector-container')
+      const overlay = document.getElementById('iframe-overlay')
+
+      const trustedOrigin = configStore.serverUrl.replace(/\/+$/, '')
+      if (event.origin !== trustedOrigin) {
+        return
+      }
+
+      if (event.data?.name === 'owncloud-embed:select') {
+        const pathSelected = event.data.data[0]?.path as string
+        const targetLocation = encodeURIComponent(pathSelected).replaceAll('%2F', '/')
+
+        if (targetLocation) {
+          container.remove()
+          overlay.remove()
+          processShareWrapper(unref(resourceSelected), targetLocation)
+          return
+        }
+      }
+      if (event.data?.name === 'owncloud-embed:cancel') {
+        container.remove()
+        overlay.remove()
+        return
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener('message', selectLocation)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('message', selectLocation)
+    })
 
     return {
       areHiddenFilesShown,
@@ -213,10 +308,13 @@ export default defineComponent({
       resourceItems,
       selectedResourcesIds,
       selectedResources,
+      resourceSelected,
       getMatchingSpace,
       isResourceInSelection,
+      showLocationPicker,
       processShareWrapper,
       toggleShowMore,
+      handleClick,
       toggleMoreLabel
     }
   }
