@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, unref } from 'vue'
 import App from './App.vue'
 import { defineWebApplication, SidebarNavExtension, useRouter } from '@ownclouders/web-pkg'
 
@@ -9,10 +9,6 @@ const appInfo = {
 
 export default defineWebApplication({
   setup() {
-    // const { $gettext } = useGettext()
-    // const userStore = useUserStore()
-    // const spacesStore = useSpacesStore()
-
     const router = useRouter()
 
     // if the route starts with /files, it has the other sidebar options
@@ -21,6 +17,7 @@ export default defineWebApplication({
       path: `/files/${appInfo.id}`,
       component: App,
       meta: {
+        title: `${appInfo.name}`,
         authContext: 'user',
         patchCleanPath: true
       }
@@ -39,6 +36,7 @@ export default defineWebApplication({
               route: {
                 path: `/files/${appInfo.id}`
               },
+              isVisible: () => unref(router.currentRoute).path.startsWith('/files'),
               priority: 30
             }
           }
