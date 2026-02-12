@@ -1,6 +1,6 @@
 {
   "name": "data-repositories",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ownCloud Data Repositories integration",
   "license": "AGPL-3.0",
   "type": "module",
