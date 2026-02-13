@@ -165,9 +165,10 @@ export default defineComponent({
     const getSambaPath = (path: string) => {
       const pathMappings = {
         user: '\\\\cernbox-smb\\eos\\user\\',
-        project: '\\\\eosproject-smb\\eos\\project\\',
-        public: '\\\\eospublic-smb\\eos\\',
-        media: '\\\\eosmedia-smb\\eos\\'
+        project: '\\\\cernbox-drive\\project\\',
+        winspaces: '\\\\cernbox-drive\\winspaces\\',
+        media: '\\\\cernbox-drive\\eos\\',
+        public: '\\\\cernbox-drive\\eos',
       }
       const pathComponents = path?.split('/').filter(Boolean)
       if (pathComponents.length > 1 && pathComponents[0] === 'eos') {
