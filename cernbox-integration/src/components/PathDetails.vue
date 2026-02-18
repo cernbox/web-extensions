@@ -164,17 +164,35 @@ export default defineComponent({
 
     const getSambaPath = (path: string) => {
       const pathMappings = {
-        user: '\\\\cernbox-smb\\eos\\user\\',
-        project: '\\\\cernbox-drive\\project\\',
-        winspaces: '\\\\cernbox-drive\\winspaces\\',
-        media: '\\\\cernbox-drive\\eos\\',
-        public: '\\\\cernbox-drive\\eos',
+        eos: {
+          user: '\\\\cernbox-smb\\eos\\user\\',
+          project: '\\\\cernbox-drive\\project\\',
+          ams: '\\\\cernbox-drive\\eosams\\',
+          opendata: '\\\\cernbox-drive\\eosopendata\\',
+          theory: '\\\\cernbox-drive\\eostheory\\',
+          media: '\\\\cernbox-drive\\eosmedia\\',
+          web: '\\\\cernbox-drive\\eos\\web\\',
+          experiment: '\\\\cernbox-drive\\eosexperiment\\',
+          workspace: '\\\\cernbox-drive\\workspace\\'
+        },
+        winspaces: {
+          '*': '\\\\cernbox-drive\\winspaces\\',
+        }
       }
-      const pathComponents = path?.split('/').filter(Boolean)
-      if (pathComponents.length > 1 && pathComponents[0] === 'eos') {
-        const translated = pathMappings[pathComponents[1]]
-        return translated && `${translated}${pathComponents.slice(2).join('\\')}`
-      }
+      const parts = path?.split('/').filter(Boolean)
+      if (!parts || parts.length < 2) return
+
+      const root = parts[0]
+      const key = parts[1]
+      const rest = parts.slice(2).join('\\')
+
+      const rootMappings = pathMappings[root]
+      if (!rootMappings) return 
+
+      const base = rootMappings[key] ?? rootMappings['*']
+      if (!base) return
+
+      return base + rest
     }
     const sambaPath = computed(() => {
       return getSambaPath(
