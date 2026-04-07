@@ -1,6 +1,7 @@
 import { buildIncomingShareResource, IncomingShareResource } from '@ownclouders/web-client'
 import {
   ClientService,
+  useUserStore, 
   useConfigStore,
   useResourcesStore,
   useSharesStore
@@ -9,6 +10,7 @@ import {
 const sharesStore = useSharesStore()
 const configStore = useConfigStore()
 const resourcesStore = useResourcesStore()
+const userStore = useUserStore()
 
 interface IncomingEmbeddedShareResource extends IncomingShareResource {
   status: string
@@ -44,6 +46,11 @@ const processShare = (
   destination: string,
   clientService: ClientService
 ) => {
+  // The destination has to be set to /eos/user/<first_letter_of_username>/<username><destination>
+  // note that the destination has a leading slash.
+  // TODO(rawe0): obtain the full path, don't hardcore /eos/user/...
+  const username = userStore.user.id
+  destination = `/eos/user/${username.charAt(0).toLowerCase()}/${username}${destination}`
   clientService.httpAuthenticated
     .post(
       'sciencemesh/process-embedded-share',
