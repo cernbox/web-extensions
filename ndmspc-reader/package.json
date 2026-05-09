@@ -4,56 +4,35 @@
   "description": "Simple notebook opener",
   "license": "AGPL-3.0",
   "author": "CERNBox",
-  "type": "module",
   "private": true,
   "homepage": "https://github.com/cernbox/web-extensions",
+  "type": "module",
   "scripts": {
+    "check:types": "vue-tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
     "build": "pnpm vite build",
     "build:w": "pnpm vite build --watch --mode development"
   },
-  "browserslist": [
-    "last 1 year",
-    "> .2%",
-    "not dead",
-    "not Explorer > 0",
-    "not ExplorerMobile > 0",
-    "not BlackBerry > 0",
-    "not OperaMini all",
-    "not OperaMobile > 0"
-  ],
   "devDependencies": {
-    "@ownclouders/eslint-config": "11.0.4",
-    "@ownclouders/extension-sdk": "11.0.4",
-    "@ownclouders/prettier-config": "0.0.1",
-    "@ownclouders/tsconfig": "0.0.6",
-    "@vitejs/plugin-vue": "5.2.0",
-    "eslint": "9.15.0",
-    "js-base64": "^3.7.7",
-    "prettier": "3.3.3",
-    "rollup-plugin-node-polyfills": "^0.2.1",
-    "sass": "1.81.0",
-    "typescript": "~5.6.3",
-    "vite": "5.4.11",
-    "vue": "3.5.13"
+    "@ownclouders/eslint-config": "catalog:",
+    "@ownclouders/extension-sdk": "catalog:",
+    "@ownclouders/prettier-config": "catalog:",
+    "@ownclouders/tsconfig": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "eslint": "catalog:",
+    "js-base64": "catalog:",
+    "prettier": "catalog:",
+    "rollup-plugin-node-polyfills": "catalog:",
+    "sass": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@ownclouders/web-client": "11.0.4",
-    "@ownclouders/web-pkg": "11.0.4",
-    "vue-concurrency": "5.0.1",
-    "vue-router": "4.4.5"
-  },
-  "peerDependencies": {
-    "@ownclouders/web-client": "0.0.1",
-    "@ownclouders/web-pkg": "0.0.5-alpha.1",
-    "vue-concurrency": "4.0.1",
-    "vue-router": "4.2.4"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "design-system*"
-      ]
-    }
+    "@ownclouders/web-client": "catalog:",
+    "@ownclouders/web-pkg": "catalog:",
+    "vue-concurrency": "catalog:",
+    "vue-router": "catalog:"
   }
 }

@@ -14,38 +14,23 @@
     "build:w": "pnpm vite build --watch --mode development"
   },
   "devDependencies": {
-    "@ownclouders/eslint-config": "11.0.4",
-    "@ownclouders/extension-sdk": "11.0.4",
-    "@ownclouders/prettier-config": "0.0.1",
-    "@ownclouders/tsconfig": "0.0.6",
-    "@types/node": "^22.9.1",
-    "eslint": "9.15.0",
-    "prettier": "3.3.3",
-    "typescript": "5.6.3",
-    "vite": "5.4.11",
-    "vue-tsc": "2.1.10"
-  },
-  "peerDependencies": {
-    "@ownclouders/web-client": "0.0.1",
-    "@ownclouders/web-pkg": "0.0.5-alpha.9",
-    "vue": "3.3.4",
-    "vue-router": "4.2.0",
-    "vue3-gettext": "^2.3.3"
+    "@ownclouders/eslint-config": "catalog:",
+    "@ownclouders/extension-sdk": "catalog:",
+    "@ownclouders/prettier-config": "catalog:",
+    "@ownclouders/tsconfig": "catalog:",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@ownclouders/web-client": "11.0.4",
-    "@ownclouders/web-pkg": "11.0.4",
-    "@vueuse/core": "^11.2.0",
-    "vue": "3.5.13",
-    "vue-router": "4.4.5",
-    "vue3-gettext": "3.0.0-beta.5"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "design-system*"
-      ]
-    }
-  },
-  "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
+    "@ownclouders/web-client": "catalog:",
+    "@ownclouders/web-pkg": "catalog:",
+    "@vueuse/core": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "catalog:",
+    "vue3-gettext": "catalog:"
+  }
 }

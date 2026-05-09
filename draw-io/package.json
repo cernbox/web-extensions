@@ -1,34 +1,35 @@
 {
   "name": "draw-io",
   "version": "0.0.3",
-  "private": true,
   "description": "ownCloud web draw.io integration",
   "license": "AGPL-3.0",
+  "author": "CERNBox",
+  "private": true,
+  "homepage": "https://github.com/cernbox/web-extensions",
   "type": "module",
   "scripts": {
-    "build": "pnpm vite build",
-    "build:w": "pnpm vite build --watch --mode development",
     "check:types": "vue-tsc --noEmit",
-    "lint": "eslint 'src/**/*.{js,ts,vue}' --color"
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development"
   },
   "devDependencies": {
-    "@ownclouders/eslint-config": "11.0.4",
-    "@ownclouders/extension-sdk": "^12.1.1",
-    "@ownclouders/prettier-config": "0.0.1",
-    "@ownclouders/tsconfig": "0.0.6",
-    "@ownclouders/web-test-helpers": "^12.1.1",
-    "@types/node": "^22.19.1",
-    "eslint": "9.15.0",
-    "prettier": "3.3.3",
-    "qs": "^6.14.0",
-    "typescript": "5.6.3",
-    "vite": "7.1.9",
-    "vue": "^3.5.24",
-    "vue-tsc": "2.1.10",
-    "vue3-gettext": "^2.4.0"
+    "@ownclouders/eslint-config": "catalog:",
+    "@ownclouders/extension-sdk": "catalog:",
+    "@ownclouders/prettier-config": "catalog:",
+    "@ownclouders/tsconfig": "catalog:",
+    "@ownclouders/web-test-helpers": "catalog:",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "qs": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "dependencies": {
-    "@ownclouders/web-client": "^12.1.1",
-    "@ownclouders/web-pkg": "^12.1.1"
+    "@ownclouders/web-client": "catalog:",
+    "@ownclouders/web-pkg": "catalog:"
   }
 }
