@@ -33,7 +33,7 @@
   "dependencies": {
     "@thatopen/components": "^2.4.4",
     "@thatopen/fragments": "^2.4.0",
-    "three": "^0.160.1",
+    "three": "^0.173.0",
     "vue-concurrency": "catalog:",
     "vue-router": "catalog:"
   }
