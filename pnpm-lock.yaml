@@ -92,88 +92,6 @@ importers:
 
   .: {}
 
-  backups:
-    dependencies:
-      '@ownclouders/web-client':
-        specifier: 'catalog:'
-        version: 12.3.2
-      '@ownclouders/web-pkg':
-        specifier: 'catalog:'
-        version: 12.3.2(@vue/compiler-sfc@3.5.33)(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3))
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 14.3.0(vue@3.5.33(typescript@5.9.3))
-      axios:
-        specifier: ^1.7.7
-        version: 1.15.2
-      fuse.js:
-        specifier: ^7.0.0
-        version: 7.3.0
-      lodash-es:
-        specifier: 'catalog:'
-        version: 4.18.1
-      luxon:
-        specifier: ^3.5.0
-        version: 3.7.2
-      p-queue:
-        specifier: ^8.0.1
-        version: 8.1.1
-      uuid:
-        specifier: ^11.0.3
-        version: 11.1.1
-      vue-concurrency:
-        specifier: 'catalog:'
-        version: 5.0.3(vue@3.5.33(typescript@5.9.3))
-      vue-router:
-        specifier: 'catalog:'
-        version: 4.6.4(vue@3.5.33(typescript@5.9.3))
-      vuex:
-        specifier: 'catalog:'
-        version: 4.1.0(vue@3.5.33(typescript@5.9.3))
-    devDependencies:
-      '@ownclouders/eslint-config':
-        specifier: 'catalog:'
-        version: 12.3.2(@babel/core@7.29.0)(@typescript-eslint/eslint-plugin@8.59.1(@typescript-eslint/parser@8.59.1(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(vue-eslint-parser@10.4.0(eslint@9.39.4))
-      '@ownclouders/extension-sdk':
-        specifier: 'catalog:'
-        version: 12.3.2(vite@7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0))(vue@3.5.33(typescript@5.9.3))
-      '@ownclouders/prettier-config':
-        specifier: 'catalog:'
-        version: 0.0.1
-      '@ownclouders/tsconfig':
-        specifier: 'catalog:'
-        version: 0.0.6
-      '@vitejs/plugin-vue':
-        specifier: 'catalog:'
-        version: 6.0.6(vite@7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0))(vue@3.5.33(typescript@5.9.3))
-      eslint:
-        specifier: 'catalog:'
-        version: 9.39.4
-      js-base64:
-        specifier: 'catalog:'
-        version: 3.7.8
-      prettier:
-        specifier: 'catalog:'
-        version: 3.8.3
-      rollup-plugin-node-polyfills:
-        specifier: 'catalog:'
-        version: 0.2.1
-      sass:
-        specifier: 'catalog:'
-        version: 1.99.0
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vite:
-        specifier: 'catalog:'
-        version: 7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0)
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.33(typescript@5.9.3)
-      vue-tsc:
-        specifier: 'catalog:'
-        version: 2.1.10(typescript@5.9.3)
-
   cernbox-integration:
     dependencies:
       '@ownclouders/web-client':
@@ -386,13 +304,13 @@ importers:
     dependencies:
       '@thatopen/components':
         specifier: ^2.4.4
-        version: 2.4.11(@thatopen/fragments@2.4.0(three@0.160.1))(three@0.160.1)(web-ifc@0.0.68)
+        version: 2.4.11(@thatopen/fragments@2.4.0(three@0.173.0))(three@0.173.0)(web-ifc@0.0.68)
       '@thatopen/fragments':
         specifier: ^2.4.0
-        version: 2.4.0(three@0.160.1)
+        version: 2.4.0(three@0.173.0)
       three:
-        specifier: ^0.160.1
-        version: 0.160.1
+        specifier: ^0.173.0
+        version: 0.173.0
       vue-concurrency:
         specifier: 'catalog:'
         version: 5.0.3(vue@3.5.33(typescript@5.9.3))
@@ -430,88 +348,6 @@ importers:
       prettier:
         specifier: 'catalog:'
         version: 3.8.3
-      sass:
-        specifier: 'catalog:'
-        version: 1.99.0
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-      vite:
-        specifier: 'catalog:'
-        version: 7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0)
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.33(typescript@5.9.3)
-      vue-tsc:
-        specifier: 'catalog:'
-        version: 2.1.10(typescript@5.9.3)
-
-  image-editor:
-    dependencies:
-      '@ownclouders/web-client':
-        specifier: 'catalog:'
-        version: 12.3.2
-      '@ownclouders/web-pkg':
-        specifier: 'catalog:'
-        version: 12.3.2(@vue/compiler-sfc@3.5.33)(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3))
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 14.3.0(vue@3.5.33(typescript@5.9.3))
-      axios:
-        specifier: ^1.7.7
-        version: 1.15.2
-      fuse.js:
-        specifier: ^7.0.0
-        version: 7.3.0
-      lodash-es:
-        specifier: 'catalog:'
-        version: 4.18.1
-      luxon:
-        specifier: ^3.5.0
-        version: 3.7.2
-      p-queue:
-        specifier: ^8.0.1
-        version: 8.1.1
-      uuid:
-        specifier: ^11.0.3
-        version: 11.1.1
-      vue-concurrency:
-        specifier: 'catalog:'
-        version: 5.0.3(vue@3.5.33(typescript@5.9.3))
-      vue-router:
-        specifier: 'catalog:'
-        version: 4.6.4(vue@3.5.33(typescript@5.9.3))
-      vuex:
-        specifier: 'catalog:'
-        version: 4.1.0(vue@3.5.33(typescript@5.9.3))
-    devDependencies:
-      '@ownclouders/eslint-config':
-        specifier: 'catalog:'
-        version: 12.3.2(@babel/core@7.29.0)(@typescript-eslint/eslint-plugin@8.59.1(@typescript-eslint/parser@8.59.1(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(vue-eslint-parser@10.4.0(eslint@9.39.4))
-      '@ownclouders/extension-sdk':
-        specifier: 'catalog:'
-        version: 12.3.2(vite@7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0))(vue@3.5.33(typescript@5.9.3))
-      '@ownclouders/prettier-config':
-        specifier: 'catalog:'
-        version: 0.0.1
-      '@ownclouders/tsconfig':
-        specifier: 'catalog:'
-        version: 0.0.6
-      '@vitejs/plugin-vue':
-        specifier: 'catalog:'
-        version: 6.0.6(vite@7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0))(vue@3.5.33(typescript@5.9.3))
-      eslint:
-        specifier: 'catalog:'
-        version: 9.39.4
-      js-base64:
-        specifier: 'catalog:'
-        version: 3.7.8
-      prettier:
-        specifier: 'catalog:'
-        version: 3.8.3
-      rollup-plugin-node-polyfills:
-        specifier: 'catalog:'
-        version: 0.2.1
       sass:
         specifier: 'catalog:'
         version: 1.99.0
@@ -1991,6 +1827,9 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
+  '@types/estree@1.0.9':
+    resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
+
   '@types/geojson@7946.0.16':
     resolution: {integrity: sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==}
 
@@ -2356,8 +2195,8 @@ packages:
     resolution: {integrity: sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==}
     engines: {node: '>= 0.6.0'}
 
-  baseline-browser-mapping@2.10.24:
-    resolution: {integrity: sha512-I2NkZOOrj2XuguvWCK6OVh9GavsNjZjK908Rq3mIBK25+GD8vPX5w2WdxVqnQ7xx3SrZJiCiZFu+/Oz50oSYSA==}
+  baseline-browser-mapping@2.10.28:
+    resolution: {integrity: sha512-Ic44hnOtFIgravCunj1ifSoQPSUrkNiJuH9Mf6jr2jjoA74icqV8wU0KuadXeOR8zuIJMOoTv0GuQjZ9ZYNMeA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2408,8 +2247,8 @@ packages:
     peerDependencies:
       three: '>=0.126.1'
 
-  caniuse-lite@1.0.30001791:
-    resolution: {integrity: sha512-yk0l/YSrOnFZk3UROpDLQD9+kC1l4meK/wed583AXrzoarMGJcbRi2Q4RaUYbKxYAsZ8sWmaSa/DsLmdBeI1vQ==}
+  caniuse-lite@1.0.30001792:
+    resolution: {integrity: sha512-hVLMUZFgR4JJ6ACt1uEESvQN1/dBVqPAKY0hgrV70eN3391K6juAfTjKZLKvOMsx8PxA7gsY1/tLMMTcfFLLpw==}
 
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
@@ -2761,8 +2600,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  electron-to-chromium@1.5.348:
-    resolution: {integrity: sha512-QC2X59nRlycQQMc4ZXjSVBX+tSgJfgRtcrYHbIZLgOV2dCvefoQGegLR7lLXKgpPpSuVmJU19LMzGrSa2C7k3Q==}
+  electron-to-chromium@1.5.353:
+    resolution: {integrity: sha512-kOrWphBi8TOZyiJZqsgqIle0lw+tzmnQK83pV9dZUd01Nm2POECSyFQMAuarzZdYqQW7FH9RaYOuaRo3h+bQ3w==}
 
   emoji-mart@5.6.0:
     resolution: {integrity: sha512-eJp3QRe79pjwa+duv+n7+5YsNhRcMl812EcFVwrnRvYKoNPoQb5qxU8DG6Bgwji0akHdp6D4Ln6tYLG58MFSow==}
@@ -3613,10 +3452,6 @@ packages:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
 
-  p-queue@8.1.1:
-    resolution: {integrity: sha512-aNZ+VfjobsWryoiPnEApGGmf5WmNsCo9xu8dfaYamG5qaLP7ClhLN6NgsFe6SwJ2UbLEBK5dv9x8Mn5+RVhMWQ==}
-    engines: {node: '>=18'}
-
   p-queue@9.2.0:
     resolution: {integrity: sha512-dWgLE8AH0HjQ9fe74pUkKkvzzYT18Inp4zra3lKHnnwqGvcfcUBrvF2EAVX+envufDNBOzpPq/IBUONDbI7+3g==}
     engines: {node: '>=20'}
@@ -3624,10 +3459,6 @@ packages:
   p-retry@6.2.1:
     resolution: {integrity: sha512-hEt02O4hUct5wtwg4H4KcWgDdm+l1bOaEy/hWzd8xtXB9BqxTWBBhb+2ImAtH4Cv4rPjV76xN3Zumqk3k3AhhQ==}
     engines: {node: '>=16.17'}
-
-  p-timeout@6.1.4:
-    resolution: {integrity: sha512-MyIV3ZA/PmyBN/ud8vV9XzwTrNtR4jFrObymZYnZqMmW0zA8Z17vnT0rBgFE/TlohB+YCHqXMgZzb3Csp49vqg==}
-    engines: {node: '>=14.16'}
 
   p-timeout@7.0.1:
     resolution: {integrity: sha512-AxTM2wDGORHGEkPCt8yqxOTMgpfbEHqF51f/5fJCmwFC3C/zNcGT63SymH2ttOAaiIws2zVg4+izQCjrakcwHg==}
@@ -4000,6 +3831,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.8.0:
+    resolution: {integrity: sha512-AcM7dV/5ul4EekoQ29Agm5vri8JNqRyj39o0qpX6vDF2GZrtutZl5RwgD1XnZjiTAfncsJhMI48QQH3sN87YNA==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   setimmediate@1.0.5:
     resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==}
 
@@ -4129,8 +3965,8 @@ packages:
     peerDependencies:
       three: '>= 0.151.0'
 
-  three@0.160.1:
-    resolution: {integrity: sha512-Bgl2wPJypDOZ1stAxwfWAcJ0WQf7QzlptsxkjYiURPz+n5k4RBDLsq+6f9Y75TYxn6aHLcWz+JNmwTOXWrQTBQ==}
+  three@0.173.0:
+    resolution: {integrity: sha512-AUwVmViIEUgBwxJJ7stnF0NkPpZxx1aZ6WiAbQ/Qq61h6I9UR4grXtZDmO8mnlaNORhHnIBlXJ1uBxILEKuVyw==}
 
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
@@ -4356,8 +4192,8 @@ packages:
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
 
-  vue-component-type-helpers@3.2.7:
-    resolution: {integrity: sha512-+gPp5YGmhfsj1IN+xUo7y0fb4clfnOiiUA39y07yW1VzCRjzVgwLbtmdWlghh7mXrPsEaYc7rrIir/HT6C8vYQ==}
+  vue-component-type-helpers@3.2.8:
+    resolution: {integrity: sha512-9689efAXhN/EV86plgkL/XFiJSXhGtWPG6JDboZ+QnjlUWUUQrQ0ILKQtw4iQsuwIwu5k6Aw+JnehDe7161e7A==}
 
   vue-concurrency@5.0.3:
     resolution: {integrity: sha512-z8K4acfOUOLufGysY21xqI+KI8a81XcGUNLXhPOxYevqcfX052VP9KLUNvrdJrbI7rKbDGjIrlRhXwJsFb1Ukw==}
@@ -5538,22 +5374,22 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@thatopen/components@2.4.11(@thatopen/fragments@2.4.0(three@0.160.1))(three@0.160.1)(web-ifc@0.0.68)':
+  '@thatopen/components@2.4.11(@thatopen/fragments@2.4.0(three@0.173.0))(three@0.173.0)(web-ifc@0.0.68)':
     dependencies:
-      '@thatopen/fragments': 2.4.0(three@0.160.1)
-      camera-controls: 2.9.0(three@0.160.1)
+      '@thatopen/fragments': 2.4.0(three@0.173.0)
+      camera-controls: 2.9.0(three@0.173.0)
       earcut: 2.2.4
       fast-xml-parser: 4.4.1
       jszip: 3.10.1
-      three: 0.160.1
-      three-mesh-bvh: 0.7.0(three@0.160.1)
+      three: 0.173.0
+      three-mesh-bvh: 0.7.0(three@0.173.0)
       web-ifc: 0.0.68
 
-  '@thatopen/fragments@2.4.0(three@0.160.1)':
+  '@thatopen/fragments@2.4.0(three@0.173.0)':
     dependencies:
       flatbuffers: 23.3.3
-      three: 0.160.1
-      three-mesh-bvh: 0.7.0(three@0.160.1)
+      three: 0.173.0
+      three-mesh-bvh: 0.7.0(three@0.173.0)
 
   '@transloadit/prettier-bytes@0.3.5': {}
 
@@ -5686,6 +5522,8 @@ snapshots:
   '@types/esrecurse@4.3.1': {}
 
   '@types/estree@1.0.8': {}
+
+  '@types/estree@1.0.9': {}
 
   '@types/geojson@7946.0.16': {}
 
@@ -6054,7 +5892,7 @@ snapshots:
       '@vue/compiler-dom': 3.5.33
       js-beautify: 1.15.4
       vue: 3.5.33(typescript@5.9.3)
-      vue-component-type-helpers: 3.2.7
+      vue-component-type-helpers: 3.2.8
     optionalDependencies:
       '@vue/server-renderer': 3.5.33(vue@3.5.33(typescript@5.9.3))
 
@@ -6138,7 +5976,7 @@ snapshots:
 
   base64-arraybuffer@1.0.2: {}
 
-  baseline-browser-mapping@2.10.24: {}
+  baseline-browser-mapping@2.10.28: {}
 
   birpc@2.9.0: {}
 
@@ -6159,9 +5997,9 @@ snapshots:
 
   browserslist@4.28.2:
     dependencies:
-      baseline-browser-mapping: 2.10.24
-      caniuse-lite: 1.0.30001791
-      electron-to-chromium: 1.5.348
+      baseline-browser-mapping: 2.10.28
+      caniuse-lite: 1.0.30001792
+      electron-to-chromium: 1.5.353
       node-releases: 2.0.38
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -6183,11 +6021,11 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camera-controls@2.9.0(three@0.160.1):
+  camera-controls@2.9.0(three@0.173.0):
     dependencies:
-      three: 0.160.1
+      three: 0.173.0
 
-  caniuse-lite@1.0.30001791: {}
+  caniuse-lite@1.0.30001792: {}
 
   chai@6.2.2: {}
 
@@ -6551,9 +6389,9 @@ snapshots:
       '@one-ini/wasm': 0.1.1
       commander: 10.0.1
       minimatch: 9.0.9
-      semver: 7.7.4
+      semver: 7.8.0
 
-  electron-to-chromium@1.5.348: {}
+  electron-to-chromium@1.5.353: {}
 
   emoji-mart@5.6.0: {}
 
@@ -6786,7 +6624,7 @@ snapshots:
 
   estree-walker@3.0.3:
     dependencies:
-      '@types/estree': 1.0.8
+      '@types/estree': 1.0.9
 
   esutils@2.0.3: {}
 
@@ -7403,11 +7241,6 @@ snapshots:
     dependencies:
       p-limit: 3.1.0
 
-  p-queue@8.1.1:
-    dependencies:
-      eventemitter3: 5.0.4
-      p-timeout: 6.1.4
-
   p-queue@9.2.0:
     dependencies:
       eventemitter3: 5.0.4
@@ -7418,8 +7251,6 @@ snapshots:
       '@types/retry': 0.12.2
       is-network-error: 1.3.1
       retry: 0.13.1
-
-  p-timeout@6.1.4: {}
 
   p-timeout@7.0.1: {}
 
@@ -7758,6 +7589,8 @@ snapshots:
 
   semver@7.7.4: {}
 
+  semver@7.8.0: {}
+
   setimmediate@1.0.5: {}
 
   shebang-command@2.0.0:
@@ -7876,11 +7709,11 @@ snapshots:
     dependencies:
       utrie: 1.0.2
 
-  three-mesh-bvh@0.7.0(three@0.160.1):
+  three-mesh-bvh@0.7.0(three@0.173.0):
     dependencies:
-      three: 0.160.1
+      three: 0.173.0
 
-  three@0.160.1: {}
+  three@0.173.0: {}
 
   tinybench@2.9.0: {}
 
@@ -8046,7 +7879,7 @@ snapshots:
 
   vscode-uri@3.1.0: {}
 
-  vue-component-type-helpers@3.2.7: {}
+  vue-component-type-helpers@3.2.8: {}
 
   vue-concurrency@5.0.3(vue@3.5.33(typescript@5.9.3)):
     dependencies:
