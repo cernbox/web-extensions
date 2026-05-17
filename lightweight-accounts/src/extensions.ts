@@ -1,16 +1,18 @@
-import { computed } from 'vue'
+import { computed, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import {
   ApplicationSetupOptions,
   SidebarNavExtension,
   useUserStore,
-  useSpacesStore
+  useSpacesStore,
+  useRouter
 } from '@ownclouders/web-pkg'
 import { isPersonalSpaceResource } from '@ownclouders/web-client'
 
 export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
   const userStore = useUserStore()
   const spacesStore = useSpacesStore()
+  const router = useRouter()
   const { $gettext } = useGettext()
 
   return computed(
@@ -22,6 +24,9 @@ export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
           navItem: {
             activeFor: [{ path: '/files/lightweight-accounts-home' }],
             isVisible: () => {
+              if (!unref(router.currentRoute).path.startsWith('/files')) {
+                return false
+              }
               const userHasPersonalSpace = !!spacesStore.spaces.find(
                 (drive) => isPersonalSpaceResource(drive) && drive.isOwner(userStore.user)
               )
