@@ -1,8 +1,7 @@
 import { defineConfig } from '@ownclouders/extension-sdk'
 
 export default defineConfig({
-  server: {
-  },
+  server: { port: 9217 },
   build: {
     rollupOptions: {
       output: {
