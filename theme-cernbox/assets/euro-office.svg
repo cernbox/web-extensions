@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="190 40 300 300" xmlns="http://www.w3.org/2000/svg">
+<title>euro-office app icon</title>
+<desc>A blue rounded-square icon with a centered white document with a folded corner.</desc>
+
+<rect x="190" y="40" width="300" height="300" rx="48" fill="#13379e"/>
+
+<path d="M285 108 h84 l40 40 v108 a13 13 0 0 1 -13 13 h-111 a13 13 0 0 1 -13 -13 v-135 a13 13 0 0 1 13 -13 z" fill="#ffffff"/>
+<path d="M369 108 l40 40 h-40 z" fill="#b9c6ec"/>
+<rect x="303" y="154" width="88" height="12" rx="6" fill="#13379e"/>
+<rect x="303" y="182" width="56" height="12" rx="6" fill="#13379e"/>
+<rect x="303" y="210" width="56" height="12" rx="6" fill="#13379e"/>
+<rect x="367" y="180" width="42" height="42" rx="6" fill="#13379e"/>
+</svg>
