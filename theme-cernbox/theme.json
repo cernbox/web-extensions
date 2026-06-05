@@ -4,7 +4,7 @@
     "slogan": "CERNBox – The CERN Cloud Storage",
     "logo": "cernbox/theme-cernbox/assets/cernbox-lrg.svg",
     "urls": {
-      "accessDeniedHelp": "",
+      "accessDeniedHelp": "https://cernbox.docs.cern.ch/web/common-issues/#failure-to-log-in",
       "imprint": "",
       "privacy": ""
     },
