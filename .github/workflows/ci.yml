@@ -1,42 +1,37 @@
-
 name: CI pipeline
 
 on:
   push:
     tags:
-       - '*/v*'
-  
+      - '*/v*'
+
 jobs:
   build-publish:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-    - name: Set environnment package name
-      run: |
-        PACKAGE_NAME=$(echo  ${GITHUB_REF#refs/*/} | cut -d / -f 1)
-        echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+      - name: Set environment package name
+        run: |
+          PACKAGE_NAME=$(echo ${GITHUB_REF#refs/*/} | cut -d / -f 1)
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
 
-    - name: Install node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
-    - uses: pnpm/action-setup@v2
-      name: Install pnpm
-      id: pnpm-install
-      with:
-        version: 9
+      - name: Install node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
 
-    - name: Build
-      run: |
-        cd $PACKAGE_NAME
-        make release
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        name: Install pnpm
 
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        draft: false
-        prerelease: false
-        files: ${{ env.PACKAGE_NAME }}/release/${{ env.PACKAGE_NAME }}.tar.gz
+      - name: Build
+        run: |
+          cd $PACKAGE_NAME
+          make release
+
+      - name: Release
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          draft: false
+          prerelease: false
+          files: ${{ env.PACKAGE_NAME }}/release/${{ env.PACKAGE_NAME }}.tar.gz

@@ -4,25 +4,49 @@ on:
   workflow_dispatch:
     inputs:
       bump:
-        description: "Release bump: major, minor or patch"
+        description: "Release bump"
         required: true
         default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
       extension:
         description: "Extension name"
         required: true
-        default: "ifc-js"
+        type: choice
+        options:
+          - backups
+          - cernbox-integration
+          - codimd
+          - data-repositories
+          - draw-io
+          - ifc-js
+          - jupyter
+          - lightweight-accounts
+          - ms-tracing
+          - ndmspc-reader
+          - old-web-redirector
+          - open-in-swan
+          - otg
+          - rootjs
+          - search-in-folder
+          - theme-cernbox
+          - tours
+          - tours-cernbox
 
 jobs:
   bump-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.x'
-      - uses: BSFishy/pip-action@v1
+      - uses: BSFishy/pip-action@8f2d471d809dc20b6ada98c91910b6ae6243f318 # v1
         with:
           packages: |
             bump2version
@@ -33,7 +57,7 @@ jobs:
           cd ${{ github.event.inputs.extension }}
           bump2version ${{ github.event.inputs.bump }}
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c # master
         with:
           github_token: ${{ secrets.GHCR_TOKEN }}
           tags: true
