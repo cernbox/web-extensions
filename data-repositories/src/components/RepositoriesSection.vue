@@ -38,11 +38,14 @@
       </oc-button>
       <oc-button
         v-oc-tooltip="
-          resource.status && resource.status.toLowerCase() === 'pending'
-            ? 'Process share'
-            : 'Unprocess share'
+          resource.status && resource.status.toLowerCase() === 'transferring'
+            ? 'Share is transferring'
+            : resource.status && resource.status.toLowerCase() === 'pending'
+              ? 'Process share'
+              : 'Unprocess share'
         "
         appearance="raw"
+        :disabled="resource.status && resource.status.toLowerCase() === 'transferring'"
         @click.stop="handleClick(resource)"
       >
         <oc-icon
