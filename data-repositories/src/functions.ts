@@ -1,7 +1,11 @@
-import { buildIncomingShareResource, IncomingShareResource } from '@ownclouders/web-client'
+import {
+  buildIncomingShareResource,
+  IncomingShareResource,
+  Resource,
+  SpaceResource
+} from '@ownclouders/web-client'
 import {
   ClientService,
-  useUserStore, 
   useConfigStore,
   useResourcesStore,
   useSharesStore
@@ -10,7 +14,6 @@ import {
 const sharesStore = useSharesStore()
 const configStore = useConfigStore()
 const resourcesStore = useResourcesStore()
-const userStore = useUserStore()
 
 interface IncomingEmbeddedShareResource extends IncomingShareResource {
   status: string
@@ -41,16 +44,21 @@ const loadResources = (clientService: ClientService) => {
   })
 }
 
+// Builds the absolute EOS destination path for the picked target folder.
+// In CERNBox the space `driveAlias` already is the EOS path without the leading
+// slash, e.g. `eos/project/c/cernbox` or `eos/user/r/rwelande`. `folder.path` is
+// relative to the space root (with a leading slash).
+const buildDestination = (folder: Resource, space: SpaceResource): string => {
+  return `/${space.driveAlias}${folder?.path ?? ''}`
+}
+
 const processShare = (
   resource: IncomingEmbeddedShareResource,
   destination: string,
   clientService: ClientService
 ) => {
-  // The destination has to be set to /eos/user/<first_letter_of_username>/<username><destination>
-  // note that the destination has a leading slash.
-  // TODO(rawe0): obtain the full path, don't hardcore /eos/user/...
-  const username = userStore.user.id
-  destination = `/eos/user/${username.charAt(0).toLowerCase()}/${username}${destination}`
+  // `destination` is the full absolute EOS path (see buildDestination). It is empty
+  // when un-processing a share (process=false), where the destination is ignored.
   clientService.httpAuthenticated
     .post(
       'sciencemesh/process-embedded-share',
@@ -68,5 +76,5 @@ const processShare = (
     })
 }
 
-export { loadResources, processShare }
+export { loadResources, processShare, buildDestination }
 export type { IncomingEmbeddedShareResource }
