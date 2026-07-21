@@ -25,6 +25,7 @@
 #   rootjs               9222
 #   search-in-folder     9223
 #   tours                9224
+#   office-app-feedback  9225
 
 set -euo pipefail
 
@@ -55,6 +56,7 @@ ALL_EXTENSIONS=(
   rootjs
   search-in-folder
   tours
+  office-app-feedback
 )
 
 if [[ $# -gt 0 ]]; then

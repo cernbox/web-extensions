@@ -10,6 +10,7 @@ packages:
   - 'lightweight-accounts'
   - 'ms-tracing'
   - 'ndmspc-reader'
+  - 'office-app-feedback'
   - 'old-web-redirector'
   - 'open-in-swan'
   - 'otg'
