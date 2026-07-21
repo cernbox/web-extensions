@@ -6,7 +6,7 @@
     </div>
   </main>
 </template>
-<script>
+<script lang="ts">
 
 import { useUserStore } from '@ownclouders/web-pkg'
 import { mapState } from 'pinia'

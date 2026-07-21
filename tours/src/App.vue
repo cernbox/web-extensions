@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { createTranslatedTour, autostartTours } from './helpers'
 import { mapState, mapActions } from 'pinia'
 import { useAuthStore, useUserStore, useSpacesStore } from '@ownclouders/web-pkg'
