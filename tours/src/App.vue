@@ -14,8 +14,8 @@
       <oc-drop ref="menu" drop-id="tours" toggle="#toursButton" mode="click" close-on-click padding-size="small">
         <oc-list class="user-menu-list">
           <li v-for="(tour, id) in tours" :id="tour.tourName" :key="`tour-${tour.title}-list-${id}`"
-            class="user-menu-list" @click.stop="startTour(id)">
-            <oc-button v-oc-tooltip="tour.tooltip" appearance="raw">
+            class="user-menu-list">
+            <oc-button v-oc-tooltip="tour.tooltip" appearance="raw" @click.stop="startTour(id)">
               <span class="profile-info-wrapper" :class="'oc-py-xs'">
                 {{ tour.tourName }}
               </span></oc-button>

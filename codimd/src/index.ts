@@ -1,6 +1,6 @@
 import App from './App.vue'
 
-import { Resource, urlJoin } from '@ownclouders/web-client'
+import { urlJoin } from '@ownclouders/web-client'
 import {
   ApplicationFileExtension,
   ApplicationInformation,

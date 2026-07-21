@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import qs from 'qs'
-import { defineComponent, unref, ref, onMounted, PropType } from 'vue'
+import { defineComponent, ref, onMounted, PropType } from 'vue'
 import { Resource, SpaceResource } from '@ownclouders/web-client'
 import { useClientService, useAuthStore, useUserStore, AppConfigObject } from '@ownclouders/web-pkg'
 

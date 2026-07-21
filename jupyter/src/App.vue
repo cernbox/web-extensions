@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, watch, nextTick, onUpdated } from 'vue'
+import { computed, defineComponent, PropType, ref, watch, onUpdated } from 'vue'
 import { AppConfigObject, useThemeStore } from '@ownclouders/web-pkg'
 import * as ipynb2html from 'ipynb2html'
 import logo from './img/logo.svg'

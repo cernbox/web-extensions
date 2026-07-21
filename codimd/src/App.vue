@@ -24,7 +24,7 @@ import {
   useWindowOpen,
   useAppConfig
 } from '@ownclouders/web-pkg'
-import { computed, defineComponent, onMounted, PropType, ref, unref } from 'vue'
+import { computed, defineComponent, onMounted, PropType, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 
 // https://cernbox.cern.ch/codimd -> https://cernbox.cern.ch/external-codimd/eos/user/<letter>/<username>/<default_folder>/New file.md

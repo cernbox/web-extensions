@@ -1,5 +1,5 @@
 <template>
-  <iframe id="ndmspc-viewer" ref="ndmspcViewer" :src="iframeSource" />
+  <iframe id="ndmspc-viewer" ref="ndmspcViewer" :src="iframeSource" title="NDMSPC Viewer" />
 </template>
 
 <script lang="ts">
