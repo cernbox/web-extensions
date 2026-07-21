@@ -8,7 +8,6 @@
   "homepage": "https://github.com/cernbox/web-extensions",
   "type": "module",
   "scripts": {
-    "check:types": "vue-tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
     "build": "pnpm vite build",
     "build:w": "pnpm vite build --watch --mode development"
@@ -25,8 +24,7 @@
     "sass-embedded": "^1.97.2",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vue": "catalog:",
-    "vue-tsc": "catalog:"
+    "vue": "catalog:"
   },
   "dependencies": {
     "@ownclouders/design-system": "catalog:",

@@ -37,7 +37,6 @@ catalog:
   eslint: ^9.39.1
   prettier: ^3.6.2
   typescript: ^5.9.3
-  vue-tsc: ^2.1.10
 
   # Vue ecosystem
   '@vueuse/core': ^14.1.0
