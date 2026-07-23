@@ -16,7 +16,7 @@
         :disabled="!feedbackMessage.trim() || isSubmitting"
         @click="onSubmitFeedback"
       >
-        {{ $gettext('Submit feedback') }}
+        {{ $gettext('Submit') }}
       </oc-button>
     </div>
   </div>
