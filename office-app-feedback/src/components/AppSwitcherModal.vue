@@ -1,7 +1,7 @@
 <template>
   <div class="office-app-switcher-modal">
     <p class="oc-mb-m">
-      {{ $gettext('Do you want to try a different app to edit office files?') }}
+      {{ $gettext('Do you want to change the default Office app for this browser?') }}
     </p>
     <oc-select
       v-model="selectedOption"
@@ -9,11 +9,6 @@
       :searchable="false"
       :clearable="false"
       :options="switchOptions"
-    />
-    <oc-checkbox
-      v-model="makeDefaultForBrowser"
-      class="oc-mb-m"
-      :label="$gettext('Make this the default for this browser')"
     />
     <div class="office-app-switcher-modal-actions">
       <oc-button appearance="outline" variation="passive" @click="$emit('cancel')">
@@ -25,7 +20,7 @@
         :disabled="!selectedOption"
         @click="onSwitchApp"
       >
-        {{ $gettext('Switch') }}
+        {{ $gettext('Change') }}
       </oc-button>
     </div>
   </div>
@@ -33,7 +28,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, unref } from 'vue'
-import { Modal, useRoute, useRouter } from '@ownclouders/web-pkg'
+import { Modal } from '@ownclouders/web-pkg'
 
 interface SwitchOption {
   label: string
@@ -48,32 +43,19 @@ export default defineComponent({
   },
   emits: ['cancel'],
   setup(props, { emit }) {
-    const route = useRoute()
-    const router = useRouter()
 
     const selectedOption = ref<SwitchOption | null>(props.switchOptions[0] || null)
-    const makeDefaultForBrowser = ref(false)
 
     const onSwitchApp = () => {
       const option = unref(selectedOption)
       if (!option) {
         return
       }
-      if (unref(makeDefaultForBrowser)) {
-        // TEMPORARY: same raw localStorage key useFileActions.ts reads inline on the web side
-        // to decide which app opens a file by default - not wired through a shared store on
-        // purpose, this whole mechanism is meant to be removed again in a couple of months.
-        localStorage.setItem('preferredOfficeAppName', option.value)
-      }
-      router.push({
-        name: `external-${option.value.toLowerCase()}-apps`,
-        params: unref(route).params,
-        query: unref(route).query
-      })
+      localStorage.setItem('preferredOfficeAppName', option.value)
       emit('cancel')
     }
 
-    return { selectedOption, makeDefaultForBrowser, onSwitchApp }
+    return { selectedOption, onSwitchApp }
   }
 })
 </script>

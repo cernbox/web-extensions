@@ -14,21 +14,36 @@
       </span>
     </oc-button>
     <oc-drop
+      id="office-app-feedback-drop"
       drop-id="office-app-feedback-drop"
       toggle="#office-app-feedback-btn"
       mode="hover"
       close-on-click
       padding-size="small"
+      class="oc-width-auto"
     >
       <oc-list class="office-app-feedback-menu-list">
         <li v-if="switchOptions.length" class="oc-menu-item-hover">
-          <oc-button appearance="raw" class="oc-width-1-1" @click="openSwitchModal">
-            {{ $gettext('Try a different app') }}
+          <oc-button appearance="raw" @click="openSwitchModal">
+            <oc-icon :name="'settings-3'" fill-type="line" class="oc-p-xs" />
+            {{ $gettext('Change default Office') }}
           </oc-button>
         </li>
         <li class="oc-menu-item-hover">
-          <oc-button appearance="raw" class="oc-width-1-1" @click="openFeedbackModal">
-            {{ $gettext('Send feedback') }}
+          <oc-button
+            type="a"
+            appearance="raw"
+            href="https://indico.cern.ch/event/1652846/surveys/7168"
+            target="_blank"
+          >
+            <oc-icon :name="'megaphone'" fill-type="line" class="oc-p-xs" />
+            {{ $gettext('Send feedback!') }}
+          </oc-button>
+        </li>
+        <li class="oc-menu-item-hover">
+          <oc-button appearance="raw" @click="openFeedbackModal">
+            <oc-icon :name="'chat-3'" fill-type="line" class="oc-p-xs" />
+            {{ $gettext('Comments/issues?') }}
           </oc-button>
         </li>
       </oc-list>
@@ -55,9 +70,8 @@ const EXTERNAL_APP_ROUTE_NAME = /^external-(.+)-apps$/
 // display names for apps under test; anything not listed here falls back to the raw
 // app-provider name, so e.g. EuroOffice shows up automatically once it's registered.
 const APP_DISPLAY_NAMES: Record<string, string> = {
-  ms365: 'Microsoft Office Online',
+  ms365: 'Microsoft Office 365',
   collabora: 'Collabora',
-  onlyoffice: 'EuroOffice',
   eurooffice: 'EuroOffice'
 }
 
@@ -93,6 +107,7 @@ export default defineComponent({
     // only apps actually registered for the current file's extension - e.g. this excludes
     // CodiMD (a markdown editor) when viewing a .docx, rather than listing every app name
     // registered anywhere.
+    // Filtering by the current extension should be good enough to give the office apps options
     const switchOptions = computed<SwitchOption[]>(() => {
       const ext = unref(currentExtension)
       if (!ext) {
@@ -104,7 +119,6 @@ export default defineComponent({
       }
       return mimeType.app_providers
         .map((provider) => provider.name)
-        .filter((name) => name.toLowerCase() !== unref(currentAppSlug))
         .map((name) => ({ label: APP_DISPLAY_NAMES[name.toLowerCase()] || name, value: name }))
     })
 
@@ -120,7 +134,7 @@ export default defineComponent({
 
     const openFeedbackModal = () => {
       dispatchModal({
-        title: $gettext('Send feedback'),
+        title: $gettext('Comments/issues'),
         hideActions: true,
         focusTrapInitial: false,
         customComponent: FeedbackModal
@@ -213,6 +227,18 @@ export default defineComponent({
   }
   to {
     background-position: 200% 0;
+  }
+}
+
+#office-app-feedback-drop {
+  li {
+    border: 1px solid transparent;
+
+    a {
+      gap: 10px;
+      justify-content: left;
+      width: 100%;
+    }
   }
 }
 </style>
