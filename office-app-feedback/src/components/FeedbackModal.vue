@@ -34,7 +34,7 @@ export default defineComponent({
     modal: { type: Object as PropType<Modal>, required: true }
   },
   emits: ['cancel'],
-  setup() {
+  setup(_, { emit }) {
     const { $gettext } = useGettext()
     const { showMessage, showErrorMessage } = useMessages()
     const { makeRequest } = useRequest()
@@ -58,6 +58,7 @@ export default defineComponent({
         })
         showMessage({ title: $gettext('Thanks for your feedback!') })
         feedbackMessage.value = ''
+        emit('cancel')
       } catch (error) {
         showErrorMessage({ title: $gettext('Failed to send feedback'), errors: [error] })
       } finally {

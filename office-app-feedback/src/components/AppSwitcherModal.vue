@@ -7,7 +7,7 @@
       v-model="selectedOption"
       class="oc-mb-s"
       :searchable="false"
-      :clearable="false"
+      :clearable="true"
       :options="switchOptions"
     />
     <div class="office-app-switcher-modal-actions">
@@ -42,9 +42,8 @@ export default defineComponent({
     switchOptions: { type: Array as PropType<SwitchOption[]>, default: () => [] }
   },
   emits: ['cancel'],
-  setup(props, { emit }) {
-
-    const selectedOption = ref<SwitchOption | null>(props.switchOptions[0] || null)
+  setup(_, { emit }) {
+    const selectedOption = ref<SwitchOption | null>(null)
 
     const onSwitchApp = () => {
       const option = unref(selectedOption)
