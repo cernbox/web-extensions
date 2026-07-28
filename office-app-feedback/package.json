@@ -26,6 +26,7 @@
     "vue": "catalog:"
   },
   "dependencies": {
+    "@ownclouders/web-client": "catalog:",
     "@ownclouders/web-pkg": "catalog:"
   }
 }

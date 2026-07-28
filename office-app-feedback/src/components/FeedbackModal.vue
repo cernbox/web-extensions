@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { Modal, useMessages } from '@ownclouders/web-pkg'
+import { Modal, useConfigStore, useMessages, useRequest, useUserStore } from '@ownclouders/web-pkg'
 import { submitFeedback } from '../helpers/submitFeedback'
 
 export default defineComponent({
@@ -37,6 +37,9 @@ export default defineComponent({
   setup() {
     const { $gettext } = useGettext()
     const { showMessage, showErrorMessage } = useMessages()
+    const { makeRequest } = useRequest()
+    const configStore = useConfigStore()
+    const { user } = useUserStore()
 
     const feedbackMessage = ref('')
     const isSubmitting = ref(false)
@@ -48,7 +51,11 @@ export default defineComponent({
       }
       isSubmitting.value = true
       try {
-        await submitFeedback(message)
+        await submitFeedback(message, {
+          makeRequest,
+          serverUrl: configStore.serverUrl,
+          username: user.onPremisesSamAccountName || user.id
+        })
         showMessage({ title: $gettext('Thanks for your feedback!') })
         feedbackMessage.value = ''
       } catch (error) {

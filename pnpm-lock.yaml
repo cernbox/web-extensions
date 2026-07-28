@@ -550,6 +550,9 @@ importers:
 
   office-app-feedback:
     dependencies:
+      '@ownclouders/web-client':
+        specifier: 'catalog:'
+        version: 12.3.2
       '@ownclouders/web-pkg':
         specifier: 'catalog:'
         version: 12.3.2(@vue/compiler-sfc@3.5.33)(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3))
