@@ -1,6 +1,6 @@
 {
   "name": "office-app-feedback",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Feedback and app-switching for office apps under test",
   "license": "AGPL-3.0",
   "author": "CERNBox",
