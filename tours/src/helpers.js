@@ -49,51 +49,51 @@ function setTourBrowserStatus(t, status) {
   return localStorage.setItem('tours/' + t.tourId, status)
 }
 
-/* autostarts the first tour of the tours array with autostart property if the current location matches tour settings for autostart */
+/* autostarts every tour in the tours array with autostart property matching the current location,
+   one after the other: once a tour is closed (cancelled or completed), the next one starts */
 export async function autostartTours(tourInfos, location, token, userId) {
+  const candidates = tourInfos.filter((t) => t.autostart?.location === location)
+  await startNextAutostartTour(candidates, 0, token, userId)
+}
 
-  const autostartTours = tourInfos.filter((t) => t.autostart?.location === location)
-  if (autostartTours[0]) {
-    const t = autostartTours[0]
-
-    if (location !== t.autostart.location) {
-      return
-    }
-
-    let status = getTourBrowserStatus(t)
-
-    if (!status || status === "opened") {
-      const dbStatus = await isTourAutostartDone(t.tourId, token, userId)
-      status = dbStatus ? "finished" : "not-started"
-      setTourBrowserStatus(t, status)
-    }
-
-    if (status === "finished") {
-      // we alread showed this tour to user
-      return
-    }
-
-    const tourCompleted = () => {
-      saveTourAutostartStatus(t.tourId, token, userId).catch((err) => console.log(err))
-      setTourBrowserStatus(t, "finished")
-    }
-
-    setTimeout(() => {
-
-      if (Shepherd.activeTour) {
-        return
-      }
-
-      // save autostart event to local storage to prevent multiple autostarts at opening the app
-      if (location === t.autostart.location) {
-        setTourBrowserStatus(t, "opened")
-        const tour = createTranslatedTour(t)
-        tour.start()
-        tour.on('cancel', tourCompleted)
-        tour.on('complete', tourCompleted)
-      }
-    }, t.autostart.timeout)
+async function startNextAutostartTour(candidates, index, token, userId) {
+  const t = candidates[index]
+  if (!t) {
+    return
   }
+
+  let status = getTourBrowserStatus(t)
+
+  if (!status || status === "opened") {
+    const dbStatus = await isTourAutostartDone(t.tourId, token, userId)
+    status = dbStatus ? "finished" : "not-started"
+    setTourBrowserStatus(t, status)
+  }
+
+  if (status === "finished") {
+    // we alread showed this tour to user
+    return startNextAutostartTour(candidates, index + 1, token, userId)
+  }
+
+  const tourCompleted = () => {
+    saveTourAutostartStatus(t.tourId, token, userId).catch((err) => console.log(err))
+    setTourBrowserStatus(t, "finished")
+    startNextAutostartTour(candidates, index + 1, token, userId)
+  }
+
+  setTimeout(() => {
+
+    if (Shepherd.activeTour) {
+      return
+    }
+
+    // save autostart event to local storage to prevent multiple autostarts at opening the app
+    setTourBrowserStatus(t, "opened")
+    const tour = createTranslatedTour(t)
+    tour.start()
+    tour.on('cancel', tourCompleted)
+    tour.on('complete', tourCompleted)
+  }, t.autostart.timeout)
 }
 
 async function saveTourAutostartStatus(tourId, token, userId) {
