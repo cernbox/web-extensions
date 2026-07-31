@@ -71,7 +71,7 @@ export default {
     }
   },
   mounted() {
-    this.stopSpacesWatch = this.$watch(
+    const stopSpacesWatch = this.$watch(
       () => this.spacesInitialized,
       (val) => {
         // when we start, fetching spaces takes longer to initialize, so we
@@ -80,7 +80,7 @@ export default {
         if (val === true) {
           this.tryAutostart(this.$route)
           // unregister after success
-          this.stopSpacesWatch()
+          stopSpacesWatch()
         }
       },
       { immediate: true }
