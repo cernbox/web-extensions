@@ -29,7 +29,6 @@
             class="oc-menu-item-hover"
           >
             <oc-button
-              v-oc-tooltip="tour.tooltip"
               appearance="raw"
               justify-content="left"
               @click.stop="startTour(id)"
