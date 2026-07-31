@@ -14,7 +14,13 @@ export const useToursStore = defineStore('tours', {
     },
     setCurrentTranslatedTourInfos(languageCode?: string) {
       const language = languageCode || document.documentElement.lang
-      this.currentTranslatedTourInfos = this.translatedTourInfos[language] || []
+      if (this.translatedTourInfos[language]) {
+        this.currentTranslatedTourInfos = this.translatedTourInfos[language]
+        return
+      }
+      const availableLanguages = Object.keys(this.translatedTourInfos)
+      const fallbackLanguage = availableLanguages.includes('en') ? 'en' : availableLanguages[0]
+      this.currentTranslatedTourInfos = this.translatedTourInfos[fallbackLanguage] || []
     }
   },
 })
