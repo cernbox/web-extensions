@@ -10,15 +10,19 @@
       <oc-button id="toursButton" v-oc-tooltip="toursTooltip" size="small">
         <oc-icon name="map" />
         <translate>Tours</translate>
+        <oc-icon name="arrow-drop-down" fill-type="line" />
       </oc-button>
-      <oc-drop ref="menu" drop-id="tours" toggle="#toursButton" mode="click" close-on-click padding-size="small">
-        <oc-list class="user-menu-list">
-          <li v-for="(tour, id) in tours" :id="tour.tourName" :key="`tour-${tour.title}-list-${id}`"
-            class="user-menu-list">
-            <oc-button v-oc-tooltip="tour.tooltip" appearance="raw" @click.stop="startTour(id)">
-              <span class="profile-info-wrapper" :class="'oc-py-xs'">
-                {{ tour.tourName }}
-              </span></oc-button>
+      <oc-drop ref="menu" drop-id="tours" toggle="#toursButton" mode="hover" close-on-click padding-size="small">
+        <oc-list class="tours-list">
+          <li v-for="(tour, id) in tours" :id="tour.tourName" :key="`tour-${tour.title}-list-${id}`">
+            <oc-button
+              v-oc-tooltip="tour.tooltip"
+              appearance="raw"
+              justify-content="left"
+              @click.stop="startTour(id)"
+            >
+              {{ tour.tourName }}
+            </oc-button>
           </li>
         </oc-list>
       </oc-drop>
@@ -121,6 +125,31 @@ export default {
 
 #tours {
   flex: none;
+}
+
+.tours-list {
+  li {
+    margin: var(--oc-space-xsmall) 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .oc-button {
+      width: 100%;
+      border-radius: 5px;
+
+      &:hover,
+      &:focus {
+        background-color: var(--oc-color-background-hover);
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 #tour {
