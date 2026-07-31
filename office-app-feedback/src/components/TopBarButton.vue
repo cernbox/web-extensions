@@ -234,10 +234,14 @@ export default defineComponent({
   li {
     border: 1px solid transparent;
 
-    a {
+    a,
+    button {
+      display: flex;
+      align-items: center;
       gap: 10px;
       justify-content: left;
       width: 100%;
+      white-space: nowrap;
     }
   }
 }
