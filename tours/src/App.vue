@@ -33,6 +33,7 @@
               justify-content="left"
               @click.stop="startTour(id)"
             >
+              <oc-icon name="map" fill-type="line" class="oc-p-xs" />
               {{ tour.tourName }}
             </oc-button>
           </li>
