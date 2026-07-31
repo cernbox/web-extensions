@@ -1,20 +1,33 @@
 <template>
   <div v-if="toursAllowed" id="tours">
-    <oc-button v-if="tours.length === 1" id="toursButton" v-oc-tooltip="tours[0].tooltip" size="small"
+    <oc-button v-if="tours.length === 1" id="toursButton" v-oc-tooltip="tours[0].tooltip"
       @click.stop="startTour(0)">
       <oc-icon name="map" />
       {{ tours[0].tourName }}
     </oc-button>
 
     <div v-else>
-      <oc-button id="toursButton" v-oc-tooltip="toursTooltip" size="small">
+      <oc-button id="toursButton" v-oc-tooltip="toursTooltip">
         <oc-icon name="map" />
         <translate>Tours</translate>
         <oc-icon name="arrow-drop-down" fill-type="line" />
       </oc-button>
-      <oc-drop ref="menu" drop-id="tours" toggle="#toursButton" mode="hover" close-on-click padding-size="small">
+      <oc-drop
+        ref="menu"
+        drop-id="tours"
+        toggle="#toursButton"
+        mode="hover"
+        close-on-click
+        padding-size="small"
+        class="oc-width-auto"
+      >
         <oc-list class="tours-list">
-          <li v-for="(tour, id) in tours" :id="tour.tourName" :key="`tour-${tour.title}-list-${id}`">
+          <li
+            v-for="(tour, id) in tours"
+            :id="tour.tourName"
+            :key="`tour-${tour.title}-list-${id}`"
+            class="oc-menu-item-hover"
+          >
             <oc-button
               v-oc-tooltip="tour.tooltip"
               appearance="raw"
@@ -129,25 +142,12 @@ export default {
 
 .tours-list {
   li {
-    margin: var(--oc-space-xsmall) 0;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+    border: 1px solid transparent;
 
     .oc-button {
+      gap: 10px;
+      justify-content: left;
       width: 100%;
-      border-radius: 5px;
-
-      &:hover,
-      &:focus {
-        background-color: var(--oc-color-background-hover);
-        text-decoration: none;
-      }
     }
   }
 }
