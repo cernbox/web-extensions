@@ -1,0 +1,124 @@
+{
+  "translations": {
+    "en": {
+      "tourName": "Office Pilot",
+      "tooltip": "Get to know our Office pilot",
+      "steps": [
+        {
+          "title": "Alternative Office editors Pilot",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-cover.png",
+          "text": "We're piloting alternative office suites to Microsoft O365 — <b>on-premise, open source</b>. <b>Collabora Online</b> is the first one, already live. Right-click any file to try it.",
+          "learnMoreName": "Know more",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/office-pilot/",
+          "buttons": ["next"]
+        },
+        {
+          "title": "What's New in Collabora",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-features.png",
+          "text": "Recent additions: <b>@mention</b> colleagues in comments (auto-shares the file), insert CERNBox images directly, and compare documents with tracked changes. Collabora's language also follows CERNBox Web's language.",
+          "learnMoreName": "How to mention colleagues",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/apps/collabora/#mentioning-colleagues-in-comments",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Set as Default",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-default.png",
+          "text": "Open office files in <b>Collabora</b> by default instead of MS Office, from the <b>Office Pilot</b> button. Set per browser, reversible anytime.",
+          "learnMoreName": "How to open",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/office-pilot/#how-to-take-part",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Give Feedback",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-feedback.png",
+          "text": "This is a pilot. Help us improve it: quick survey or issue report, both from the <b>Office Pilot</b> button on any document.",
+          "learnMoreName": "Feedback information",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/office-pilot/#feedback",
+          "buttons": ["back", "next"]
+        }
+      ]
+    },
+    "fr": {
+      "tourName": "Office Pilot",
+      "tooltip": "Découvrez notre Office pilot",
+      "steps": [
+        {
+          "title": "Pilote éditeurs de bureautique alternatifs",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-cover.png",
+          "text": "Nous testons des suites bureautiques alternatives à Microsoft O365 — <b>sur site, open source</b>. <b>Collabora Online</b> est la première, déjà disponible. Faites un clic droit sur un fichier pour l'essayer.",
+          "learnMoreName": "En savoir plus",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/office-pilot/",
+          "buttons": ["next"]
+        },
+        {
+          "title": "Nouveautés de Collabora",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-features.png",
+          "text": "Ajouts récents : <b>mentionnez (@)</b> des collègues dans les commentaires (partage automatique du fichier), insérez directement des images CERNBox, et comparez des documents avec suivi des modifications. La langue de Collabora suit aussi celle de CERNBox Web.",
+          "learnMoreName": "Comment mentionner des collègues",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/apps/collabora/#mentionner-des-collegues-dans-les-commentaires",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Définir par défaut",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-default.png",
+          "text": "Ouvrez les fichiers bureautiques dans <b>Collabora</b> par défaut au lieu de MS Office, depuis le bouton <b>Office Pilot</b>. Réglage par navigateur, réversible à tout moment.",
+          "learnMoreName": "Comment ouvrir",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/office-pilot/#comment-participer",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Donnez votre avis",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/office-pilot/pilot-feedback.png",
+          "text": "Ceci est un pilote. Aidez-nous à l'améliorer : sondage rapide ou signalement de problème, les deux depuis le bouton <b>Office Pilot</b> sur n'importe quel document.",
+          "learnMoreName": "Informations sur les retours",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/office-pilot/#retours",
+          "buttons": ["back", "next"]
+        }
+      ]
+    }
+  },
+  "confirmCancel": false,
+  "confirmCancelMessage": "",
+  "classPrefix": "",
+  "defaultStepOptions": {
+    "cancelIcon": {
+      "enabled": false
+    },
+    "classes": "a",
+    "scrollTo": {
+      "behavior": "smooth",
+      "block": "center"
+    }
+  },
+  "exitOnEsc": true,
+  "allowedLocations": [
+    "files-spaces-generic",
+    "files-common-favorites",
+    "files-shares-with-me",
+    "files-shares-with-others",
+    "files-shares-via-link",
+    "files-trash-generic",
+    "files-spaces-projects"
+  ],
+  "deniedLocations": [],
+  "useModalOverlay": true,
+  "tourId": "officepilot-20260731-3",
+  "autostart": {
+    "timeout": 3000,
+    "location": "files-spaces-generic"
+  },
+  "preloadImages": [
+    "{folder}/screenshots/office-pilot/pilot-cover.png",
+    "{folder}/screenshots/office-pilot/pilot-features.png",
+    "{folder}/screenshots/office-pilot/pilot-default.png",
+    "{folder}/screenshots/office-pilot/pilot-feedback.png"
+  ]
+}

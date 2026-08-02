@@ -5,57 +5,88 @@
       "tooltip": "See the updates to Web",
       "steps": [
         {
-          "title": "CERNBox applications were updated!",
+          "title": "CERNBox was updated!",
           "style": "cover",
           "coverImage": "{folder}/screenshots/update-cover.png",
-          "text": "The applications integrated in the CERNBox Web interface have been updated with new features and improvements. See what's new in this quick tour!",
+          "text": "The CERNBox Web interface has been updated with new features and improvements. See what's new in this quick tour!",
           "learnMoreName": "See documentation",
-          "learnMoreLink": "https://cernbox.docs.cern.ch/web/apps/",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/web/",
           "buttons": ["next"]
         },
         {
-          "title": "ODF support",
+          "title": "Public Folders, Direct Access",
           "style": "cover",
-          "coverImage": "{folder}/screenshots/collabora.png",
-          "text": "Introducing support for editing .odt, .ods and .odp files using Collabora Online!<br>You can now create, edit and collaborate on Open Document Format files seamlessly within your browser.<br><br>This integration is experimental, send us your feedback!",
+          "coverImage": "{folder}/screenshots/public-folder.png",
+          "text": "Spaces' public folders are now reachable directly from the web interface — no more need to create a share with everyone!",
           "buttons": ["back", "next"]
         },
         {
-          "title": "CodiMD improvements",
+          "title": "Paste Multiple Emails to Share",
           "style": "cover",
-          "coverImage": "{folder}/screenshots/codimd.png",
-          "text": "Creating collaborative Markdown notes is now easier: simply navigate to <a href='https://cernbox.cern.ch/codimd' target='_blank'>cernbox.cern.ch/codimd</a> or select CodiMD from the app switcher in the top-left corner, to create a new note.",
+          "coverImage": "{folder}/screenshots/share-search.png",
+          "text": "The invite/sharing search now accepts <b>pasting several email addresses at once</b>, instead of adding them one by one.",
           "buttons": ["back", "next"]
         },
         {
-          "title": "ROOT viewer",
+          "title": "Apps Open in the Same Tab",
           "style": "cover",
-          "coverImage": "{folder}/screenshots/root-viewer.png",
-          "text": "We’ve upgraded the ROOT viewer to use root.cern/js, so new features and fixes arrive faster.<br>Made in cooperation with the ROOT team, this new viewer also supports much larger files than before.",
-          "buttons": ["back", "next"]
-        },
-        {
-          "title": "Draw.io",
-          "style": "cover",
-          "coverImage": "{folder}/screenshots/drawio.png",
-          "text": "Draw.io has been updated to the latest version, bringing new shapes, improved dark mode and language features to enhance your diagramming experience within CERNBox Web.",
-          "buttons": ["back", "next"]
-        },
-        {
-          "title": "Jupyter Viewer",
-          "style": "cover",
-          "coverImage": "{folder}/screenshots/jupyter.png",
-          "text": "Support for Jupyter Notebooks has been improved with support for displaying script outputs (e.g. JSROOT plots).<br>You can now preview .ipynb files directly in CERNBox Web with better fidelity.",
+          "coverImage": "{folder}/screenshots/same-tab.png",
+          "text": "Apps now open in the <b>same browser tab</b> by default, for faster access. You can still open in a different tab by holding the CTRL/CMD key.",
           "buttons": ["back", "next"]
         },
         {
           "title": "Give us your feedback",
           "style": "cover",
           "coverImage": "{folder}/screenshots/update-cover.png",
-          "text": "There have been many more improvements to the other applications integrated in CERNBox Web. We've also integrated a new application: NDMSPC viewer.<br><br>We would love to <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'>hear your thoughts and feedback</a> on these updates!",
-          "buttons": ["back", "next"],
+          "text": "We hope you like the new features!<br>If you have any questions or suggestions, please don't hesitate to open a <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'> SNow ticket</a>.<br><br>You can also check the changelog for more details.",
           "learnMoreName": "View changelog",
-          "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/"
+          "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/",
+          "buttons": ["back", "next"]
+        }
+      ]
+    },
+    "fr": {
+      "tourName": "Quoi de neuf ?",
+      "tooltip": "Découvrez les nouveautés de Web",
+      "steps": [
+        {
+          "title": "CERNBox a été mis à jour !",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/update-cover.png",
+          "text": "L'interface web de CERNBox a été mise à jour avec de nouvelles fonctionnalités et améliorations. Découvrez les nouveautés dans cette visite rapide !",
+          "learnMoreName": "Voir la documentation",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/fr/web/",
+          "buttons": ["next"]
+        },
+        {
+          "title": "Dossiers publics, accès direct",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/public-folder.png",
+          "text": "Les dossiers publics des Espaces sont désormais accessibles directement depuis l'interface web — plus besoin de créer un partage avec tout le monde !",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Coller plusieurs emails pour partager",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/share-search.png",
+          "text": "La recherche d'invitation/partage accepte désormais de <b>coller plusieurs adresses email à la fois</b>, au lieu de les ajouter une par une.",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Les applications s'ouvrent dans le même onglet",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/same-tab.png",
+          "text": "Les applications s'ouvrent désormais par défaut dans le <b>même onglet du navigateur</b>, pour un accès plus rapide. Vous pouvez toujours ouvrir dans un autre onglet en maintenant la touche CTRL/CMD.",
+          "buttons": ["back", "next"]
+        },
+        {
+          "title": "Donnez-nous votre avis",
+          "style": "cover",
+          "coverImage": "{folder}/screenshots/update-cover.png",
+          "text": "Nous espérons que ces nouveautés vous plaisent !<br>Pour toute question ou suggestion, n'hésitez pas à ouvrir un <a href='https://cern.service-now.com/service-portal?id=sc_cat_item&name=request&se=CERNBox-Service' target='_blank'> ticket SNow</a>.<br><br>Vous pouvez aussi consulter le journal des modifications pour plus de détails.",
+          "learnMoreName": "Voir le journal des modifications",
+          "learnMoreLink": "https://cernbox.docs.cern.ch/advanced/changelog/web/",
+          "buttons": ["back", "next"]
         }
       ]
     }
@@ -85,17 +116,15 @@
   ],
   "deniedLocations": [],
   "useModalOverlay": true,
-  "tourId": "update-2051214",
+  "tourId": "update-20260731-3",
   "autostart": {
     "timeout": 3000,
     "location": "files-spaces-generic"
   },
   "preloadImages": [
     "{folder}/screenshots/update-cover.png",
-    "{folder}/screenshots/collabora.png",
-    "{folder}/screenshots/codimd.png",
-    "{folder}/screenshots/root-viewer.png",
-    "{folder}/screenshots/drawio.png",
-    "{folder}/screenshots/jupyter.png"
+    "{folder}/screenshots/public-folder.png",
+    "{folder}/screenshots/share-search.png",
+    "{folder}/screenshots/same-tab.png"
   ]
 }
