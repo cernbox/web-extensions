@@ -1,11 +1,27 @@
 <template>
   <main id="ifc-main">
     <canvas id="threeCanvas"></canvas>
+    <button
+      id="navHelpButton"
+      type="button"
+      aria-label="Navigation help"
+      :aria-expanded="showNavHelp"
+      @click="showNavHelp = !showNavHelp"
+    >
+      i
+    </button>
+    <div v-if="showNavHelp" id="navHelpPanel" role="dialog" aria-label="Navigation help">
+      <ul>
+        <li><strong>Rotate:</strong> left-click + drag</li>
+        <li><strong>Pan:</strong> right-click + drag, or arrow keys</li>
+        <li><strong>Zoom:</strong> scroll wheel / pinch</li>
+      </ul>
+    </div>
   </main>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import {
   AmbientLight,
   AxesHelper,
@@ -42,9 +58,11 @@ export default defineComponent({
     const davURL = computed(() => {
       return props.url
     })
+    const showNavHelp = ref(false)
 
     return {
-      davURL
+      davURL,
+      showNavHelp
     }
   },
   async mounted() {
@@ -81,6 +99,8 @@ export default defineComponent({
       this.controls = new OrbitControls(this.camera, threeCanvas)
       this.controls.enableDamping = true
       this.controls.target.set(-2, 0, 0)
+      // Enables arrow-key panning, advertised in the navigation help panel.
+      this.controls.listenToKeyEvents(window)
     },
     addGrid: function () {
       const grid = new GridHelper(50, 30)
@@ -123,10 +143,54 @@ export default defineComponent({
 main {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 #threeCanvas {
   width: 100%;
   height: 100%;
+}
+
+#navHelpButton {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#navHelpButton:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#navHelpPanel {
+  position: absolute;
+  right: 1rem;
+  bottom: 3.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+#navHelpPanel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#navHelpPanel li + li {
+  margin-top: 0.25rem;
 }
 </style>
