@@ -18,6 +18,18 @@ import {
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { Components, IfcLoader } from '@thatopen/components'
 
+import webIfcWasmUrl from 'web-ifc/web-ifc.wasm?url'
+
+// web-ifc resolves its wasm file by literal filename via a `locateFile(path)` callback.
+// Mapping that exact name to our bundled, hashed asset URL keeps everything self-contained
+// instead of falling back to fetching from unpkg.com at runtime. The multi-threaded variant
+// (web-ifc-mt.wasm) is intentionally not bundled: it only kicks in when the page is
+// cross-origin-isolated (COOP/COEP), which this app doesn't set up, and its worker script
+// isn't exposed as an importable package subpath.
+const webIfcFileMap: Record<string, string> = {
+  'web-ifc.wasm': webIfcWasmUrl
+}
+
 export default defineComponent({
   name: 'IFC Viewer',
   props: {
@@ -90,7 +102,10 @@ export default defineComponent({
       components.init()
       const loader = components.get(IfcLoader)
 
-      await loader.setup()
+      await loader.setup({
+        autoSetWasm: false,
+        customLocateFileHandler: (path) => webIfcFileMap[path] || path
+      })
 
       const file = await fetch(this.davURL)
       const data = await file.arrayBuffer()

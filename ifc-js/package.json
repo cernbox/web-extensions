@@ -33,6 +33,7 @@
     "@thatopen/fragments": "^2.4.0",
     "three": "^0.173.0",
     "vue-concurrency": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "web-ifc": "0.0.68"
   }
 }
