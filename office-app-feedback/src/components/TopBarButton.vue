@@ -67,8 +67,8 @@ interface SwitchOption {
 // `external-<app-slug>-apps` (see packages/web-app-external + web-runtime's announceRoutes)
 const EXTERNAL_APP_ROUTE_NAME = /^external-(.+)-apps$/
 
-// display names for apps under test; anything not listed here falls back to the raw
-// app-provider name, so e.g. EuroOffice shows up automatically once it's registered.
+// apps under test - the button only shows for these, and their names are used in the
+// switch options.
 const APP_DISPLAY_NAMES: Record<string, string> = {
   ms365: 'Microsoft Office 365',
   collabora: 'Collabora',
@@ -85,7 +85,8 @@ export default defineComponent({
 
     const currentAppSlug = computed(() => {
       const match = unref(route).name?.toString().match(EXTERNAL_APP_ROUTE_NAME)
-      return match ? match[1] : null
+      const slug = match?.[1].toLowerCase()
+      return slug && slug in APP_DISPLAY_NAMES ? slug : null
     })
 
     // parsed from the route path rather than a resolved Resource: this component isn't a
