@@ -33,6 +33,7 @@ on:
           - otg
           - rootjs
           - search-in-folder
+          - text-editor
           - theme-cernbox
           - tours
           - tours-cernbox

@@ -1,0 +1,10 @@
+{
+  "extends": "@ownclouders/tsconfig",
+  "compilerOptions": {
+    // @ownclouders/tsconfig sets types to ["vitest/globals"], but no extension in this repo
+    // depends on vitest, so type-checking fails on a missing type library before it reaches any
+    // source file. Drop the override once this package has unit tests and vitest as a devDependency.
+    "types": []
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "l10n/*.json"]
+}

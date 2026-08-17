@@ -26,6 +26,7 @@
 #   search-in-folder     9223
 #   tours                9224
 #   office-app-feedback  9225
+#   text-editor          9226
 
 set -euo pipefail
 
@@ -57,6 +58,7 @@ ALL_EXTENSIONS=(
   search-in-folder
   tours
   office-app-feedback
+  text-editor
 )
 
 if [[ $# -gt 0 ]]; then
