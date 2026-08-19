@@ -5,6 +5,7 @@
       :current-content="currentContent"
       :is-read-only="isReadOnly"
       :is-dark="isDark"
+      :direct-link="resource?.privateLink"
       @update:current-content="$emit('update:currentContent', $event)"
       @toggle-source="sourceMode = true"
     />

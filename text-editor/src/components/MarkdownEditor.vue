@@ -20,7 +20,7 @@
         ref="contentRef"
         class="cern-md-editor-content"
         :editor="editor"
-        :style="{ '--cern-md-font-scale': fontScale }"
+        :style="{ '--cern-md-font-scale': fontScale, '--cern-md-trailing-space': trailingSpace }"
       />
       <document-outline v-if="outlineVisible" :items="outlineItems" @select="scrollToHeading" />
     </div>
@@ -75,6 +75,7 @@
 import {
   computed,
   getCurrentInstance,
+  nextTick,
   onBeforeUnmount,
   provide,
   ref,
@@ -83,6 +84,7 @@ import {
   watch
 } from 'vue'
 import { useGettext } from 'vue3-gettext'
+import { useMessages, useRoute, useRouter } from '@ownclouders/web-pkg'
 import { EditorContent, VueNodeViewRenderer, useEditor } from '@tiptap/vue-3'
 import { BubbleMenu, FloatingMenu } from '@tiptap/vue-3/menus'
 import StarterKit from '@tiptap/starter-kit'
@@ -101,6 +103,8 @@ import { TaskItem } from '@tiptap/extension-task-item'
 import Typography from '@tiptap/extension-typography'
 import { Markdown } from 'tiptap-markdown'
 import { createSlashCommand } from '../helpers/slashCommand'
+import { HeadingAnchors, revealAnchor, revealHeading } from '../helpers/headingAnchors'
+import { LinkClick } from '../helpers/linkClick'
 import { useLinkDialog } from '../composables/useLinkDialog'
 import MarkdownToolbar from './MarkdownToolbar.vue'
 import DocumentOutline from './DocumentOutline.vue'
@@ -110,6 +114,8 @@ import type { ToolbarItem } from '../helpers/toolbar'
 interface Props {
   currentContent: string
   isReadOnly?: boolean
+  /** The resource's own permalink, used as the base of a copied section link. */
+  directLink?: string
   isDark?: boolean
 }
 interface Emits {
@@ -117,7 +123,12 @@ interface Emits {
   (e: 'toggleSource'): void
 }
 
-const { currentContent, isReadOnly = false, isDark = false } = defineProps<Props>()
+const {
+  currentContent,
+  isReadOnly = false,
+  isDark = false,
+  directLink = undefined
+} = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const { $gettext, interpolate } = useGettext()
@@ -149,6 +160,101 @@ const setScale = (value: number) => {
 // The insert popup renders outside this component's tree, so it needs the app context to resolve
 // the host's globally registered components.
 const appContext = getCurrentInstance()?.appContext ?? null
+
+const router = useRouter()
+const route = useRoute()
+const { showMessage } = useMessages()
+
+/**
+ * Absolute link to one heading of this document.
+ *
+ * The resource's own permalink is preferred when the server provides one: it is the link that
+ * keeps working once the file is moved or renamed, which the editor's current route is not.
+ *
+ * The fallback is resolved through the router rather than assembled from `window.location`,
+ * because the runtime picks between history and hash mode depending on whether a `<base href>` is
+ * set - and in hash mode the route itself already lives in the fragment, where a naively appended
+ * `#slug` would land in the wrong place.
+ */
+const anchorUrl = (slug: string) => {
+  if (directLink) {
+    const link = new URL(directLink, window.location.origin)
+    link.hash = slug
+    return link.href
+  }
+
+  const current = unref(route)
+  const { href } = router.resolve({
+    name: current.name,
+    params: current.params,
+    query: current.query,
+    hash: `#${slug}`
+  })
+  return new URL(href, window.location.origin).href
+}
+
+const copyAnchorLink = async (slug: string) => {
+  try {
+    await navigator.clipboard.writeText(anchorUrl(slug))
+    showMessage({ title: $gettext('Link to this section copied') })
+  } catch (error) {
+    // Clipboard access needs a secure context and, in some browsers, a permission the user can
+    // refuse, so the link is shown instead of being lost.
+    showMessage({
+      title: $gettext('The link could not be copied.'),
+      status: 'danger',
+      desc: anchorUrl(slug)
+    })
+    console.error(error)
+  }
+}
+
+/**
+ * The fragment this document was opened with.
+ *
+ * Falls back to the raw location because the runtime's `patchCleanPath` router wrapper rebuilds a
+ * push as `{ path, query }` and drops the hash on the way; when that has happened the route no
+ * longer carries it but the address bar still does. In hash mode the leading `#` belongs to the
+ * route itself, so only a second one counts.
+ */
+const routeAnchor = (): string => {
+  const fromRoute = unref(route).hash
+  if (fromRoute) {
+    return fromRoute.slice(1)
+  }
+  const raw = window.location.hash
+  const separator = raw.lastIndexOf('#')
+  return separator > 0 ? raw.slice(separator + 1) : ''
+}
+
+/**
+ * Honour a `#section` fragment the document was opened with, and any later change to it.
+ *
+ * Retried rather than done once: at load the document is still settling - code blocks mount their
+ * own editors, diagrams render, and the trailing space that lets a late heading reach the top is
+ * only measured once the content has a height. A single scroll therefore lands short. The jump is
+ * instant on purpose; a smooth one would be interrupted by exactly that reflow.
+ */
+const revealRouteAnchor = async () => {
+  const slug = routeAnchor()
+  if (!slug) {
+    return
+  }
+  const target = decodeURIComponent(slug)
+  await nextTick()
+  for (const delay of [0, 120, 400]) {
+    await new Promise((resolve) => setTimeout(resolve, delay))
+    const dom = unref(editor)?.view.dom
+    if (!dom) {
+      return
+    }
+    updateTrailingSpace()
+    revealAnchor(dom as HTMLElement, target, 'auto')
+  }
+}
+
+
+watch(() => unref(route).hash, revealRouteAnchor)
 
 const { openLinkDialog } = useLinkDialog(() => unref(editor))
 
@@ -195,6 +301,29 @@ const scheduleEmit = () => {
 const contentRef = ref<{ $el?: HTMLElement } | null>(null)
 const scrollParent = () => unref(contentRef)?.$el ?? window
 
+/**
+ * Empty room below the last block, so that a heading near the end of the document can still be
+ * scrolled to the top of the view. Without it the scroll clamps at the bottom of the content and
+ * a jump to one of the last few headings leaves them in the middle of the screen.
+ *
+ * Sized from the viewport and only applied while the document actually scrolls, so a file that
+ * fits on screen does not grow a scrollbar into blank space.
+ */
+const trailingSpace = ref('0px')
+
+const updateTrailingSpace = () => {
+  const scroller = unref(contentRef)?.$el
+  if (!scroller) {
+    return
+  }
+  const applied = parseFloat(unref(trailingSpace)) || 0
+  const contentHeight = scroller.scrollHeight - applied
+  trailingSpace.value =
+    contentHeight > scroller.clientHeight ? `${Math.round(scroller.clientHeight * 0.75)}px` : '0px'
+}
+
+let resizeObserver: ResizeObserver | null = null
+
 const outlineVisible = ref(false)
 // shallowRef: these items carry the editor instance and a live DOM node, which must not be
 // made deeply reactive.
@@ -202,6 +331,18 @@ const outlineItems = shallowRef<TableOfContentDataItem[]>([])
 
 const editor = useEditor({
   content: currentContent ?? '',
+  onCreate: () => {
+    const scroller = unref(contentRef)?.$el
+    const editorDom = unref(editor)?.view.dom
+    if (scroller && editorDom) {
+      // The scroller covers a window resize; the document itself covers content that changes
+      // height without a transaction, such as a mermaid diagram finishing its render.
+      resizeObserver = new ResizeObserver(() => updateTrailingSpace())
+      resizeObserver.observe(scroller)
+      resizeObserver.observe(editorDom)
+    }
+    revealRouteAnchor()
+  },
   editable: !isReadOnly,
   extensions: [
     // A fenced block is edited by a real CodeMirror instance rather than highlighted statically,
@@ -224,7 +365,11 @@ const editor = useEditor({
         })
       }
     }),
+    // `openOnClick` stays off: in an editable document a plain click has to place the caret.
+    // LinkClick below follows the link instead, on a plain click when read-only and on
+    // Cmd/Ctrl-click when editable.
     Link.configure({ openOnClick: false, autolink: true }),
+    LinkClick,
     TableKit.configure({ table: { resizable: true } }),
     TaskList,
     TaskItem.configure({ nested: true }),
@@ -240,11 +385,17 @@ const editor = useEditor({
         outlineItems.value = [...items]
       }
     }),
+    // Slug ids on every heading, so `[see below](#the-heading)` resolves inside the document.
+    HeadingAnchors.configure({
+      anchorLabel: $gettext('Copy link to this section'),
+      onAnchorClick: (slug) => copyAnchorLink(slug)
+    }),
     Markdown.configure({ html: true, linkify: true, breaks: false, transformPastedText: true }),
     createSlashCommand({ $gettext, appContext })
   ],
   onUpdate: () => {
     scheduleEmit()
+    updateTrailingSpace()
   }
 })
 
@@ -352,13 +503,25 @@ const floatingItems = computed<ToolbarItem[]>(() => {
   ]
 })
 
+/**
+ * Deliberately does not move the caret. Any selection change inside a focused editor makes the
+ * browser scroll the caret into view under its own "nearest" rule, which fired a frame after the
+ * smooth scroll started and left the heading wherever it first became visible - the reason most
+ * outline entries appeared to stop halfway.
+ */
 const scrollToHeading = (item: TableOfContentDataItem) => {
-  // `dom` is the live heading element, so this works regardless of how the document scrolled.
-  item.dom.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  unref(editor)?.chain().focus().setTextSelection(item.pos).run()
+  // `item.dom` was captured when the outline was last built, so it can describe an element
+  // ProseMirror has since replaced. Resolving the position against the live view is what keeps
+  // the jump working after the document has been edited.
+  const live = unref(editor)?.view.nodeDOM(item.pos)
+  const heading = live instanceof HTMLElement ? live : (item.dom as HTMLElement)
+  if (heading?.isConnected) {
+    revealHeading(heading)
+  }
 }
 
 onBeforeUnmount(() => {
+  resizeObserver?.disconnect()
   // Anything typed inside the debounce window would otherwise be lost when switching to the
   // source view or closing the app.
   if (emitTimer) {
@@ -433,6 +596,7 @@ watch(
     min-height: 100%;
     outline: none;
     padding: var(--oc-space-medium) var(--oc-space-large);
+    padding-bottom: calc(var(--oc-space-medium) + var(--cern-md-trailing-space, 0px));
 
     > * + * {
       margin-top: var(--oc-space-small);
@@ -456,6 +620,37 @@ watch(
       color: var(--oc-color-text-default);
       line-height: 1.25;
       margin-top: var(--oc-space-medium);
+
+      // Flashed after a jump from an in-document link, so the heading that was landed on is
+      // obvious even when the scroll moved the page very little.
+      &.cern-md-anchor-target {
+        animation: cern-md-anchor-flash 1.2s ease-out;
+      }
+
+      &:hover .cern-md-anchor,
+      .cern-md-anchor:focus-visible {
+        opacity: 1;
+      }
+    }
+
+    // Trails the heading text and only fades in on hover. It keeps its space at all times, so
+    // revealing it never reflows the line.
+    .cern-md-anchor {
+      background: none;
+      border: none;
+      color: var(--oc-color-text-muted);
+      cursor: pointer;
+      font: inherit;
+      line-height: inherit;
+      margin-left: 0.35em;
+      opacity: 0;
+      padding: 0;
+      transition: opacity 0.1s ease-in-out;
+      user-select: none;
+
+      &:hover {
+        color: var(--oc-color-swatch-primary-default);
+      }
     }
 
     code {
@@ -491,6 +686,10 @@ watch(
     a {
       color: var(--oc-color-swatch-primary-default);
       text-decoration: underline;
+    }
+
+    a[href^='#'] {
+      cursor: pointer;
     }
 
     ul[data-type='taskList'] {
@@ -595,6 +794,16 @@ watch(
   position: absolute;
   top: 0;
   z-index: 1000;
+}
+
+@keyframes cern-md-anchor-flash {
+  from {
+    background-color: var(--oc-color-background-highlight, var(--oc-color-background-hover));
+  }
+
+  to {
+    background-color: transparent;
+  }
 }
 
 .cern-md-gutter {
