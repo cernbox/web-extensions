@@ -8,6 +8,7 @@
       :can-zoom-in="fontScale < MAX_SCALE"
       :can-zoom-out="fontScale > MIN_SCALE"
       :can-reset-zoom="fontScale !== DEFAULT_SCALE"
+      @scroll-top="scrollToTop"
       @toggle-source="emit('toggleSource')"
       @toggle-outline="outlineVisible = !outlineVisible"
       @zoom-in="setScale(fontScale + SCALE_STEP)"
@@ -253,6 +254,9 @@ const revealRouteAnchor = async () => {
   }
 }
 
+const scrollToTop = () => {
+  unref(contentRef)?.$el?.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
 watch(() => unref(route).hash, revealRouteAnchor)
 

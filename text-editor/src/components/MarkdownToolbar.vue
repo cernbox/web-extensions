@@ -32,6 +32,15 @@
         <oc-icon name="zoom-in" fill-type="line" size="small" />
       </oc-button>
       <oc-button
+        v-oc-tooltip="$gettext('Back to the top')"
+        :aria-label="$gettext('Back to the top')"
+        class="cern-editor-toolbar-button"
+        appearance="raw"
+        @click="emit('scrollTop')"
+      >
+        <oc-icon name="arrow-up" fill-type="line" size="small" />
+      </oc-button>
+      <oc-button
         v-oc-tooltip="outlineVisible ? $gettext('Hide the outline') : $gettext('Show the outline')"
         :aria-label="outlineVisible ? $gettext('Hide the outline') : $gettext('Show the outline')"
         :aria-pressed="outlineVisible"
@@ -74,6 +83,7 @@ interface Props {
   canResetZoom?: boolean
 }
 interface Emits {
+  (e: 'scrollTop'): void
   (e: 'toggleSource'): void
   (e: 'toggleOutline'): void
   (e: 'zoomIn'): void
