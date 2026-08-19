@@ -285,6 +285,27 @@ const flushEmit = () => {
   emit('update:currentContent', markdown)
 }
 
+/**
+ * Record what the document serialises to before anyone has touched it, so that a transaction
+ * which changes nothing the file can hold does not count as an edit.
+ *
+ * Two things make this necessary. TableOfContents stamps an `id` and a `data-toc-id` onto every
+ * heading right after the document loads, which is a real ProseMirror change and therefore fires
+ * `onUpdate`. And the Markdown serialiser does not round-trip byte for byte - it wraps bare URLs
+ * in angle brackets, pads table delimiter rows, drops the trailing newline - so the emit that
+ * followed differed from the file and the wrapper, which decides dirtiness by comparing strings,
+ * flagged an untouched document as modified.
+ *
+ * Comparing against the serialised baseline rather than the file's own text is the point: it is
+ * the only form in which "unchanged" is expressible on this side of the parser.
+ */
+const captureBaseline = () => {
+  const instance = unref(editor)
+  if (instance) {
+    lastEmitted = instance.storage.markdown.getMarkdown()
+  }
+}
+
 const scheduleEmit = () => {
   if (emitTimer) {
     clearTimeout(emitTimer)
@@ -332,6 +353,7 @@ const outlineItems = shallowRef<TableOfContentDataItem[]>([])
 const editor = useEditor({
   content: currentContent ?? '',
   onCreate: () => {
+    captureBaseline()
     const scroller = unref(contentRef)?.$el
     const editorDom = unref(editor)?.view.dom
     if (scroller && editorDom) {
@@ -545,8 +567,8 @@ watch(
     if (!instance || value === lastEmitted) {
       return
     }
-    lastEmitted = value
     instance.commands.setContent(value ?? '', { emitUpdate: false })
+    captureBaseline()
   }
 )
 </script>
