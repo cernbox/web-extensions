@@ -27,6 +27,7 @@
 #   tours                9224
 #   office-app-feedback  9225
 #   text-editor          9226
+#   sync-clients         9227
 
 set -euo pipefail
 
@@ -59,6 +60,7 @@ ALL_EXTENSIONS=(
   tours
   office-app-feedback
   text-editor
+  sync-clients
 )
 
 if [[ $# -gt 0 ]]; then

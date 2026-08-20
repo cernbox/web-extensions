@@ -1,0 +1,5 @@
+{
+  "extends": "@ownclouders/tsconfig",
+  "compilerOptions": {},
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "l10n/*.json"]
+}

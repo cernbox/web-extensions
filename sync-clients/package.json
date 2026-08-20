@@ -1,0 +1,40 @@
+{
+  "name": "sync-clients",
+  "version": "0.0.0",
+  "description": "Sync client enrolment (Login Flow V2) and connected device management",
+  "license": "AGPL-3.0",
+  "author": "CERNBox",
+  "private": true,
+  "homepage": "https://github.com/cernbox/web-extensions",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@ownclouders/eslint-config": "catalog:",
+    "@ownclouders/extension-sdk": "catalog:",
+    "@ownclouders/prettier-config": "catalog:",
+    "@ownclouders/tsconfig": "catalog:",
+    "@ownclouders/web-test-helpers": "catalog:",
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "eslint": "catalog:",
+    "happy-dom": "^15.10.2",
+    "prettier": "catalog:",
+    "sass": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "^3.2.4",
+    "vue-tsc": "^2.2.10"
+  },
+  "dependencies": {
+    "@ownclouders/web-pkg": "catalog:",
+    "pinia": "catalog:",
+    "vue": "catalog:",
+    "vue3-gettext": "2.4.0"
+  }
+}

@@ -33,6 +33,7 @@ on:
           - otg
           - rootjs
           - search-in-folder
+          - sync-clients
           - text-editor
           - theme-cernbox
           - tours
