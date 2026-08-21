@@ -1,6 +1,6 @@
 {
   "name": "text-editor",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "ownCloud Web text editor built on TipTap and CodeMirror",
   "license": "AGPL-3.0",
   "author": "CERNBox",
