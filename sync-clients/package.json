@@ -1,6 +1,6 @@
 {
   "name": "sync-clients",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Sync client enrolment (Login Flow V2) and connected device management",
   "license": "AGPL-3.0",
   "author": "CERNBox",
