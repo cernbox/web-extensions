@@ -89,6 +89,7 @@ import {
   useClientService,
   useFileActionsToggleHideShare,
   useGetMatchingSpace,
+  useMessages,
   useModals,
   usePagination,
   useSelectedResources
@@ -98,7 +99,12 @@ import LocationPickerModal from './LocationPickerModal.vue'
 
 import { Resource } from '@ownclouders/web-client'
 import { computed, defineComponent, PropType, ref, unref } from 'vue'
-import { buildDestination, IncomingEmbeddedShareResource, processShare } from '../functions'
+import {
+  buildDestination,
+  ensureSpacesLoaded,
+  IncomingEmbeddedShareResource,
+  processShare
+} from '../functions'
 import ListInfo from './ListInfo.vue'
 import { useGettext } from 'vue3-gettext'
 
@@ -172,6 +178,7 @@ export default defineComponent({
     const { getMatchingSpace } = useGetMatchingSpace()
     const clientService = useClientService()
     const { dispatchModal } = useModals()
+    const { showErrorMessage } = useMessages()
 
     const displayedFields = computed(() => {
       return ['name', 'sharedBy', 'sdate', 'status']
@@ -224,9 +231,25 @@ export default defineComponent({
         hideActions: true,
         customComponent: LocationPickerModal,
         customComponentAttrs: () => ({
-          selectLocation: (folder: Resource) => {
-            const space = getMatchingSpace(folder)
-            processShareWrapper(resource, buildDestination(folder, space))
+          selectLocation: async (folder: Resource) => {
+            await ensureSpacesLoaded(clientService)
+
+            let destination = buildDestination(folder, getMatchingSpace(folder))
+            if (!destination) {
+              // The listing can drop a space, so give it one more chance.
+              await ensureSpacesLoaded(clientService, true)
+              destination = buildDestination(folder, getMatchingSpace(folder))
+            }
+
+            if (!destination) {
+              showErrorMessage({
+                title: $gettext('Could not determine the location of the selected folder.'),
+                desc: $gettext('Please try again, or select the folder in the space it belongs to.')
+              })
+              return
+            }
+
+            processShareWrapper(resource, destination)
           }
         })
       })

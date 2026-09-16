@@ -57,7 +57,7 @@ import {
   useSort
 } from '@ownclouders/web-pkg'
 import RepositoriesSection from './components/RepositoriesSection.vue'
-import { IncomingEmbeddedShareResource, loadResources } from './functions'
+import { ensureSpacesLoaded, IncomingEmbeddedShareResource, loadResources } from './functions'
 
 /*
 This task entails creating the extension for data repositories (similar to the sciencemesh extension)
@@ -153,6 +153,7 @@ export default defineComponent({
 
     onMounted(() => {
       loadResources(clientService)
+      ensureSpacesLoaded(clientService)
       areResourcesLoading.value = false
     })
 
