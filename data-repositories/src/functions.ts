@@ -26,7 +26,7 @@ const firstLetterUppercase = (str: string) => {
 }
 
 const loadResources = (clientService: ClientService) => {
-  clientService.httpAuthenticated.get('sciencemesh/embedded-shares').then((response: any) => {
+  return clientService.httpAuthenticated.get('sciencemesh/embedded-shares').then((response: any) => {
     const resources: IncomingEmbeddedShareResource[] = response.data.value.map((driveItem: any) => {
       return {
         ...buildIncomingShareResource({

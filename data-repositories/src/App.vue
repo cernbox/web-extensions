@@ -41,7 +41,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, unref } from 'vue'
+import { computed, defineComponent, onMounted, ref, unref, watch } from 'vue'
+import { useDocumentVisibility, useIntervalFn } from '@vueuse/core'
 import { useGettext } from 'vue3-gettext'
 import {
   AppBar,
@@ -58,6 +59,8 @@ import {
 } from '@ownclouders/web-pkg'
 import RepositoriesSection from './components/RepositoriesSection.vue'
 import { ensureSpacesLoaded, IncomingEmbeddedShareResource, loadResources } from './functions'
+
+const REFRESH_INTERVAL_MS = 5000
 
 /*
 This task entails creating the extension for data repositories (similar to the sciencemesh extension)
@@ -156,6 +159,42 @@ export default defineComponent({
       ensureSpacesLoaded(clientService)
       areResourcesLoading.value = false
     })
+
+    let refreshing = false
+    const refresh = async () => {
+      if (refreshing) {
+        return
+      }
+      refreshing = true
+      try {
+        await loadResources(clientService)
+      } catch {
+        // a failed refresh is retried on the next tick
+      } finally {
+        refreshing = false
+      }
+    }
+
+    // Only poll while a transfer can still change a share's state.
+    const hasTransfers = computed(() =>
+      unref(resources).some((r) => r.status?.toLowerCase() === 'transferring')
+    )
+    const visibility = useDocumentVisibility()
+    const { pause, resume } = useIntervalFn(refresh, REFRESH_INTERVAL_MS, {
+      immediate: false,
+      immediateCallback: true
+    })
+    watch(
+      [hasTransfers, visibility],
+      ([transferring, visible]) => {
+        if (transferring && visible === 'visible') {
+          resume()
+        } else {
+          pause()
+        }
+      },
+      { immediate: true }
+    )
 
     return {
       areResourcesLoading,
