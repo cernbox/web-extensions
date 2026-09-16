@@ -8,12 +8,14 @@ import {
   ClientService,
   useConfigStore,
   useResourcesStore,
-  useSharesStore
+  useSharesStore,
+  useSpacesStore
 } from '@ownclouders/web-pkg'
 
 const sharesStore = useSharesStore()
 const configStore = useConfigStore()
 const resourcesStore = useResourcesStore()
+const spacesStore = useSpacesStore()
 
 interface IncomingEmbeddedShareResource extends IncomingShareResource {
   status: string
@@ -44,12 +46,37 @@ const loadResources = (clientService: ClientService) => {
   })
 }
 
+let spacesLoaded: Promise<unknown> | undefined
+
+// Project spaces and share roots are not in the store on this page, but
+// getMatchingSpace needs them. Pass force to pick up a space added since.
+const ensureSpacesLoaded = (clientService: ClientService, force = false) => {
+  if (!spacesLoaded || force) {
+    const graphClient = clientService.graphAuthenticated
+    spacesLoaded = Promise.allSettled([
+      spacesStore.reloadProjectSpaces({ graphClient }),
+      spacesStore.loadMountPoints({ graphClient })
+    ])
+  }
+
+  return spacesLoaded
+}
+
 // Builds the absolute EOS destination path for the picked target folder.
 // In CERNBox the space `driveAlias` already is the EOS path without the leading
 // slash, e.g. `eos/project/c/cernbox` or `eos/user/r/rwelande`. `folder.path` is
 // relative to the space root (with a leading slash).
-const buildDestination = (folder: Resource, space: SpaceResource): string => {
-  return `/${space.driveAlias}${folder?.path ?? ''}`
+// Null when the folder was not listed in `space`, as getMatchingSpace invents a
+// share space when it cannot resolve one, which yields a path that does not exist.
+const buildDestination = (folder: Resource, space: SpaceResource): string | null => {
+  if (!space?.driveAlias || !folder?.storageId || space.id !== folder.storageId) {
+    return null
+  }
+  if (folder.webDavPath && space.webDavPath && !folder.webDavPath.startsWith(space.webDavPath)) {
+    return null
+  }
+
+  return `/${space.driveAlias}${folder.path ?? ''}`
 }
 
 const processShare = (
@@ -76,5 +103,5 @@ const processShare = (
     })
 }
 
-export { loadResources, processShare, buildDestination }
+export { loadResources, processShare, buildDestination, ensureSpacesLoaded }
 export type { IncomingEmbeddedShareResource }
