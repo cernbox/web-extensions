@@ -37,25 +37,11 @@
         <oc-icon :name="resource.hidden ? 'eye' : 'eye-off'" fill-type="line" />
       </oc-button>
       <oc-button
-        v-oc-tooltip="
-          resource.status && resource.status.toLowerCase() === 'transferring'
-            ? 'Share is transferring'
-            : resource.status && resource.status.toLowerCase() === 'pending'
-              ? 'Process share'
-              : 'Unprocess share'
-        "
+        v-oc-tooltip="shareAction(resource).label"
         appearance="raw"
-        :disabled="resource.status && resource.status.toLowerCase() === 'transferring'"
         @click.stop="handleClick(resource)"
       >
-        <oc-icon
-          :name="
-            resource.status && resource.status.toLowerCase() === 'pending'
-              ? 'check'
-              : 'arrow-go-back'
-          "
-          fill-type="line"
-        />
+        <oc-icon :name="shareAction(resource).icon" fill-type="line" />
       </oc-button>
     </template>
     <template #footer>
@@ -103,6 +89,7 @@ import {
   buildDestination,
   ensureSpacesLoaded,
   IncomingEmbeddedShareResource,
+  canProcess,
   processShare
 } from '../functions'
 import ListInfo from './ListInfo.vue'
@@ -216,8 +203,19 @@ export default defineComponent({
       processShare(resource, location, clientService)
     }
 
+    const shareAction = (resource: IncomingEmbeddedShareResource) => {
+      switch (resource.status?.toLowerCase()) {
+        case 'pending':
+          return { label: $gettext('Process share'), icon: 'check' }
+        case 'rejected':
+          return { label: $gettext('Retry'), icon: 'refresh' }
+        default:
+          return { label: $gettext('Unprocess share'), icon: 'arrow-go-back' }
+      }
+    }
+
     const handleClick = (resource: IncomingEmbeddedShareResource) => {
-      if (resource.status && resource.status.toLowerCase() === 'pending') {
+      if (canProcess(resource)) {
         showLocationPicker(resource)
       } else {
         processShareWrapper(resource, '')
@@ -269,6 +267,7 @@ export default defineComponent({
       getMatchingSpace,
       isResourceInSelection,
       toggleShowMore,
+      shareAction,
       handleClick,
       toggleMoreLabel
     }

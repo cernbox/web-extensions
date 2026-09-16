@@ -78,6 +78,10 @@ const buildDestination = (folder: Resource, space: SpaceResource): string | null
 
   return `/${space.driveAlias}${folder.path ?? ''}`
 }
+// Rejected means the last transfer failed, so the share can be processed again.
+const canProcess = (resource: IncomingEmbeddedShareResource) => {
+  return ['pending', 'rejected'].includes(resource.status?.toLowerCase() ?? '')
+}
 
 const processShare = (
   resource: IncomingEmbeddedShareResource,
@@ -94,7 +98,7 @@ const processShare = (
         params: {
           destination,
           share_id: resource.id,
-          process: resource.status.toLowerCase() === 'pending' ? 'true' : 'false'
+          process: canProcess(resource) ? 'true' : 'false'
         }
       }
     )
@@ -103,5 +107,5 @@ const processShare = (
     })
 }
 
-export { loadResources, processShare, buildDestination, ensureSpacesLoaded }
+export { loadResources, processShare, buildDestination, canProcess, ensureSpacesLoaded }
 export type { IncomingEmbeddedShareResource }
