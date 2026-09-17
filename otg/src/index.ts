@@ -8,6 +8,6 @@ const appInfo = {
 export default {
   appInfo,
   mounted({ portal }) {
-    portal.open('runtime', 'header.right', 1, [App])
+    portal.open('runtime', 'allPages', 1, [App])
   }
 }
