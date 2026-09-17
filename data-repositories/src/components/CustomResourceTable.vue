@@ -168,7 +168,16 @@
       />
     </template>
     <template #status="{ item }">
-      <span v-if="item.status" v-text="item.status" />
+      <span v-if="item.status" class="oc-flex oc-flex-middle">
+        <oc-icon
+          v-if="item.status.toLowerCase() === 'rejected'"
+          name="error-warning"
+          variation="danger"
+          size="small"
+          class="oc-mr-xs"
+        />
+        <span v-text="statusLabel(item.status)" />
+      </span>
     </template>
     <template #sdate="{ item }">
       <span
@@ -929,6 +938,20 @@ export default defineComponent({
     }
   },
   methods: {
+    statusLabel(status: string) {
+      switch (status.toLowerCase()) {
+        case 'pending':
+          return this.$gettext('Pending')
+        case 'transferring':
+          return this.$gettext('Transferring')
+        case 'accepted':
+          return this.$gettext('Accepted')
+        case 'rejected':
+          return this.$gettext('Failed')
+        default:
+          return status
+      }
+    },
     isResourceSelected(item: Resource) {
       return this.selectedIds.includes(item.id)
     },
