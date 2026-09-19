@@ -13,6 +13,7 @@
           :name="entry.key"
           :value="entry.value"
           :depth="depth + 1"
+          :fold="fold"
         />
       </div>
     </template>
@@ -25,18 +26,36 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, unref } from 'vue'
+import { computed, ref, unref, watch } from 'vue'
 
 interface Props {
   value: unknown
   /** Object key or array index. `null` at the document root, which has no name. */
   name: string | null
   depth: number
+  /**
+   * Last "Collapse all" or "Expand all" from the toolbar. A new object on every click, so repeating
+   * one after toggling nodes by hand still applies. Collapsing keeps the root open, so the
+   * top-level keys stay visible.
+   */
+  fold?: { expanded: boolean }
 }
-const { value, name, depth } = defineProps<Props>()
+const { value, name, depth, fold = undefined } = defineProps<Props>()
 
-// Deep documents collapse below the second level so a large config opens readable.
-const open = ref(depth < 2)
+const openFor = (expanded: boolean) => expanded || depth === 0
+
+// Deep documents collapse below the second level so a large config opens readable. A node that
+// mounts after a toolbar action, because its parent was just opened, follows that action instead.
+const open = ref(fold ? openFor(fold.expanded) : depth < 2)
+
+watch(
+  () => fold,
+  (next) => {
+    if (next) {
+      open.value = openFor(next.expanded)
+    }
+  }
+)
 
 const isBranch = computed(() => typeof value === 'object' && value !== null)
 

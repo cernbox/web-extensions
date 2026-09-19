@@ -10,7 +10,7 @@
           appearance="raw"
           @click="emit('showPreview')"
         >
-          <oc-icon :name="previewIcon" size="small" />
+          <oc-icon :name="previewIcon" size="small" fill-type="none" />
           <span class="oc-ml-xs">{{ $gettext('Preview') }}</span>
         </oc-button>
         <oc-button
@@ -43,7 +43,7 @@ import { useGettext } from 'vue3-gettext'
 import { Compartment, EditorState, type Extension } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
 import { indentWithTab, redo, redoDepth, undo, undoDepth } from '@codemirror/commands'
-import { StreamLanguage, indentUnit } from '@codemirror/language'
+import { StreamLanguage, foldEffect, foldable, indentUnit, unfoldAll } from '@codemirror/language'
 import { basicSetup } from 'codemirror'
 import { closeSearchPanel, searchPanelOpen } from '@codemirror/search'
 import { codemirrorTheme } from '../helpers/codemirrorTheme'
@@ -163,6 +163,56 @@ const format = () => {
   view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: text } })
 }
 
+/**
+ * Fold every nested block and leave the outermost open, so a JSON document still shows its
+ * top-level keys. CodeMirror's own `foldAll` folds only the outermost block, which collapses the
+ * whole document to `{…}`.
+ */
+const collapseAll = () => {
+  if (!view) {
+    return
+  }
+  const { state } = view
+  const effects = []
+  let outerEnd = -1
+  for (let pos = 0; pos <= state.doc.length; ) {
+    const line = state.doc.lineAt(pos)
+    const range = foldable(state, line.from, line.to)
+    if (range && range.from < outerEnd) {
+      effects.push(foldEffect.of(range))
+    } else if (range) {
+      outerEnd = range.to
+    }
+    pos = line.to + 1
+  }
+  view.dispatch({ effects })
+}
+
+// Like zoom, folding changes only what is displayed, so it stays available when read-only.
+const foldGroups = (): ToolbarGroup[] => {
+  if (previewKind !== 'json') {
+    return []
+  }
+  return [
+    [
+      {
+        id: 'collapse-all',
+        label: $gettext('Collapse all'),
+        icon: 'contract-up-down',
+        fillType: 'line',
+        run: () => collapseAll()
+      },
+      {
+        id: 'expand-all',
+        label: $gettext('Expand all'),
+        icon: 'expand-up-down',
+        fillType: 'line',
+        run: () => view && unfoldAll(view)
+      }
+    ]
+  ]
+}
+
 const setFontSize = (size: number) => {
   fontSize.value = Math.min(MAX_FONT_SIZE, Math.max(MIN_FONT_SIZE, size))
   view?.dispatch({ effects: fontTheme.reconfigure(fontExtension(unref(fontSize))) })
@@ -201,7 +251,7 @@ const toolbarGroups = computed<ToolbarGroup[]>(() => {
   void unref(revision)
 
   if (isReadOnly) {
-    return [zoomGroup()]
+    return [...foldGroups(), zoomGroup()]
   }
 
   return [
@@ -236,6 +286,7 @@ const toolbarGroups = computed<ToolbarGroup[]>(() => {
           ]
         ]
       : []),
+    ...foldGroups(),
     zoomGroup()
   ]
 })
