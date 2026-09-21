@@ -21,6 +21,11 @@
     :grouping-settings="groupingSettings"
     @sort="sortHandler"
   >
+    <!-- Every share listed here is an embedded one, so the icon is fixed rather than
+         derived from the resource, which has no file type to derive it from. -->
+    <template #image>
+      <oc-icon name="box-3" size="large" class="oc-mr-s" />
+    </template>
     <template #contextMenu="{ resource }">
       <context-actions
         v-if="isResourceInSelection(resource)"
