@@ -9,6 +9,6 @@ export default {
   appInfo,
   mounted({ portal }) {
     portal.open('runtime', 'header.right', 1, [App])
-    portal.open('runtime', 'accessDenied', 1, [App])
+    portal.open('runtime', 'errorPages', 1, [App])
   }
 }
