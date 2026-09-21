@@ -23,7 +23,9 @@ export default {
     const link = document.createElement('span')
 
     const headers = new Headers()
-    headers.append('Authorization', 'Bearer ' + accessToken)
+    if (accessToken) {
+      headers.append('Authorization', 'Bearer ' + accessToken)
+    }
     headers.append('X-Requested-With', 'XMLHttpRequest')
     const response = await fetch('otg', {
       method: 'GET',
