@@ -30,7 +30,7 @@ export default defineWebApplication({
             id: `com.github.cernbox.web-extensions.nav.${appInfo.id}`,
             type: 'sidebarNav',
             navItem: {
-              icon: 'box-3',
+              icon: 'inbox',
               name: `${appInfo.name}`,
               activeFor: [{ path: `/files/${appInfo.id}` }],
               route: {
