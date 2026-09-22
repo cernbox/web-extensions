@@ -1,6 +1,6 @@
 {
   "name": "takeout",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Export a copy of your CERNBox files as a downloadable archive",
   "license": "AGPL-3.0",
   "author": "CERNBox",
