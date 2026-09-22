@@ -9,27 +9,14 @@
       @update:current-content="$emit('update:currentContent', $event)"
       @toggle-source="sourceMode = true"
     />
-    <div v-else-if="showPreview" class="cern-text-editor-preview oc-flex oc-flex-column">
-      <editor-toolbar :groups="[]">
-        <template #right>
-          <oc-button
-            v-oc-tooltip="backLabel"
-            :aria-label="backLabel"
-            appearance="raw"
-            size="small"
-            @click="previewMode = false"
-          >
-            <oc-icon :name="isReadOnly ? 'file-text' : 'edit'" size="small" fill-type="line" />
-            <span class="oc-ml-xs">{{ backText }}</span>
-          </oc-button>
-        </template>
-      </editor-toolbar>
-      <structured-preview
-        :content="currentContent"
-        :kind="previewKind"
-        :delimiter="resource?.extension?.toLowerCase() === 'tsv' ? '\t' : ','"
-      />
-    </div>
+    <structured-preview
+      v-else-if="showPreview"
+      :content="currentContent"
+      :kind="previewKind"
+      :delimiter="resource?.extension?.toLowerCase() === 'tsv' ? '\t' : ','"
+      :is-read-only="isReadOnly"
+      @hide-preview="previewMode = false"
+    />
     <code-editor
       v-else
       :current-content="currentContent"
@@ -48,12 +35,10 @@
 <script lang="ts" setup>
 import { computed, ref, unref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useGettext } from 'vue3-gettext'
 import { Resource } from '@ownclouders/web-client'
 import { AppConfigObject, useThemeStore } from '@ownclouders/web-pkg'
 import MarkdownEditor from './components/MarkdownEditor.vue'
 import CodeEditor from './components/CodeEditor.vue'
-import EditorToolbar from './components/EditorToolbar.vue'
 import StructuredPreview from './components/StructuredPreview.vue'
 import { isMarkdownExtension, previewFor } from './helpers/fileTypes'
 
@@ -75,8 +60,6 @@ const {
 } = defineProps<Props>()
 defineEmits<Emits>()
 
-const { $gettext } = useGettext()
-
 // storeToRefs, not destructuring: a pinia setup store is reactive()-wrapped, so plain
 // destructuring yields the unwrapped value and the editor would keep the theme it mounted with.
 const { currentTheme } = storeToRefs(useThemeStore())
@@ -92,12 +75,6 @@ const sourceMode = ref(false)
 
 /** Set from the code toolbar to render a JSON tree or a CSV table instead of the text. */
 const previewMode = ref(false)
-
-const backLabel = computed(() =>
-  isReadOnly ? $gettext('Back to the text') : $gettext('Back to editing')
-)
-
-const backText = computed(() => (isReadOnly ? $gettext('Text') : $gettext('Edit')))
 
 /**
  * Markdown gets the rich-text editor; everything else gets CodeMirror. `markdownForAll` exists
@@ -152,15 +129,6 @@ const codeExtension = computed(() => (unref(isMarkdownFile) ? 'md' : resource?.e
   .cm-editor:focus-visible {
     box-shadow: none !important;
     outline: none !important;
-  }
-
-  &-preview {
-    height: 100%;
-
-    > :last-child {
-      flex: 1;
-      min-height: 0;
-    }
   }
 }
 </style>
