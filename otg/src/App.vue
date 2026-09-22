@@ -2,7 +2,7 @@
   <main></main>
 </template>
 <script lang="ts">
-import { useAuthStore, useMessages } from '@ownclouders/web-pkg'
+import { useMessages } from '@ownclouders/web-pkg'
 
 export default {
   name: 'OTG',
@@ -16,14 +16,11 @@ export default {
   },
 
   async mounted() {
-    const authStore = useAuthStore()
     const { showMessage } = useMessages()
-    const accessToken = authStore.accessToken
 
     const link = document.createElement('span')
 
     const headers = new Headers()
-    headers.append('Authorization', 'Bearer ' + accessToken)
     headers.append('X-Requested-With', 'XMLHttpRequest')
     const response = await fetch('otg', {
       method: 'GET',
