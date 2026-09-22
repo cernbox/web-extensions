@@ -879,6 +879,76 @@ importers:
         specifier: ^2.2.10
         version: 2.2.12(typescript@5.9.3)
 
+  takeout:
+    dependencies:
+      '@ownclouders/web-client':
+        specifier: 'catalog:'
+        version: 12.3.2
+      '@ownclouders/web-pkg':
+        specifier: 'catalog:'
+        version: 12.3.2(@vue/compiler-sfc@3.5.33)(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3))
+      luxon:
+        specifier: ^3.5.0
+        version: 3.7.2
+      pinia:
+        specifier: 'catalog:'
+        version: 3.0.4(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.33(typescript@5.9.3)
+      vue-concurrency:
+        specifier: 'catalog:'
+        version: 5.0.3(vue@3.5.33(typescript@5.9.3))
+      vue3-gettext:
+        specifier: 2.4.0
+        version: 2.4.0(@vue/compiler-sfc@3.5.33)(vue@3.5.33(typescript@5.9.3))
+    devDependencies:
+      '@ownclouders/eslint-config':
+        specifier: 'catalog:'
+        version: 12.3.2(@babel/core@7.29.0)(@typescript-eslint/eslint-plugin@8.59.1(@typescript-eslint/parser@8.59.1(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(vue-eslint-parser@10.4.0(eslint@9.39.4))
+      '@ownclouders/extension-sdk':
+        specifier: 'catalog:'
+        version: 12.3.2(vite@7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0))(vue@3.5.33(typescript@5.9.3))
+      '@ownclouders/prettier-config':
+        specifier: 'catalog:'
+        version: 0.0.1
+      '@ownclouders/tsconfig':
+        specifier: 'catalog:'
+        version: 0.0.6
+      '@ownclouders/web-test-helpers':
+        specifier: 'catalog:'
+        version: 12.3.2(@ownclouders/web-pkg@12.3.2(@vue/compiler-sfc@3.5.33)(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3)))(@vue/compiler-sfc@3.5.33)(@vue/test-utils@2.4.10(@vue/compiler-dom@3.5.33)(@vue/server-renderer@3.5.33(vue@3.5.33(typescript@5.9.3)))(vue@3.5.33(typescript@5.9.3)))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.33(typescript@5.9.3)))(typescript@5.9.3)(vitest@3.2.7(@types/node@22.19.17)(happy-dom@15.11.7)(sass-embedded@1.99.0)(sass@1.99.0))(vue@3.5.33(typescript@5.9.3))
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.19.17
+      '@vitejs/plugin-vue':
+        specifier: 'catalog:'
+        version: 6.0.6(vite@7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0))(vue@3.5.33(typescript@5.9.3))
+      eslint:
+        specifier: 'catalog:'
+        version: 9.39.4
+      happy-dom:
+        specifier: ^15.10.2
+        version: 15.11.7
+      prettier:
+        specifier: 'catalog:'
+        version: 3.8.3
+      sass:
+        specifier: 'catalog:'
+        version: 1.99.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: 'catalog:'
+        version: 7.3.2(@types/node@22.19.17)(sass-embedded@1.99.0)(sass@1.99.0)
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@22.19.17)(happy-dom@15.11.7)(sass-embedded@1.99.0)(sass@1.99.0)
+      vue-tsc:
+        specifier: ^2.2.10
+        version: 2.2.12(typescript@5.9.3)
+
   text-editor:
     dependencies:
       '@codemirror/commands':

@@ -17,6 +17,7 @@ packages:
   - 'rootjs'
   - 'search-in-folder'
   - 'sync-clients'
+  - 'takeout'
   - 'text-editor'
   - 'tours'
 

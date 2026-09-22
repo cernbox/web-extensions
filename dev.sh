@@ -28,6 +28,7 @@
 #   office-app-feedback  9225
 #   text-editor          9226
 #   sync-clients         9227
+#   takeout               9228
 
 set -euo pipefail
 
@@ -61,6 +62,7 @@ ALL_EXTENSIONS=(
   office-app-feedback
   text-editor
   sync-clients
+  takeout
 )
 
 if [[ $# -gt 0 ]]; then
