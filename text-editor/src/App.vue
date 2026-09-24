@@ -1,9 +1,23 @@
 <template>
   <div class="cern-text-editor oc-width-1-1 oc-height-1-1">
+    <div
+      v-if="isBinary"
+      class="cern-text-editor-binary-notice oc-flex oc-flex-middle oc-px-m oc-py-s"
+      role="status"
+    >
+      <oc-icon name="error-warning" fill-type="line" size="small" class="oc-mr-s" />
+      <span
+        v-text="
+          $gettext(
+            'This file does not appear to be text. It is opened read-only to avoid damaging it.'
+          )
+        "
+      />
+    </div>
     <markdown-editor
       v-if="showRichTextEditor"
       :current-content="currentContent"
-      :is-read-only="isReadOnly"
+      :is-read-only="readOnly"
       :is-dark="isDark"
       :direct-link="resource?.privateLink"
       @update:current-content="$emit('update:currentContent', $event)"
@@ -14,14 +28,14 @@
       :content="currentContent"
       :kind="previewKind"
       :delimiter="resource?.extension?.toLowerCase() === 'tsv' ? '\t' : ','"
-      :is-read-only="isReadOnly"
+      :is-read-only="readOnly"
       @hide-preview="previewMode = false"
     />
     <code-editor
       v-else
       :current-content="currentContent"
       :extension="codeExtension"
-      :is-read-only="isReadOnly"
+      :is-read-only="readOnly"
       :is-dark="isDark"
       :show-source-toggle="sourceMode"
       :preview-kind="previewKind"
@@ -40,7 +54,7 @@ import { AppConfigObject, useThemeStore } from '@ownclouders/web-pkg'
 import MarkdownEditor from './components/MarkdownEditor.vue'
 import CodeEditor from './components/CodeEditor.vue'
 import StructuredPreview from './components/StructuredPreview.vue'
-import { isMarkdownExtension, previewFor } from './helpers/fileTypes'
+import { isMarkdownExtension, looksBinary, previewFor } from './helpers/fileTypes'
 
 interface Props {
   applicationConfig?: AppConfigObject
@@ -70,6 +84,10 @@ const { currentTheme } = storeToRefs(useThemeStore())
  */
 const isDark = computed(() => Boolean(unref(currentTheme)?.isDark))
 
+const isBinary = computed(() => looksBinary(currentContent))
+
+const readOnly = computed(() => isReadOnly || unref(isBinary))
+
 /** Set from the Markdown toolbar to edit the raw source rather than the rendered document. */
 const sourceMode = ref(false)
 
@@ -82,6 +100,11 @@ const previewMode = ref(false)
  * file as markdown, and a deployment relying on it needs a way to keep that behaviour.
  */
 const isMarkdownFile = computed(() => {
+  // TipTap normalises the document on load and emits it, which would mark a binary file dirty
+  // and let autosave write the mangled content back. CodeMirror only emits on user edits.
+  if (unref(isBinary)) {
+    return false
+  }
   if (applicationConfig?.markdownForAll) {
     return true
   }
@@ -89,7 +112,7 @@ const isMarkdownFile = computed(() => {
 })
 
 const previewKind = computed(() =>
-  unref(isMarkdownFile) ? undefined : previewFor(resource?.extension)
+  unref(isMarkdownFile) || unref(isBinary) ? undefined : previewFor(resource?.extension)
 )
 
 const showRichTextEditor = computed(() => unref(isMarkdownFile) && !unref(sourceMode))
@@ -98,7 +121,12 @@ const showPreview = computed(() => Boolean(unref(previewKind)) && unref(previewM
 
 // In source mode the file is Markdown, so highlight it as Markdown even when the extension is
 // something `markdownForAll` swept in.
-const codeExtension = computed(() => (unref(isMarkdownFile) ? 'md' : resource?.extension))
+const codeExtension = computed(() => {
+  if (unref(isBinary)) {
+    return undefined
+  }
+  return unref(isMarkdownFile) ? 'md' : resource?.extension
+})
 </script>
 
 <style lang="scss">
@@ -114,6 +142,12 @@ const codeExtension = computed(() => (unref(isMarkdownFile) ? 'md' : resource?.e
   > * {
     flex: 1;
     min-height: 0;
+  }
+
+  > .cern-text-editor-binary-notice {
+    flex: 0 0 auto;
+    background-color: var(--oc-color-background-highlight);
+    border-left: 4px solid var(--oc-color-swatch-warning-default);
   }
 
   // The design system draws a focus ring on every :focus-visible element, exempting the text

@@ -80,10 +80,16 @@ export default defineWebApplication({
         // people routinely open here. CodeMirror handles this size without trouble.
         fileSizeLimit: config.fileSizeLimit ?? 50000000
       },
-      extensions: buildFileExtensions().map(({ extension, newFileMenu }) => ({
-        extension,
-        ...(newFileMenu && { newFileMenu })
-      }))
+      extensions: [
+        ...buildFileExtensions().map(({ extension, newFileMenu }) => ({
+          extension,
+          ...(newFileMenu && { newFileMenu })
+        })),
+        // Matches any `text/*` mimetype, so files with no extension or an unregistered one open
+        // here too. Backend sniffing mislabels some binaries as text; App.vue opens those
+        // read-only.
+        ...(config.openTextMimeTypes !== false ? [{ mimeType: 'text' }] : [])
+      ]
     }
 
     const menuItems = computed<AppMenuItemExtension[]>(() => {

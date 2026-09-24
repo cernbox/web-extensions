@@ -161,6 +161,24 @@ export const previewFor = (extension?: string): PreviewKind | undefined =>
   fileTypes[extension?.toLowerCase()]?.preview
 
 /**
+ * Whether saving `content` back could damage the file, so it must be opened read-only.
+ *
+ * The host fetches the file as text, which decodes it as UTF-8 and turns every invalid byte
+ * sequence into U+FFFD. Saving re-encodes the string, so those bytes would be lost: a U+FFFD
+ * anywhere means the round trip is lossy. That matters because files are also matched by
+ * mimetype, and the backend's sniffing labels some binaries as `text/*`.
+ *
+ * A NUL is valid UTF-8 and survives the round trip, but no text file contains one. Checking the
+ * first 8000 characters is git's own binary heuristic, and catches UTF-16 text as well.
+ */
+export const looksBinary = (content?: string): boolean => {
+  if (!content) {
+    return false
+  }
+  return content.includes('�') || content.slice(0, 8000).includes('\u0000')
+}
+
+/**
  * Markdown fences name a language (```python), not a file extension (.py). Map the names people
  * actually write onto the same grammar set the code editor uses, so one registry serves both and
  * adding a language benefits fenced blocks and whole files alike.
