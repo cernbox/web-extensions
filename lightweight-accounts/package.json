@@ -1,6 +1,6 @@
 {
   "name": "lightweight-accounts",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Lands lightweight accounts that don't have a personal space in their home share, if configured and present, or else on a home page linking to shares and spaces; prevents the redirection to the default home directory",
   "license": "AGPL-3.0",
   "author": "CERNBox",
