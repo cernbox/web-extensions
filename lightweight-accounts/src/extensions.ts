@@ -22,7 +22,6 @@ export const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
           id: 'com.github.owncloud.web.nav.lightweight-accounts-home',
           type: 'sidebarNav',
           navItem: {
-            activeFor: [{ path: '/files/lightweight-accounts-home' }],
             isVisible: () => {
               if (!unref(router.currentRoute).path.startsWith('/files')) {
                 return false
