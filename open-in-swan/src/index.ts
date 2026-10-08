@@ -10,24 +10,16 @@ const trimSlashes = (path: string) => path.replace(/^\/+|\/+$/g, '')
 
 export default defineWebApplication({
   setup({ applicationConfig }) {
-    // SWAN's JupyterLab tree is rooted at /eos
     const {
       serverUrl = 'https://swan.cern.ch',
-      serverPath = 'hub/user-redirect/lab/tree',
+      serverPath = 'user-redirect/download',
+      // Only files under this root are offered, as SWAN cannot open anything else
       serverRootPath = '/eos'
     } = applicationConfig || {}
     const rootPath = trimSlashes(serverRootPath)
 
-    const getTreePath = ({ space, resources }: FileActionOptions) => {
-      const path = trimSlashes(`${space.driveAlias}${resources[0].path}`)
-      if (!rootPath) {
-        return path
-      }
-      if (!path.startsWith(`${rootPath}/`)) {
-        return undefined
-      }
-      return path.slice(rootPath.length + 1)
-    }
+    const getPath = ({ space, resources }: FileActionOptions) =>
+      trimSlashes(`${space.driveAlias}${resources[0].path}`)
 
     const extension = computed<ActionExtension>(() => ({
       id: 'com.github.cernbox.web-extensions.open-in-swan',
@@ -44,15 +36,13 @@ export default defineWebApplication({
           if (resources.length !== 1 || resources[0].extension.toLowerCase() !== 'ipynb') {
             return false
           }
-          return getTreePath(options) !== undefined
+          return !rootPath || getPath(options).startsWith(`${rootPath}/`)
         },
         // Not an href, which the host opens in the same tab
         handler: (options: FileActionOptions) => {
-          // encodeURI would leave '#' and '?' unescaped
-          const treePath = getTreePath(options).split('/').map(encodeURIComponent).join('/')
-          const url = [trimSlashes(serverUrl), trimSlashes(serverPath), treePath]
-            .filter(Boolean)
-            .join('/')
+          // SWAN takes file://eos/..., i.e. the path without its leading slash
+          const projurl = encodeURIComponent(`file://${getPath(options)}`)
+          const url = `${trimSlashes(serverUrl)}/${trimSlashes(serverPath)}?projurl=${projurl}`
           console.debug('Opening in SWAN...', url)
           window.open(url, '_blank')
         }
