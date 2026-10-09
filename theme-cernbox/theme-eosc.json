@@ -1,0 +1,292 @@
+{
+  "common": {
+    "name": "CERNBox for EOSC ",
+    "slogan": "CERNBox – The CERN Cloud Storage",
+    "logo": "cernbox/theme-cernbox/assets/cernbox-eosc.svg",
+    "urls": {
+      "accessDeniedHelp": "https://cernbox.docs.cern.ch/web/common-issues/#failure-to-log-in",
+      "imprint": "",
+      "privacy": ""
+    },
+    "shareRoles": {
+      "b1e2218d-eef8-4d4c-b82d-0f1a1b48f3b5": {
+        "name": "UnifiedRoleViewer",
+        "iconName": "eye"
+      },
+      "a8d5fe5e-96e3-418d-825b-534dbdf22b99": {
+        "label": "UnifiedRoleSpaceViewer",
+        "iconName": "eye"
+      },
+      "2d00ce52-1fc2-4dbc-8b95-a73b73395f5a": {
+        "label": "UnifiedRoleFileEditor",
+        "iconName": "pencil"
+      },
+      "fb6c3e19-e378-47e5-b277-9732f9de6e21": {
+        "label": "UnifiedRoleEditor",
+        "iconName": "pencil"
+      },
+      "58c63c02-1d89-4572-916a-870abc5a1b7d": {
+        "label": "UnifiedRoleSpaceEditor",
+        "iconName": "pencil"
+      },
+      "312c0871-5ef7-4b3a-85b6-0e4074c64049": {
+        "label": "UnifiedRoleManager",
+        "iconName": "user-star"
+      },
+      "1c996275-f1c9-4e71-abdf-a42f6495e960": {
+        "label": "UnifiedRoleUploader",
+        "iconName": "upload"
+      },
+      "aa97fe03-7980-45ac-9e50-b325749fd7e6": {
+        "label": "UnifiedRoleSecureView",
+        "iconName": "shield"
+      }
+    }
+  },
+  "clients": {
+    "web": {
+      "defaults": {
+        "appBanner": {},
+        "logo": {
+          "topbar": "cernbox/theme-cernbox/assets/cernbox-eosc.svg",
+          "favicon": "cernbox/theme-cernbox/assets/cernbox-abstract.svg",
+          "login": "cernbox/theme-cernbox/assets/cernbox-eosc.svg"
+        },
+        "loginPage": {
+          "autoRedirect": true,
+          "backgroundImg": "cernbox/theme-cernbox/assets/loginBackground.png"
+        },
+        "designTokens": {
+          "sizes": {
+            "height-small": "80px",
+            "height-table-row": "40px"
+          }
+        }
+      },
+      "themes": [
+        {
+          "isDark": false,
+          "name": "Light Theme",
+          "designTokens": {
+            "colorPalette": {
+              "background-accentuate": "",
+              "background-default": "",
+              "background-highlight": "#ecf5f5",
+              "background-muted": "",
+              "background-secondary": "#ffffff",
+              "background-hover": "#f5f9f9",
+              "border": "",
+              "input-bg": "#eff5f5",
+              "input-border": "",
+              "input-text-default": "",
+              "input-text-muted": "",
+              "swatch-brand-default": "#003034",
+              "swatch-brand-hover": "#3d6366",
+              "swatch-danger-default": "",
+              "swatch-danger-hover": "",
+              "swatch-danger-muted": "",
+              "swatch-passive-default": "",
+              "swatch-passive-hover": "#3f5f62",
+              "swatch-passive-hover-outline": "#f6fafa",
+              "swatch-passive-muted": "",
+              "swatch-primary-default": "#003034",
+              "swatch-primary-hover": "#316e72",
+              "swatch-primary-muted": "#669699",
+              "swatch-primary-gradient": "#0b6a72",
+              "swatch-primary-muted-hover": "#1c4c4f",
+              "swatch-primary-gradient-hover": "#266a6f",
+              "swatch-success-default": "",
+              "swatch-success-hover": "",
+              "swatch-success-muted": "",
+              "swatch-warning-default": "#ffde94",
+              "swatch-warning-hover": "",
+              "swatch-warning-muted": "",
+              "text-default": "#012528",
+              "text-inverse": "#ffffff",
+              "text-muted": "#48686a",
+              "icon-folder": "#1f8c94",
+              "icon-archive": "#FBBE54",
+              "icon-image": "#EE6B3B",
+              "icon-spreadsheet": "#15C286",
+              "icon-document": "#3B44A6",
+              "icon-video": "#045459",
+              "icon-audio": "#700460",
+              "icon-presentation": "#EE6B3B",
+              "icon-pdf": "#EC0D47",
+              "components-apptopbar-background": "#003034",
+              "components-apptopbar-border": "transparent"
+            }
+          }
+        },
+        {
+          "isDark": true,
+          "name": "Dark Theme",
+          "designTokens": {
+            "colorPalette": {
+              "background-accentuate": "#5f6e70",
+              "background-default": "#232b2c",
+              "background-highlight": "#9dfbf412",
+              "background-muted": "#5f6e70",
+              "background-secondary": "#3b4849",
+              "background-hover": "#2a3435",
+              "border": "#1a2122",
+              "input-bg": "#3b4849",
+              "input-border": "#48686a",
+              "input-text-default": "#c2cfd0",
+              "input-text-muted": "#384243",
+              "swatch-brand-default": "#003034",
+              "swatch-brand-hover": "#ffffff",
+              "swatch-danger-default": "",
+              "swatch-danger-hover": "",
+              "swatch-danger-muted": "",
+              "swatch-inverse-default": "",
+              "swatch-inverse-hover": "",
+              "swatch-inverse-muted": "#5f6e70",
+              "swatch-passive-default": "#c2cfd0",
+              "swatch-passive-hover": "",
+              "swatch-passive-hover-outline": "#324041",
+              "swatch-passive-muted": "#bdc6c7",
+              "swatch-primary-default": "#0b777f",
+              "swatch-primary-hover": "#66c5cc",
+              "swatch-primary-muted": "#2f6a6f",
+              "swatch-primary-gradient": "#3d8a90",
+              "swatch-primary-muted-hover": "#14adb8",
+              "swatch-primary-gradient-hover": "#6ab0b5",
+              "swatch-success-default": "",
+              "swatch-success-hover": "",
+              "swatch-success-muted": "",
+              "swatch-warning-default": "#3e3100",
+              "swatch-warning-hover": "",
+              "swatch-warning-muted": "",
+              "text-default": "#c9d6d7",
+              "text-inverse": "#000000",
+              "text-muted": "#7f9496",
+              "icon-folder": "#3f9aa1",
+              "icon-archive": "rgb(255, 207, 1)",
+              "icon-image": "rgb(255, 111, 0)",
+              "icon-spreadsheet": "rgb(0, 182, 87)",
+              "icon-document": "rgb(44, 101, 255)",
+              "icon-video": "rgb(0, 187, 219)",
+              "icon-audio": "rgb(208, 67, 236)",
+              "icon-presentation": "rgb(255, 64, 6)",
+              "icon-pdf": "rgb(225, 5, 14)",
+              "components-apptopbar-background": "#003034",
+              "components-apptopbar-border": "transparent"
+            }
+          }
+        },
+        {
+          "isDark": false,
+          "name": "High contrast light",
+          "designTokens": {
+            "colorPalette": {
+              "background-accentuate": "#0b4a4f",
+              "background-default": "#ffffff",
+              "background-highlight": "#edf3fa",
+              "background-muted": "#e1e8e8",
+              "background-secondary": "#f5f9f9",
+              "background-hover": "#edf3f3",
+              "border": "#2b3a3b",
+              "input-bg": "#eff5f5",
+              "input-border": "#3f5456",
+              "input-text-default": "#001a1c",
+              "input-text-muted": "#3f5a5d",
+              "swatch-brand-default": "#003034",
+              "swatch-brand-hover": "#3d6366",
+              "swatch-danger-default": "#a22d15",
+              "swatch-danger-hover": "#a22d15",
+              "swatch-danger-muted": "#EDA247",
+              "swatch-passive-default": "#36595c",
+              "swatch-passive-hover": "#93a8aa",
+              "swatch-passive-hover-outline": "#f6fafa",
+              "swatch-passive-muted": "#d6dfe0",
+              "swatch-primary-default": "#003034",
+              "swatch-primary-hover": "#316e72",
+              "swatch-success-default": "#1f6b3b",
+              "swatch-success-hover": "#1f6b3b",
+              "swatch-success-muted": "#5fbf85",
+              "swatch-warning-default": "#ffde94",
+              "swatch-warning-hover": "#ffe8b3",
+              "swatch-primary-muted": "#3f7b80",
+              "swatch-primary-gradient": "#0b6a72",
+              "swatch-primary-muted-hover": "#1c4c4f",
+              "swatch-primary-gradient-hover": "#266a6f",
+              "text-default": "#001a1c",
+              "text-inverse": "#ffffff",
+              "text-muted": "#3f5a5d",
+              "icon-folder": "#1f8c94",
+              "icon-archive": "#FBBE54",
+              "icon-image": "#EE6B3B",
+              "icon-spreadsheet": "#15C286",
+              "icon-document": "#3B44A6",
+              "icon-video": "#045459",
+              "icon-audio": "#700460",
+              "icon-presentation": "#EE6B3B",
+              "icon-pdf": "#EC0D47",
+              "components-apptopbar-background": "transparent",
+              "components-apptopbar-border": "#ffffff"
+            }
+          }
+        },
+        {
+          "isDark": true,
+          "name": "High contrast dark",
+          "designTokens": {
+            "colorPalette": {
+              "background-accentuate": "#5f6e70",
+              "background-default": "#1a2122",
+              "background-highlight": "#9dc7fb12",
+              "background-muted": "#5f6e70",
+              "background-secondary": "#3b4849",
+              "background-hover": "#2a3435",
+              "border": "#b7c4c5",
+              "input-bg": "#3b4849",
+              "input-border": "#48686a",
+              "input-text-default": "#ffffff",
+              "input-text-muted": "#a9b8b9",
+              "swatch-brand-default": "#003034",
+              "swatch-brand-hover": "#ffffff",
+              "swatch-brand-contrast": "#fcfcfc",
+              "swatch-danger-default": "#ff8a8a",
+              "swatch-danger-hover": "",
+              "swatch-danger-muted": "",
+              "swatch-inverse-default": "",
+              "swatch-inverse-hover": "",
+              "swatch-inverse-muted": "#5f6e70",
+              "swatch-passive-default": "#b5c2c3",
+              "swatch-passive-hover": "",
+              "swatch-passive-muted": "",
+              "swatch-passive-contrast": "#000000",
+              "swatch-primary-default": "#0b777f",
+              "swatch-primary-hover": "#66c5cc",
+              "swatch-primary-muted": "",
+              "swatch-primary-gradient": "#1c6a70",
+              "swatch-primary-muted-hover": "#14adb8",
+              "swatch-primary-gradient-hover": "#6ab0b5",
+              "swatch-success-default": "",
+              "swatch-success-hover": "",
+              "swatch-success-muted": "",
+              "swatch-warning-default": "#3e3100",
+              "swatch-warning-hover": "",
+              "swatch-warning-muted": "",
+              "text-default": "#ffffff",
+              "text-inverse": "#000000",
+              "text-muted": "#a9b8b9",
+              "icon-folder": "#3f9aa1",
+              "icon-archive": "rgb(255, 207, 1)",
+              "icon-image": "rgb(255, 111, 0)",
+              "icon-spreadsheet": "rgb(0, 182, 87)",
+              "icon-document": "rgb(44, 101, 255)",
+              "icon-video": "rgb(0, 187, 219)",
+              "icon-audio": "rgb(208, 67, 236)",
+              "icon-presentation": "rgb(255, 64, 6)",
+              "icon-pdf": "rgb(225, 5, 14)",
+              "components-apptopbar-background": "#0b777f",
+              "components-apptopbar-border": "transparent"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
