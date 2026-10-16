@@ -38,7 +38,7 @@ export default defineComponent({
     }
   },
 
-  setup(props) {
+  setup() {
     const configStore = useConfigStore()
     const appsStore = useAppsStore()
     const resourcesStore = useResourcesStore()
@@ -158,8 +158,9 @@ export default defineComponent({
         }
         openEmptyEditor('codimd', 'md', true)
       } else {
+        // The route already names the file's own space, which need not be the personal one.
         router.replace({
-          path: `/external-codimd/${spacesStore.personalSpace.driveAlias}${props.resource.path}`,
+          path: `/external-codimd/${unref(route).params.driveAliasAndItem}`,
           query: unref(route).query,
           replace: true
         })

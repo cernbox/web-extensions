@@ -7,17 +7,16 @@ import {
   AppMenuItemExtension,
   AppWrapperRoute,
   defineWebApplication,
-  useOpenEmptyEditor,
   useUserStore
 } from '@ownclouders/web-pkg'
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
+import { useNewDocumentPicker } from './useNewDocumentPicker'
 
 export default defineWebApplication({
   setup({ applicationConfig }) {
     const { $gettext } = useGettext()
     const userStore = useUserStore()
-    const { openEmptyEditor } = useOpenEmptyEditor()
 
     const appId = 'codimd'
 
@@ -106,6 +105,11 @@ export default defineWebApplication({
       })
     }
 
+    const { openNewDocumentPicker } = useNewDocumentPicker({
+      appId,
+      extension: appInfo.defaultExtension
+    })
+
     const menuItems = computed<AppMenuItemExtension[]>(() => {
       const items: AppMenuItemExtension[] = []
 
@@ -118,7 +122,7 @@ export default defineWebApplication({
           icon: appInfo.icon,
           priority: 20,
           path: urlJoin(appInfo.id),
-          handler: () => openEmptyEditor(appInfo.id, appInfo.defaultExtension)
+          handler: openNewDocumentPicker
         })
       }
 
