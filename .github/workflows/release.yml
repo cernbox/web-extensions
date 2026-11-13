@@ -53,13 +53,13 @@ jobs:
       - uses: BSFishy/pip-action@8f2d471d809dc20b6ada98c91910b6ae6243f318 # v1
         with:
           packages: |
-            bump2version
+            bump-my-version
       - name: Bump and tag
         run: |
           git config --local user.email "cernbox-admins@cern.ch"
           git config --local user.name "cernbox-admins[bot]"
           cd ${{ github.event.inputs.extension }}
-          bump2version ${{ github.event.inputs.bump }}
+          bump-my-version bump ${{ github.event.inputs.bump }}
       - name: Push changes
         uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c # master
         with:
