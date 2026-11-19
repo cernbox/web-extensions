@@ -164,11 +164,24 @@ let binding: ExcalidrawBinding | undefined
 let undoManager: Y.UndoManager | undefined
 let unobserveSettings: (() => void) | undefined
 
+// A public link visitor has no access token. CERNBox's Yjs server checks the link instead, with
+// the same WebDAV request as web, so it gets the link's token and password, and where the
+// drawing is in the link.
+const roomToken = () =>
+  authStore.publicLinkContextReady
+    ? 'publiclink:' +
+      JSON.stringify({
+        token: authStore.publicLinkToken,
+        password: authStore.publicLinkPassword,
+        path: props.resource.path
+      })
+    : authStore.accessToken
+
 const join = async () => {
   room = await joinRoom({
     url: yjsServerUrl as string,
     fileId: props.resource.fileId ?? props.resource.id,
-    token: () => authStore.accessToken,
+    token: roomToken,
     content: loadedContent,
     etag: props.currentETag as string,
     canWrite: !props.isReadOnly
