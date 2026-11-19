@@ -14,8 +14,11 @@
         "
       />
     </div>
+    <div v-if="joining" class="oc-flex oc-flex-center oc-flex-middle">
+      <oc-spinner size="large" :aria-label="$gettext('Joining the file')" />
+    </div>
     <markdown-editor
-      v-if="showRichTextEditor"
+      v-else-if="showRichTextEditor"
       :current-content="currentContent"
       :is-read-only="readOnly"
       :is-dark="isDark"
@@ -39,6 +42,7 @@
       :is-dark="isDark"
       :show-source-toggle="sourceMode"
       :preview-kind="previewKind"
+      :collab="collab"
       @update:current-content="$emit('update:currentContent', $event)"
       @toggle-source="sourceMode = false"
       @show-preview="previewMode = true"
@@ -47,32 +51,47 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, unref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, shallowRef, unref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
+import { useGettext } from 'vue3-gettext'
 import { Resource } from '@ownclouders/web-client'
-import { AppConfigObject, useThemeStore } from '@ownclouders/web-pkg'
+import { AppConfigObject, useAuthStore, useMessages, useThemeStore } from '@ownclouders/web-pkg'
 import MarkdownEditor from './components/MarkdownEditor.vue'
 import CodeEditor from './components/CodeEditor.vue'
 import StructuredPreview from './components/StructuredPreview.vue'
 import { isMarkdownExtension, looksBinary, previewFor } from './helpers/fileTypes'
+import { sharedText } from './collab/document'
+import { joinRoom, type Collab, type Room } from './collab/room'
+import { syncWithWrapper } from './collab/saves'
 
 interface Props {
   applicationConfig?: AppConfigObject
   currentContent: string
   isReadOnly?: boolean
+  isDirty?: boolean
   resource?: Resource
+  // CERNBox's AppWrapper passes the etag it saves with. Without it the clients could not hand
+  // each other their saves, so the file is not edited together.
+  currentETag?: string
 }
 interface Emits {
   (e: 'update:currentContent', value: string): void
+  (e: 'update:serverState', value: { etag: string; content?: string }): void
 }
 
 const {
   applicationConfig = undefined,
   currentContent,
   isReadOnly = false,
-  resource = undefined
+  isDirty = false,
+  resource = undefined,
+  currentETag = undefined
 } = defineProps<Props>()
-defineEmits<Emits>()
+const emit = defineEmits<Emits>()
+
+const { $gettext } = useGettext()
+const authStore = useAuthStore()
+const { showErrorMessage } = useMessages()
 
 // storeToRefs, not destructuring: a pinia setup store is reactive()-wrapped, so plain
 // destructuring yields the unwrapped value and the editor would keep the theme it mounted with.
@@ -126,6 +145,71 @@ const codeExtension = computed(() => {
     return undefined
   }
   return unref(isMarkdownFile) ? 'md' : resource?.extension
+})
+
+// ---------------------------------------------------------------------------------------------
+// Editing together, through a room on the Yjs server that y-codemirror keeps in step with the
+// editor. Only for files CodeMirror edits: the Markdown editor holds a document tree, not the
+// text, and its source mode cannot share a room with it.
+
+const yjsServerUrl = applicationConfig?.yjsServerUrl
+const joining = ref(
+  typeof yjsServerUrl === 'string' &&
+    currentETag !== undefined &&
+    resource !== undefined &&
+    !unref(isMarkdownFile) &&
+    !unref(isBinary)
+)
+let room: Room | null = null
+let sync: ReturnType<typeof syncWithWrapper> | undefined
+const collab = shallowRef<Collab>()
+
+const join = async () => {
+  room = await joinRoom({
+    url: yjsServerUrl as string,
+    fileId: resource.fileId ?? resource.id,
+    token: () => authStore.accessToken,
+    content: currentContent,
+    etag: currentETag,
+    canWrite: !isReadOnly
+  })
+  if (!room) {
+    if (!isReadOnly) {
+      showErrorMessage({
+        title: $gettext('Live editing is not available'),
+        desc: $gettext('Others who open this file will not see your changes until you save.')
+      })
+    }
+    return
+  }
+
+  if (!isReadOnly) {
+    sync = syncWithWrapper(room.doc, {
+      isDirty: () => isDirty,
+      content: () => currentContent,
+      setContent: (content) => emit('update:currentContent', content),
+      setServerState: (state) => emit('update:serverState', state)
+    })
+  }
+  collab.value = { text: sharedText(room.doc), awareness: room.provider.awareness }
+}
+
+watch(
+  () => currentETag,
+  (etag) => sync?.etagChanged(etag ?? '')
+)
+
+onMounted(async () => {
+  if (unref(joining)) {
+    await join()
+    joining.value = false
+  }
+})
+
+onBeforeUnmount(() => {
+  sync?.stop()
+  room?.provider.destroy()
+  room?.doc.destroy()
 })
 </script>
 
