@@ -29,6 +29,7 @@
 #   text-editor          9226
 #   sync-clients         9227
 #   takeout               9228
+#   excalidraw           9229
 
 set -euo pipefail
 
@@ -63,6 +64,7 @@ ALL_EXTENSIONS=(
   text-editor
   sync-clients
   takeout
+  excalidraw
 )
 
 if [[ $# -gt 0 ]]; then

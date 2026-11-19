@@ -4,6 +4,7 @@ packages:
   - 'codimd'
   - 'data-repositories'
   - 'draw-io'
+  - 'excalidraw'
   - 'ifc-js'
   # - 'image-editor'
   - 'jupyter'
