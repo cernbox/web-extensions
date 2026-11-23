@@ -189,10 +189,13 @@ export default defineComponent({
       const rootMappings = pathMappings[root]
       if (!rootMappings) return 
 
-      const base = rootMappings[key] ?? rootMappings['*']
+      if (rootMappings[key]) return rootMappings[key] + rest
+
+      // '*' maps the whole root, so the key (e.g. the letter of a winspace) stays in the path
+      const base = rootMappings['*']
       if (!base) return
 
-      return base + rest
+      return base + parts.slice(1).join('\\')
     }
     const sambaPath = computed(() => {
       return getSambaPath(
