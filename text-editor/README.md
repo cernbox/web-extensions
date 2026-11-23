@@ -148,28 +148,25 @@ Options, all under the app's `config` key:
 | `primaryExtensions` | `["txt", "md"]` | which extensions appear in the "New file" menu |
 | `fileSizeLimit` | `50000000` | bytes. The built-in app capped this at 2 MB, which is small for logs |
 | `markdownForAll` | `false` | force the Markdown editor for every file. The escape hatch for deployments that relied on the built-in app's `showPreviewOnlyMd: false` |
-| `yjsServerUrl` | unset | WebSocket URL of the Yjs server, e.g. `wss://cernbox.cern.ch/yjs`. Turns on live editing, see below |
 
 Font size in the code editor is a per-session UI control, not configuration; it resets to 14 px
 on reopen.
 
 ## Live editing
 
-With `yjsServerUrl` set, everyone who opens the same file in CodeMirror edits it together and
-sees the others' cursors. It uses the same setup as the Excalidraw extension:
-[OpenCloud's Yjs server](https://github.com/opencloud-eu/web/tree/main/services/yjs)
-(`opencloudeu/yjs`), and a CERNBox web whose AppWrapper passes `currentETag` and takes
-`update:serverState`, so the clients can hand each other their saves. The file is still saved by
-the browsers, over WebDAV. If the server cannot be reached, the editor falls back to editing
-alone.
+Everyone who opens the same file in CodeMirror edits it together and sees the others' cursors,
+through CERNBox's web, which owns the live editing session: set `yjsServerUrl` in web's options,
+for example `wss://cernbox.cern.ch/yjs`. The app only says how a file moves between its text and
+the shared Y.Doc (`textAdapter` in `src/collab/document.ts`), and binds CodeMirror to the Y.Doc
+web hands it. The server is the same as for the Excalidraw extension, see `yjs-server/`. The
+build leaves `yjs` out of `main.js`: the Y.Doc comes from web, and only works with web's own copy.
 
-Markdown files in the rich-text editor are not shared: TipTap holds a document tree rather than
-the text, and the source view could not share a room with it. CERNBox opens Markdown in CodiMD,
-which has its own live editing.
+Markdown files are not shared: the rich-text editor holds a document tree rather than the text,
+and CERNBox opens Markdown in CodiMD, which has its own live editing. Binary files, which open
+read-only, are not shared either.
 
-Known limits: edits that nobody saved are lost when the last user leaves. A user who may only
-read the file sees changes live only if someone with write access already has it open. If the
-file changes outside the editor while it is open, the next save fails as a conflict.
+The file is still saved by the browsers, over WebDAV. Edits that nobody saved are lost when the
+last user leaves.
 
 ## Why `tiptap-markdown`
 

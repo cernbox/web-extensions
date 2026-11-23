@@ -53,7 +53,7 @@ import EditorToolbar from './EditorToolbar.vue'
 import { grammarFor, loadLanguage, type PreviewKind } from '../helpers/fileTypes'
 import { formatCode, isFormattable } from '../helpers/format'
 import type { ToolbarGroup } from '../helpers/toolbar'
-import type { Collab } from '../collab/room'
+import type { Collab } from '../collab/document'
 
 interface Props {
   currentContent: string
