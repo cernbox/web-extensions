@@ -6,6 +6,8 @@ export default defineConfig({
   server: { port: 9229 },
   build: {
     rollupOptions: {
+      // The Y.Doc comes from CERNBox's web, and only works with web's own copy of Yjs
+      external: ['yjs', 'y-protocols/awareness'],
       output: {
         entryFileNames: 'main.js',
         // Excalidraw lazy-loads its locales and export helpers with import(). The web runtime

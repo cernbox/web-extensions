@@ -2,8 +2,13 @@ import { ApplicationInformation, AppWrapperRoute, defineWebApplication } from '@
 import { useGettext } from 'vue3-gettext'
 import translations from '../l10n/translations.json'
 import App from './App.vue'
+import { sceneAdapter } from './collab/scene'
 
 const applicationId = 'excalidraw'
+
+// CERNBox's AppWrapper shares the drawing through the Yjs server. The published web-pkg types do
+// not know the `yjs` option yet, hence a separate object rather than a literal in the call.
+const routeOptions = { applicationId, yjs: { makeAdapter: () => sceneAdapter } }
 
 export default defineWebApplication({
   setup() {
@@ -13,7 +18,7 @@ export default defineWebApplication({
       {
         name: applicationId,
         path: '/:driveAliasAndItem(.*)?',
-        component: AppWrapperRoute(App, { applicationId }),
+        component: AppWrapperRoute(App, routeOptions),
         meta: {
           authContext: 'hybrid',
           patchCleanPath: true

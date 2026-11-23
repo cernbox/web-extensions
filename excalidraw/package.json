@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@excalidraw/excalidraw": "0.18.1",
-    "@hocuspocus/provider": "4.7.1",
     "@ownclouders/web-client": "catalog:",
     "@ownclouders/web-pkg": "catalog:",
     "fractional-indexing": "3.4.0",

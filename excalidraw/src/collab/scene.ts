@@ -1,5 +1,5 @@
 import { serializeAsJSON } from '@excalidraw/excalidraw'
-import type { AppState, BinaryFiles } from '@excalidraw/excalidraw/types'
+import type { AppState, BinaryFiles, ExcalidrawInitialDataState } from '@excalidraw/excalidraw/types'
 import { generateKeyBetween } from 'fractional-indexing'
 import { yjsToExcalidraw } from 'y-excalidraw'
 import * as Y from 'yjs'
@@ -46,16 +46,50 @@ export const observeSettings = (doc: Y.Doc, onChange: (settings: SceneSettings) 
   return () => sceneMeta(doc).unobserve(handler)
 }
 
-/** Whether a client has loaded the file into the room yet. */
-export const isSeeded = (doc: Y.Doc) => sceneMeta(doc).get('seeded') === true
+/** The drawing in a file, or null if the file is not one. */
+export const parseScene = (content: string): ExcalidrawInitialDataState | null => {
+  // A file created with "New" stays empty until it is first saved.
+  if (!content.trim()) {
+    return {}
+  }
+  try {
+    const { elements, appState, files } = JSON.parse(content)
+    if (!Array.isArray(elements)) {
+      return null
+    }
+    return { elements, appState, files, scrollToContent: true }
+  } catch {
+    return null
+  }
+}
+
+/** The file content for the room's drawing. Clients that hold the same state get the same text. */
+export const serializeScene = (doc: Y.Doc) => {
+  const files: BinaryFiles = Object.fromEntries(sceneFiles(doc).entries())
+  const elements = yjsToExcalidraw(sceneElements(doc)) as Elements
+  return serializeAsJSON(elements, readSettings(doc), files, 'local')
+}
 
 /**
- * Loads the file into an empty room, together with its etag. Both land in one update, so a client
- * that joins never sees the drawing without the save it came from. Throws if the file is not JSON.
+ * Moves a drawing between its file and the Y.Doc that CERNBox's AppWrapper shares through the
+ * Yjs server. The same interface as `YjsAdapter` in CERNBox's web-pkg, whose published types do
+ * not have it yet.
  */
-export const seedScene = (doc: Y.Doc, content: string, etag: string) => {
-  const { elements = [], appState, files = {} } = content.trim() ? JSON.parse(content) : {}
-  doc.transact(() => {
+export interface YjsAdapter {
+  hydrate(doc: Y.Doc, content: string): void
+  serialize(doc: Y.Doc): string
+  hasContent(doc: Y.Doc): boolean
+  reset(doc: Y.Doc): void
+}
+
+export const sceneAdapter: YjsAdapter = {
+  hydrate(doc, content) {
+    // A file that is not a drawing stays out of the room, and App.vue says so.
+    const scene = parseScene(content)
+    if (!scene || sceneAdapter.hasContent(doc)) {
+      return
+    }
+    const { elements = [], appState, files = {} } = scene
     let pos: string | null = null
     for (const el of elements) {
       pos = generateKeyBetween(pos, null)
@@ -67,53 +101,17 @@ export const seedScene = (doc: Y.Doc, content: string, etag: string) => {
       ])
     }
     for (const [id, file] of Object.entries(files)) {
-      sceneFiles(doc).set(id, file as BinaryFiles[string])
+      sceneFiles(doc).set(id, file)
     }
     sceneMeta(doc).set('settings', pickSettings(appState))
+    // An empty drawing has no shapes, so this marks the room as loaded
     sceneMeta(doc).set('seeded', true)
-    writeSaved(doc, { etag, hash: hashContent(serializeScene(doc)) })
-  })
-}
-
-/** The file content for the room's drawing. Clients that hold the same state get the same text. */
-export const serializeScene = (doc: Y.Doc) => {
-  const files: BinaryFiles = Object.fromEntries(sceneFiles(doc).entries())
-  const elements = yjsToExcalidraw(sceneElements(doc)) as Elements
-  return serializeAsJSON(elements, readSettings(doc), files, 'local')
-}
-
-/** The last save the room knows of: the file's etag, and a hash of the drawing that was saved. */
-export interface SavedState {
-  etag: string
-  hash?: string
-}
-
-export const readSaved = (doc: Y.Doc) => sceneMeta(doc).get('saved') as SavedState | undefined
-
-export const writeSaved = (doc: Y.Doc, saved: SavedState) => sceneMeta(doc).set('saved', saved)
-
-/** Calls onChange when another client saves the file. */
-export const observeSaved = (doc: Y.Doc, onChange: (saved: SavedState) => void) => {
-  const handler = (event: Y.YMapEvent<unknown>) => {
-    const saved = readSaved(doc)
-    if (!event.transaction.local && event.keysChanged.has('saved') && saved) {
-      onChange(saved)
-    }
+  },
+  serialize: serializeScene,
+  hasContent: (doc) => sceneMeta(doc).get('seeded') === true,
+  reset(doc) {
+    sceneElements(doc).delete(0, sceneElements(doc).length)
+    sceneFiles(doc).clear()
+    sceneMeta(doc).clear()
   }
-  sceneMeta(doc).observe(handler)
-  return () => sceneMeta(doc).unobserve(handler)
-}
-
-/** cyrb53 (public domain), with the length: enough to tell two versions of a drawing apart. */
-export const hashContent = (content: string) => {
-  let h1 = 0xdeadbeef
-  let h2 = 0x41c6ce57
-  for (let i = 0; i < content.length; i++) {
-    const ch = content.charCodeAt(i)
-    h1 = Math.imul(h1 ^ ch, 2654435761)
-    h2 = Math.imul(h2 ^ ch, 1597334677)
-  }
-  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909)
-  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909)
-  return `${content.length}:${(4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36)}`
 }

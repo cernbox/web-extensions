@@ -6,17 +6,13 @@ The build copies Excalidraw's fonts to `dist/fonts`, next to `main.js`, because 
 
 ## Live co-editing
 
-With `yjsServerUrl` in the app config, everyone who opens the same drawing edits it together and sees the others' cursors:
+Everyone who opens the same drawing edits it together and sees the others' cursors, through CERNBox's web, which owns the live editing session. The app only says how a drawing moves between its file and the shared Y.Doc (`sceneAdapter` in `src/collab/scene.ts`), and binds Excalidraw to the Y.Doc web hands it.
 
-```json
-{ "id": "excalidraw", "path": "...", "config": { "yjsServerUrl": "wss://cernbox.cern.ch/yjs" } }
-```
+It needs:
 
-It needs two things:
+- A CERNBox web with the Yjs session in its AppWrapper, and `yjsServerUrl` in its options, for example `wss://cernbox.cern.ch/yjs`. Without the URL, the drawing is edited alone.
+- [OpenCloud's Yjs server](https://github.com/opencloud-eu/web/tree/main/services/yjs) (`opencloudeu/yjs`), with `OPENCLOUD_URL` set to the CERNBox URL, run with CERNBox's entry point from `yjs-server/` so that public links can join. It keeps each drawing in memory, so all users must reach the same instance.
 
-- [OpenCloud's Yjs server](https://github.com/opencloud-eu/web/tree/main/services/yjs) (`opencloudeu/yjs`), with `OPENCLOUD_URL` set to the CERNBox URL. It relays the edits and checks every user against reva's Graph API. It keeps each drawing in memory, so all users must reach the same instance.
-- A CERNBox web whose AppWrapper passes `currentETag` and takes `update:serverState`. Without them the clients could not hand each other their saves, so the drawing is not shared.
+The build leaves `yjs` out of `main.js`: the Y.Doc comes from web, and only works with web's own copy.
 
-The file is still saved by the browsers, over WebDAV. After a save, the others take its etag, and are clean again if they hold the same drawing. If the server cannot be reached, the editor falls back to editing alone.
-
-Known limits: edits that nobody saved are lost when the last user leaves. A user who may only read the file sees changes live only if someone with write access already has it open. If the file changes outside the editor while the drawing is open, the next save fails as a conflict.
+The file is still saved by the browsers, over WebDAV. Edits that nobody saved are lost when the last user leaves.
