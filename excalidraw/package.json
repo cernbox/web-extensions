@@ -1,0 +1,43 @@
+{
+  "name": "excalidraw",
+  "version": "0.0.0",
+  "description": "ownCloud web Excalidraw integration",
+  "license": "AGPL-3.0",
+  "author": "CERNBox",
+  "private": true,
+  "homepage": "https://github.com/cernbox/web-extensions",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color"
+  },
+  "devDependencies": {
+    "@ownclouders/eslint-config": "catalog:",
+    "@ownclouders/extension-sdk": "catalog:",
+    "@ownclouders/prettier-config": "catalog:",
+    "@ownclouders/tsconfig": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "^2.2.10",
+    "vue3-gettext": "2.4.0"
+  },
+  "dependencies": {
+    "@excalidraw/excalidraw": "0.18.1",
+    "@ownclouders/web-client": "catalog:",
+    "@ownclouders/web-pkg": "catalog:",
+    "fractional-indexing": "3.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "y-excalidraw": "2.0.12",
+    "y-protocols": "1.0.7",
+    "yjs": "13.6.32"
+  }
+}

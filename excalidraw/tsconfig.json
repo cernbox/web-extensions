@@ -1,0 +1,9 @@
+{
+  "extends": "@ownclouders/tsconfig",
+  "compilerOptions": {
+    // @ownclouders/tsconfig sets types to ["vitest/globals"], but this package has no unit tests,
+    // so type-checking would fail on the missing type library before it reaches any source file.
+    "types": []
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "l10n/*.json"]
+}
