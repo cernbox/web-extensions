@@ -40,17 +40,20 @@
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref, unref, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { Compartment, EditorState, type Extension } from '@codemirror/state'
+import { Compartment, EditorState, Prec, type Extension } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
 import { indentWithTab, redo, redoDepth, undo, undoDepth } from '@codemirror/commands'
 import { StreamLanguage, foldEffect, foldable, indentUnit, unfoldAll } from '@codemirror/language'
 import { basicSetup } from 'codemirror'
 import { closeSearchPanel, searchPanelOpen } from '@codemirror/search'
+import { yCollab, yUndoManagerKeymap } from 'y-codemirror.next'
+import * as Y from 'yjs'
 import { codemirrorTheme } from '../helpers/codemirrorTheme'
 import EditorToolbar from './EditorToolbar.vue'
 import { grammarFor, loadLanguage, type PreviewKind } from '../helpers/fileTypes'
 import { formatCode, isFormattable } from '../helpers/format'
 import type { ToolbarGroup } from '../helpers/toolbar'
+import type { Collab } from '../collab/document'
 
 interface Props {
   currentContent: string
@@ -61,6 +64,8 @@ interface Props {
   showSourceToggle?: boolean
   /** Set when this file type has a rendered view to offer alongside the text. */
   previewKind?: PreviewKind
+  /** Set when the file is edited together with others, through a room on the Yjs server. */
+  collab?: Collab
 }
 interface Emits {
   (e: 'update:currentContent', value: string): void
@@ -74,7 +79,8 @@ const {
   isReadOnly = false,
   isDark = false,
   showSourceToggle = false,
-  previewKind = undefined
+  previewKind = undefined,
+  collab = undefined
 } = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
@@ -106,6 +112,17 @@ const documentSummary = computed(() => {
 
 const host = ref<HTMLElement>()
 let view: EditorView | null = null
+
+// While editing together, undo takes back only the user's own changes, so it goes through Yjs
+// instead of CodeMirror's history, which would also take back the others'.
+let undoManager: Y.UndoManager | undefined
+
+const runUndo = () => (undoManager ? undoManager.undo() : view && undo(view))
+const runRedo = () => (undoManager ? undoManager.redo() : view && redo(view))
+const canUndo = () =>
+  undoManager ? undoManager.undoStack.length > 0 : Boolean(view) && undoDepth(view.state) > 0
+const canRedo = () =>
+  undoManager ? undoManager.redoStack.length > 0 : Boolean(view) && redoDepth(view.state) > 0
 
 const MIN_FONT_SIZE = 10
 const MAX_FONT_SIZE = 28
@@ -261,16 +278,16 @@ const toolbarGroups = computed<ToolbarGroup[]>(() => {
         label: $gettext('Undo'),
         icon: 'arrow-go-back',
         fillType: 'line',
-        run: () => view && undo(view),
-        isDisabled: () => !view || undoDepth(view.state) === 0
+        run: runUndo,
+        isDisabled: () => !canUndo()
       },
       {
         id: 'redo',
         label: $gettext('Redo'),
         icon: 'arrow-go-forward',
         fillType: 'line',
-        run: () => view && redo(view),
-        isDisabled: () => !view || redoDepth(view.state) === 0
+        run: runRedo,
+        isDisabled: () => !canRedo()
       }
     ],
     ...(isFormattable(extension)
@@ -312,11 +329,20 @@ const onKeydownCapture = (event: KeyboardEvent) => {
 }
 
 onMounted(() => {
+  if (collab) {
+    undoManager = new Y.UndoManager(collab.text)
+  }
   view = new EditorView({
     parent: unref(host),
     state: EditorState.create({
-      doc: currentContent ?? '',
+      doc: collab ? collab.text.toString() : (currentContent ?? ''),
       extensions: [
+        ...(collab
+          ? [
+              yCollab(collab.text, collab.awareness, { undoManager }),
+              Prec.high(keymap.of(yUndoManagerKeymap))
+            ]
+          : []),
         // basicSetup already brings line numbers, fold gutter, history, search and
         // bracket matching; adding them again would render a second gutter.
         basicSetup,
@@ -346,6 +372,7 @@ onBeforeUnmount(() => {
   view?.dom.removeEventListener('keydown', onKeydownCapture, true)
   view?.destroy()
   view = null
+  undoManager?.destroy()
 })
 
 watch(

@@ -152,6 +152,22 @@ Options, all under the app's `config` key:
 Font size in the code editor is a per-session UI control, not configuration; it resets to 14 px
 on reopen.
 
+## Live editing
+
+Everyone who opens the same file in CodeMirror edits it together and sees the others' cursors,
+through CERNBox's web, which owns the live editing session: set `yjsServerUrl` in web's options,
+for example `wss://cernbox.cern.ch/yjs`. The app only says how a file moves between its text and
+the shared Y.Doc (`textAdapter` in `src/collab/document.ts`), and binds CodeMirror to the Y.Doc
+web hands it. The server is the same as for the Excalidraw extension, see `yjs-server/`. The
+build leaves `yjs` out of `main.js`: the Y.Doc comes from web, and only works with web's own copy.
+
+Markdown files are not shared: the rich-text editor holds a document tree rather than the text,
+and CERNBox opens Markdown in CodiMD, which has its own live editing. Binary files, which open
+read-only, are not shared either.
+
+The file is still saved by the browsers, over WebDAV. Edits that nobody saved are lost when the
+last user leaves.
+
 ## Why `tiptap-markdown`
 
 TipTap 3.30 does ship markdown support in core, but it is **node-level**: `markdown: { render,

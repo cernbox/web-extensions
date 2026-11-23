@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { urlJoin } from '@ownclouders/web-client'
+import { Resource, urlJoin } from '@ownclouders/web-client'
 import {
   AppMenuItemExtension,
   ApplicationFileExtension,
@@ -12,7 +12,8 @@ import {
 } from '@ownclouders/web-pkg'
 import translations from '../l10n/translations.json'
 import App from './App.vue'
-import { defaultPrimaryExtensions, fileTypes } from './helpers/fileTypes'
+import { defaultPrimaryExtensions, fileTypes, isMarkdownExtension } from './helpers/fileTypes'
+import { textAdapter } from './collab/document'
 
 /**
  * Claims the `text-editor` id so this replaces the built-in app rather than sitting beside it.
@@ -56,10 +57,23 @@ export default defineWebApplication({
       }))
     }
 
+    // CERNBox's AppWrapper shares the files CodeMirror edits through the Yjs server. Markdown
+    // stays out: the rich-text editor holds a document tree, not the text, and CERNBox opens
+    // Markdown in CodiMD. The published web-pkg types do not know the `yjs` option yet, hence a
+    // separate object rather than a literal in the call.
+    const routeOptions = {
+      applicationId,
+      yjs: {
+        makeAdapter: () => textAdapter,
+        isEnabled: (resource: Resource) =>
+          !config.markdownForAll && !isMarkdownExtension(resource.extension)
+      }
+    }
+
     const routes = [
       {
         path: '/:driveAliasAndItem(.*)?',
-        component: AppWrapperRoute(App, { applicationId }),
+        component: AppWrapperRoute(App, routeOptions),
         name: applicationId,
         meta: {
           authContext: 'hybrid',

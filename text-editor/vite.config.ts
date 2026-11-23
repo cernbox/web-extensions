@@ -4,6 +4,8 @@ export default defineConfig({
   server: { port: 9226 },
   build: {
     rollupOptions: {
+      // The Y.Doc comes from CERNBox's web, and only works with web's own copy of Yjs
+      external: ['yjs', 'y-protocols/awareness'],
       output: {
         entryFileNames: 'main.js',
         // Mermaid lazy-loads each diagram renderer with import(), which makes rollup split the

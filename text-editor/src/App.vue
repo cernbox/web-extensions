@@ -39,6 +39,7 @@
       :is-dark="isDark"
       :show-source-toggle="sourceMode"
       :preview-kind="previewKind"
+      :collab="collab"
       @update:current-content="$emit('update:currentContent', $event)"
       @toggle-source="sourceMode = false"
       @show-preview="previewMode = true"
@@ -49,18 +50,25 @@
 <script lang="ts" setup>
 import { computed, ref, unref } from 'vue'
 import { storeToRefs } from 'pinia'
+import { useGettext } from 'vue3-gettext'
 import { Resource } from '@ownclouders/web-client'
 import { AppConfigObject, useThemeStore } from '@ownclouders/web-pkg'
+import type { Awareness } from 'y-protocols/awareness'
+import type * as Y from 'yjs'
 import MarkdownEditor from './components/MarkdownEditor.vue'
 import CodeEditor from './components/CodeEditor.vue'
 import StructuredPreview from './components/StructuredPreview.vue'
 import { isMarkdownExtension, looksBinary, previewFor } from './helpers/fileTypes'
+import { sharedText, textAdapter, type Collab } from './collab/document'
 
 interface Props {
   applicationConfig?: AppConfigObject
   currentContent: string
   isReadOnly?: boolean
   resource?: Resource
+  // Set by CERNBox's AppWrapper when the file is edited together, see `textAdapter`
+  ydoc?: Y.Doc | null
+  awareness?: Awareness | null
 }
 interface Emits {
   (e: 'update:currentContent', value: string): void
@@ -70,9 +78,13 @@ const {
   applicationConfig = undefined,
   currentContent,
   isReadOnly = false,
-  resource = undefined
+  resource = undefined,
+  ydoc = null,
+  awareness = null
 } = defineProps<Props>()
 defineEmits<Emits>()
+
+const { $gettext } = useGettext()
 
 // storeToRefs, not destructuring: a pinia setup store is reactive()-wrapped, so plain
 // destructuring yields the unwrapped value and the editor would keep the theme it mounted with.
@@ -127,6 +139,17 @@ const codeExtension = computed(() => {
   }
   return unref(isMarkdownFile) ? 'md' : resource?.extension
 })
+
+// ---------------------------------------------------------------------------------------------
+// Editing together: CERNBox's AppWrapper keeps the room on the Yjs server and hands over its
+// Y.Doc, which y-codemirror keeps in step with the editor. Only for files CodeMirror edits:
+// Markdown stays out of the room (see index.ts), and a binary file never reaches the Y.Doc.
+
+const collab = computed<Collab | undefined>(() =>
+  ydoc && awareness && textAdapter.hasContent(ydoc)
+    ? { text: sharedText(ydoc), awareness }
+    : undefined
+)
 </script>
 
 <style lang="scss">
